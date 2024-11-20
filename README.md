@@ -9,6 +9,6 @@
           
    _Napravljeno u sklopu inicijalnog čvora, potrebno dopuniti_
 
-   Pravila commit-ovanja: \
+   Pravila commit-ovanja: 
    * Commit ima sljedeću strukturu: \
      git commit -m "Issue #broj_issue: Poruka"
