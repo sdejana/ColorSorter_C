@@ -1,4 +1,4 @@
-# Raspoređivač žetona na osnovu njihove boje, Mikroelektronika, tim C
+# Raspoređivač žetona na osnovu njihove boje, Mikrokontrolerski sistemi, tim C
   -------------------------------------------------------------------
   ## Članovi tima:   
   Boško Branković\
@@ -8,3 +8,7 @@
 
           
    _Napravljeno u sklopu inicijalnog čvora, potrebno dopuniti_
+
+   Pravila commit-ovanja: \
+   * Commit ima sljedeću strukturu: \
+     git commit -m "Issue #broj_issue: Poruka"
