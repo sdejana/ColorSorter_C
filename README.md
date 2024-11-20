@@ -1,4 +1,4 @@
-# Raspoređivač žetona na osnovu njihove boje, Mikroelektronika, tim C
+# Raspoređivač žetona na osnovu njihove boje, Mikrokontrolerski sistemi, tim C
   -------------------------------------------------------------------
   ## Članovi tima:   
   Boško Branković\
