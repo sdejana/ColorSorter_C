@@ -8,7 +8,7 @@
 
           
    _Napravljeno u sklopu inicijalnog čvora, potrebno dopuniti_
-
+-------------------------------------------------------------------
 ## Pravila u okviru rada na projektu: 
 
    ### 1. Pravila commit-ovanja: 
