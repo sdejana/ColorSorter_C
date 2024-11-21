@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Raspoređivač žetona na osnovu njihove boje, Mikrokontrolerski sistemi, tim C
-=======
 # Raspoređivač žetona na osnovu njihove boje, Mikrokontrolerski sistemi/ Računarska elektronika, tim C
->>>>>>> dev
   -------------------------------------------------------------------
   ## Članovi tima:   
   Boško Branković\
