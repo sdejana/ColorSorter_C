@@ -1,0 +1,9 @@
+Manufacturer=KEMET
+PartNumber=C0805C106M4PACTU
+PartCategory=Capacitor
+PackageCategory=Other
+PinCount=2
+Version=6.1
+Released=2022-01-12 07:59:03
+Downloaded=2024-11-27 12:18:56
+3D=Y

@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "GRM21BR61E106KA73L"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2024-11-15-13:35:18)
+    (mountForm default
+        (footprintRef "CAPC2012X145N")
+        (spec "System")
+    )
+)

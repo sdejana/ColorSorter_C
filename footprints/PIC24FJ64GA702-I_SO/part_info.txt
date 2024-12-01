@@ -1,0 +1,9 @@
+Manufacturer=Microchip
+PartNumber=PIC24FJ64GA702-I/SO
+PartCategory=Integrated Circuit
+PackageCategory=Small Outline Packages
+PinCount=28
+Version=2.1
+Released=2022-12-27 02:36:57
+Downloaded=2024-11-28 12:02:01
+3D=Y
