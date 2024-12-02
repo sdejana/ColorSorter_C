@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'C0603C104J1RACAUTO'
+CLASS = DISCRETE
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "KEMET", "C0603C104J1RACAUTO" (!) = "", "CAPC1608X95N", "Capacitor Chip Non-polarised", "80-C0603C104J1RAUTO", "https://www.mouser.co.uk/ProductDetail/KEMET/C0603C104J1RACAUTO?qs=ulEaXIWI0c%252BBFWKfPovg5A%3D%3D", "SMD Auto X7R, Ceramic, 0.1 uF, 5%, 100 VDC, X7R, SMD, MLCC, Temperature Stable, Automotive Grade, 0603", "https://www.kemet.com/specsheet/C0603C104J1RACAUTO", "0.95 mm"
+END_PART
+
+END.
