@@ -1,0 +1,18 @@
+.5-534206-4 :1 ;Body Features: Connector Profile Standard | Primary Product Color Black | Configuration Features: Number of Positions 8 | Stackable Yes | Board-to-Board Configuration Parallel | Number of Rows 2 | PCB Mount Orientation Vertical | Contact Features: Contact Base Material Phosphor Bronze | Contact Mating Area Plating Material Thickness .762 MICM | Contact Protection Type Closed Entry Housing | Contact Mating Area Plating Material Thickness 30 MICIN | Contact Shape & Form Square | Contact Type Socket | PCB Cont
+RHDR8W69P254_2X4_1016X503X877P
+*STM J
+*NGS
+*PLB 1="1" 2="2" 3="3" 4="4" 5="5" 6="6" 7="7" 8="8"
+*MXP 8
+*DFN 5-534206-4
+~!Manufacturer_Name (TE Connectivity)
+~!Manufacturer_Part_Number (5-534206-4)
+~!Mouser Part Number (571-5-534206-4)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/TE-Connectivity/5-534206-4?qs=Eln3I3szM1ldJZZch%252BwNBQ%3D%3D)
+~!Arrow Part Number (5-534206-4)
+~!Link Arrow Price/Stock (https://www.arrow.com/en/products/5-534206-4/te-connectivity?region=nac)
+~!Link Datasheet (https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=1307819_SECTION_5&DocType=Catalog%20Section&DocLang=English&PartCntxt=5-534206-4&DocFormat=pdf)
+~!Height (8.77mm)
+~!3D_Model (5-534206-4)
+"5-534206-4"
+1.1!U 3.1!U 5.1!U 7.1!U 2.1!U 4.1!U 6.1!U 8.1!U 

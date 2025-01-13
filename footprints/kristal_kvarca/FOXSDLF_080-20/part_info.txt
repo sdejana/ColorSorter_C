@@ -1,0 +1,9 @@
+Manufacturer=Fox
+PartNumber=FOXSDLF/080-20
+PartCategory=Crystal or Oscillator
+PackageCategory=Other
+PinCount=2
+Version=2.4
+Released=2021-01-23 18:49:17
+Downloaded=2024-12-23 12:31:16
+3D=Y

@@ -1,0 +1,9 @@
+Manufacturer=TE Connectivity
+PartNumber=1-2199298-9
+PartCategory=Connector
+PackageCategory=Dual-In-Line Sockets
+PinCount=28
+Version=4.1
+Released=2018-11-17 16:05:57
+Downloaded=2024-12-02 15:35:32
+3D=Y

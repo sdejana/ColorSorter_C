@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'M20_9991546'
+CLASS = IO
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Harwin", "M20-9991546" (!) = "", "M20-9991546", "Header, Vertical", "855-M20-9991546", "https://www.mouser.co.uk/ProductDetail/Harwin/M20-9991546?qs=WS5Jv%252B%252Bx1qX3IVqZ80aaDQ%3D%3D", "2.54mm (0.1") Pitch SIL Vertical Throughboard Pin Header, 6.1mm mating pin height, tin, 15 contacts", "https://cdn.harwin.com/pdfs/M20-999.pdf", "8.74 mm"
+END_PART
+
+END.

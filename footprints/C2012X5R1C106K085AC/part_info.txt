@@ -1,9 +1,0 @@
-Manufacturer=TDK
-PartNumber=C2012X5R1C106K085AC
-PartCategory=Capacitor
-PackageCategory=Other
-PinCount=2
-Version=4.1
-Released=2018-11-07 19:17:33
-Downloaded=2024-11-27 12:05:54
-3D=Y

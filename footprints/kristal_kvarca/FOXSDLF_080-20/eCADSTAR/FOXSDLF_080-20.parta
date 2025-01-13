@@ -1,0 +1,66 @@
+(Japanese_coding: sjis)
+(function "ECS_299010"
+    (uver 1)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (ctime 2021-01-23-18:49:17)
+    (utime 2023-03-07-16:10:32)
+    (interface
+        (port "1" (symbPinId 1) (portType INOUT))
+        (port "2" (symbPinId 2) (portType INOUT))
+    )
+    (property "symbolName" "FOXSDLF_080-20")
+)
+
+
+(pinAssign "ECS_299010"
+    (uver 1)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (ctime 2021-01-23-18:49:17)
+    (utime 2023-03-07-16:10:32)
+    (interface
+        (port "1" (symbPinId 1) (portName "CRYSTAL_1") (portType INOUT))
+        (port "2" (symbPinId 2) (portName "CRYSTAL_2") (portType INOUT))
+    )
+    (internal
+        (funcInst (functionRef "ECS_299010")
+                (port "1" (match "1"))
+                (port "2" (match "2"))
+        )
+    )
+    (property "usePowerBox" "No")
+    (property "symbolName" "FOXSDLF_080-20")
+)
+
+
+(part "FOXSDLF_080-20"
+    (uver 1)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (ctime 2021-01-23-18:49:17)
+    (utime 2023-03-07-16:10:32)
+    (packageRef "FOXSDLF_080-20")
+    (pinAssignRef "ECS_299010")
+    (interface
+        (port "1" (symbPinId 1) (portName "CRYSTAL_1") (portType INOUT))
+        (port "2" (symbPinId 2) (portName "CRYSTAL_2") (portType INOUT))
+    )
+    (partClass UNDEF)
+    (useInSchema Y)
+    (useInLayout Y)
+    (inPartsList Y)
+    (partType NORMAL)
+    (placeRestriction FREE)
+    (property "enetNonSeries" "YES")
+    (property "refDesPrefix" "Y")
+    (property "description" "Crystal SMD 8.000MHz HC49S-SMD Crystal 8MHz, +/-30ppm, 2-Pin SMD, 11.7 x 5 x 4.5mm")
+    (property "Mouser_Part_Number" "559-FOXSD080-20-LF")
+    (property "Mouser_Price/Stock" "https://www.mouser.co.uk/ProductDetail/Fox-Abracon/FOXSDLF-080-20?qs=mzRxyRlhVdu42DWWSpKTJw%3D%3D")
+    (property "Manufacturer_Name" "Fox")
+    (property "Manufacturer_Part_Number" "FOXSDLF/080-20")
+    (property "Datasheet_Link" "")
+    (property "compAreaTopHeight" 4.5)
+)
+
+

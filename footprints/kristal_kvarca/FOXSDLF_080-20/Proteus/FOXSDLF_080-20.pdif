@@ -1,0 +1,118 @@
+;Proteus Design Interchange Format
+(PDIF
+ (vendor "SamacSys Limited")
+ (version 1 0)
+ (library
+  (part "FOXSDLF_080-20"
+   (description "Crystal SMD 8.000MHz HC49S-SMD Crystal 8MHz, +/-30ppm, 2-Pin SMD, 11.7 x 5 x 4.5mm")
+   (family "OSC")
+   (package "FOXSDLF08020")
+   (attribute "Datasheet Link" "")
+   (attribute "Geometry.Height" "4.5mm")
+   (attribute "Mouser Part Number" "559-FOXSD080-20-LF")
+   (attribute "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Fox-Abracon/FOXSDLF-080-20?qs=mzRxyRlhVdu42DWWSpKTJw%3D%3D")
+   (attribute "Manufacturer_Name" "Fox")
+   (attribute "Manufacturer_Part_Number" "FOXSDLF/080-20")
+   (gate
+    (symbol "FOXSDLF_080-20")
+    (pin "CRYSTAL_2" 2 PS)
+    (pin ""  PS)
+   )
+  )
+  (symbol "FOXSDLF_080-20"
+   (units THOU)
+   (origin (pt 0 0))
+   (graphic
+    (stroke 10)
+    (path (pt 120 100) (pt 120 -100))
+   )
+   (graphic
+    (stroke 10)
+    (path (pt 280 100) (pt 280 -100))
+   )
+   (graphic
+    (stroke 10)
+    (path (pt 160 140) (pt 160 -140) (pt 240 -140) (pt 240 140) (pt 160 140) (closed))
+   )
+   (graphic
+    (stroke 10)
+    (path (pt 280 0) (pt 300 0))
+   )
+   (graphic
+    (stroke 10)
+    (path (pt 120 0) (pt 100 0))
+   )
+   (terminal
+    (body (symbol "PINSHORT") (pt 0 0) (rot 0) (mir 0) (visible true))
+    (name (pt 140 10) (rot 0) (just MIDDLE LEFT) (visible false))
+    (number (pt 60 10) (rot 0) (just BOTTOM RIGHT) (visible true)))
+   (terminal
+    (body (symbol "PINSHORT") (pt 400 0) (rot 0) (mir X) (visible true))
+    (name (pt 140 10) (rot 0) (just MIDDLE LEFT) (visible false))
+    (number (pt 60 10) (rot 0) (just BOTTOM RIGHT) (visible true)))
+  )
+  (symbol "PIN"
+   (units THOU)
+   (origin (pt 0 0))
+   (graphic
+    (stroke 10)
+    (path (pt 0 0) (pt 200 0))))
+  (symbol "PINSHORT"
+   (units THOU)
+   (origin (pt 0 0))
+   (graphic
+    (stroke 10)
+    (path (pt 0 0) (pt 100 0))))
+  (package "FOXSDLF08020"
+   (units MM)
+   (layer TASM
+    (graphic
+     (stroke 0.2)
+     (path
+      (closed true)
+      (pt -5.85 2.5)
+      (pt 5.85 2.5)
+      (pt 5.85 -2.5)
+      (pt -5.85 -2.5)
+      (pt -5.85 2.5))))
+   (layer OCCA
+    (graphic
+     (stroke 0.1)
+     (path
+      (closed true)
+      (pt -8.5 3.5)
+      (pt 8.5 3.5)
+      (pt 8.5 -3.5)
+      (pt -8.5 -3.5)
+      (pt -8.5 3.5))))
+   (layer TSLK
+    (graphic
+     (stroke 0.1)
+     (path
+      (closed false)
+      (pt -5.85 -1.2)
+      (pt -5.85 -2.5)
+      (pt 5.85 -2.5)
+      (pt 5.85 -1.2))))
+   (layer TSLK
+    (graphic
+     (stroke 0.1)
+     (path
+      (closed false)
+      (pt -5.85 1.2)
+      (pt -5.85 2.5)
+      (pt 5.85 2.5)
+      (pt 5.85 1.2))))
+   (leg 1 (pt -4.750 0.000) (padstack 0))
+   (leg 2 (pt 4.750 0.000) (padstack 0))
+   (padstack 0
+    (plated false)
+    (pad (layer TCOP) (rectf 2.000 5.500 0 0 0.000))
+   )
+   (model "FOXSDLF_080-20.stp"
+    (euler 0 0 0)
+    (offset 0 0 0)
+   )
+  )
+ )
+)

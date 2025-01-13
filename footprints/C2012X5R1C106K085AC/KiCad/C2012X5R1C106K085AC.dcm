@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP C2012X5R1C106K085AC
-D TDK 10uF Multilayer Ceramic Capacitor MLCC 16V dc +/-10% X5R Dielectric 0805 (2012M) SMD, Max. Temp. +85C
-K
-F https://product.tdk.com/system/files/dam/doc/product/capacitor/ceramic/mlcc/catalog/mlcc_commercial_general_en.pdf
-$ENDCMP
-#
-#End Doc Library

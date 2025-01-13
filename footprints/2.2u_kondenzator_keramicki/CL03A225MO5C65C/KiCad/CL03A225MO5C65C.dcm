@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP CL03A225MO5C65C
+D Multilayer Ceramic Capacitors MLCC - SMD/SMT 2.2uF X5R 16V 0201
+K
+F https://www.samsungsem.com/resources/file/global/support/product_catalog/MLCC.pdf
+$ENDCMP
+#
+#End Doc Library

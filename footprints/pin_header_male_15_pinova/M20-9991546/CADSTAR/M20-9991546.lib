@@ -1,0 +1,16 @@
+.M20-9991546 :1 ;2.54mm (0.1") Pitch SIL Vertical Throughboard Pin Header, 6.1mm mating pin height, tin, 15 contacts
+M20-9991546
+*STM J
+*NGS
+*PLB 1="1" 2="2" 3="3" 4="4" 5="5" 6="6" 7="7" 8="8" 9="9" 10="10" 11="11" 12="12" 13="13" 14="14" 15="15"
+*MXP 15
+*DFN M20-9991546
+~!Mouser Part Number (855-M20-9991546)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Harwin/M20-9991546?qs=WS5Jv%252B%252Bx1qX3IVqZ80aaDQ%3D%3D)
+~!Manufacturer_Name (Harwin)
+~!Manufacturer_Part_Number (M20-9991546)
+~!Link Datasheet (https://cdn.harwin.com/pdfs/M20-999.pdf)
+~!Height (8.74mm)
+~!3D_Model (M20-9991546)
+M20-9991546
+1.1!U 2.1!U 3.1!U 4.1!U 5.1!U 6.1!U 7.1!U 8.1!U 9.1!U 10.1!U 11.1!U 12.1!U 13.1!U 14.1!U 15.1!U 

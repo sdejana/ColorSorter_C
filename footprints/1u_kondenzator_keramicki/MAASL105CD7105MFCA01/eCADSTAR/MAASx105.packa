@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "MAASL105CD7105MFCA01"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2024-04-25-09:18:26)
+    (mountForm default
+        (footprintRef "MAASx105")
+        (spec "System")
+    )
+)

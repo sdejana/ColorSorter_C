@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP MAL214699103E3
+D Vishay Extreme 100uF 50 V Aluminium Electrolytic Capacitor 1010, 146 CTI Series 1000 h, 1500 h, 150000 h
+K
+F https://www.vishay.com/docs/28403/146cti.pdf
+$ENDCMP
+#
+#End Doc Library

@@ -1,0 +1,9 @@
+Manufacturer=Texas Instruments
+PartNumber=LM2775DSGT
+PartCategory=Integrated Circuit
+PackageCategory=Small Outline No-lead
+PinCount=9
+Version=3.1
+Released=2019-03-06 05:31:27
+Downloaded=2024-12-24 18:35:40
+3D=Y

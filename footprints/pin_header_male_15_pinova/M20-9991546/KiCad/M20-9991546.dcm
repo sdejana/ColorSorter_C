@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP M20-9991546
+D 2.54mm (0.1") Pitch SIL Vertical Throughboard Pin Header, 6.1mm mating pin height, tin, 15 contacts
+K
+F https://cdn.harwin.com/pdfs/M20-999.pdf
+$ENDCMP
+#
+#End Doc Library

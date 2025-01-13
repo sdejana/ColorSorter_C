@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'LM2775DSGT'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Texas Instruments", "LM2775DSGT" (!) = "", "SON50P200X200X80-9N", "Small Outline No-lead", "595-LM2775DSGT", "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM2775DSGT?qs=GURawfaeGuC8OeiXDzqVsg%3D%3D", "Charge Pump Switching Regulator IC Positive Fixed 5V 1 Output 200mA 8-WFDFN Exposed Pad", "http://www.ti.com/lit/ds/symlink/lm2775.pdf", "0.8 mm"
+END_PART
+
+END.

@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "MAL214699103E3"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2019-05-20-08:38:49)
+    (mountForm default
+        (footprintRef "CAPAE1000X1050N")
+        (spec "System")
+    )
+)
