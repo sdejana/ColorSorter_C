@@ -1,0 +1,8 @@
+a {
+    color: green; /* Change to your preferred color */
+    text-decoration: none; /* Remove underline (optional) */
+}
+
+a:hover {
+    color: darkgreen; /* Optional: change color on hover */
+}
