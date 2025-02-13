@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP EDH106M250A9RAA
-D EDH, Aluminum, Aluminum Electrolytic, 10 uF, 20%, 250 VDC, -25/+105C, 105C, -25C, 105C, 2,000 Hrs, 20 % , 0.07, 25 uA, 4, 12.5mm, 13.5mm, 200
-K
-F https://content.kemet.com/datasheets/KEM_A4049_EDH.pdf
-$ENDCMP
-#
-#End Doc Library

@@ -1,0 +1,16 @@
+.EEE-FT1V101AP :1 ;Aluminum Electrolytic Capacitors - SMD 100uF 35volts 6.3x5.8mm SMD
+EEE1AA101SP
+*STM C
+*NGS
+*PLB 1="+" 2="-"
+*MXP 2
+*DFN EEE-FT1V101AP
+~!Mouser Part Number (667-EEE-FT1V101AP)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Panasonic/EEE-FT1V101AP?qs=CMJjuEs1%252BuEsbOqam%2FkTqg%3D%3D)
+~!Manufacturer_Name (Panasonic)
+~!Manufacturer_Part_Number (EEE-FT1V101AP)
+~!Link Datasheet (http://industrial.panasonic.com/cdbs/www-data/pdf/RDE0000/ABA0000C1240.pdf)
+~!Height (7.8mm)
+~!3D_Model (EEE-FT1V101AP)
+EEE-FT1V101AP
+1.1!U 2.1!U 

@@ -1,9 +1,0 @@
-Manufacturer=KEMET
-PartNumber=EDH106M250A9RAA
-PartCategory=Capacitor Polarised
-PackageCategory=Capacitor Al Electrolytic
-PinCount=2
-Version=3.1
-Released=2019-11-04 17:30:46
-Downloaded=2024-12-24 17:19:29
-3D=Y
