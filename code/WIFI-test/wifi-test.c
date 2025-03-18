@@ -1,159 +1,164 @@
 /*
-* @author: Dejana S.
-*/
-/*#define WIFI_RX_PIN F13
-#define WIFI_TX_PIN F14
-#define UART_RX_PIN F10
-#define UART_TX_PIN F11    */
-#define BAUD_RATE_WIFI 19200
-#define BAUD_RATE 19200
-#define BUF_SIZE 32
-
-const char* CMD_AT = "AT\r\n";
-const char* CMD_RST = "AT+RST\r\n";
-const char* CMD_MODE = "AT+CWMODE=1\r\n";
-const char* CMD_LIST_AP = "AT+CWLAP\r\n";
-const char* CMD_WIFI_CONN = "AT+CWJAP=\"etfbl.net\",\"\"\r\n";
-const char* CMD_CONN_TYPE = "AT+CIPMUX=0\r\n";
-const char* CMD_START_TCP = "AT+CIPSTART=\"TCP\",\"10.99.130.47\",8084\r\n";
-const char* CMD_SEND = "AT+CIPSEND=7\r\n";
-const char* CMD_UART_MOD = "AT+UART_DEF\r\n";
-
-volatile char buffer[BUF_SIZE];
-volatile unsigned head = 0, tail = 0;
-int flag = 0;
-
-/**
- * @brief Funkcija rukovaoca prekida za prijem UART podataka.
- * Cita podatak dobijen od strane ESP8266-01.
+ * @author: Dejana S.
  */
-void UART1_Receiver_Interrupt() iv 0x00002A
-{
-  IEC0.U1RXIE = 0;
-  
-  if(UART1_data_ready())
-  {
-     buffer[head] = UART1_Read();
-  }
-  head = (head + 1) % BUF_SIZE;
-  
-  IEC0.U1RXIE = 1;
-  IFS0.U1RXIF = 0;
-}
+ #pragma config FNOSC = FRCPLL   // Oscillator Source Selection (FRC with PLL module)
 
-/**
- * @brief Funkcija koja salje zadanu komandu preko UART-a 
- * i ostavlja 5 sekundi za odgovor.
- */
-void sendCommand(const char* command)
-{
-    UART1_Write_Text(command);
-    Delay_ms(5000);
-}
-
-/**
- * @brief Funkcija rukovaoca prekida koja se aktivira kada se
- * desi prekoracenje UART bafera za prijem podataka. Rukovaoc
- * cisti bit greske (OERR) cime omogucava nastavak UART prenosa.
- */
-void UART1_Error_Interrupt() iv 0x000096
-{
-  IEC4.U1ERIE = 0;
-  U1STA.OERR  = 0;
-  IEC4.U1ERIE = 1;
-  IFS4.U1ERIF = 0;
-}
-
-void main()
-{
-  char msg[BUF_SIZE];
-  unsigned counter = 0;
-
-  CLKDIV = 0;
-
-  // Mijenjamo frekvenciju, tj. oscilator Fast RC sa PLL modulom
-  OSCCONH = 0x78;
-  OSCCONH = 0x9A;
-  OSCCONbits.NOSC = 0x001;
-  OSCCONL = 0x46;
-  OSCCONL = 0x57;
-  OSCCONbits.OSWEN = 1;
-  Delay_ms(200);
-
-  AD1PCFG = 0xFFFF;
-  TRISB = 0;
-  // TRISB.F3 = 1; // RX je input pin
-  TRISB.F8 = 1;
-  LATB = 0;
-  TRISA = 0;
-  LATA.F4 = 1;
-
-
-  IPC2bits.U1RXIP = 5;
-  IFS0.U1RXIF = 0;
-  IEC0.U1RXIE = 1;
-
-  IPC16bits.U1ERIP = 5;
-  IFS4.U1ERIF = 0;
-  IEC4.U1ERIE = 1;
-
-  Unlock_IOLOCK();
-  // PPS_Mapping_NoLock(2, _INPUT, _U2RX);
-  // PPS_Mapping_NoLock(7, _OUTPUT, _U2TX);
-  PPS_Mapping_NoLock(8, _INPUT, _U1RX);
-  PPS_Mapping_NoLock(9, _OUTPUT, _U1TX);
-  Lock_IOLOCK();
-
-  UART1_Init(19200);
-  Delay_ms(200);
-  UART2_Init(19200);
-
-  Delay_ms(200);
-  /*
-  if(OSCCONbits.OSWEN == 0)
-  {
-      LATB.F6 = 1;
-      Delay_ms(1000);
-      LATB.F6 = 0; // blinka, znaci jeste ukljucen Fast RC sa PLL- om 
-  }    */
-
-  while(1)
-  {
-        memset(msg, 0, BUF_SIZE);
-        counter = 0;
-        while(tail != head && counter < BUF_SIZE - 1)
-        {
-            msg[counter] = buffer[tail];
-            counter++;
-            tail = (tail + 1) % BUF_SIZE;
-        }
-        msg[counter] = '\0';
-
-        /* 01001111 01001011 00001101 00001010
-           ----O--- ----K--- ----\r-- ----\n-- */
-           
-        sendCommand(CMD_AT);
-        
-        if(strstr(msg, "OK") != 0)
-        {
-           // ovo radi ok HVALA BOGU RADI SUPER
-           LATB.F6 = 1;
-           Delay_ms(500);
-           LATB.F6 = 0;
-        }
-        Delay_ms(1000);
-        
-       //  sendCommand(CMD_UART_MOD);
-
-        // 20 sekundi otprilike - 5 sekundi delay-a, 2 sekunde delay-a
-        // diodu. jeeej
-        /* if(strstr(msg, "UART") != 0)  // radi i ovo
-        {
-           // ovo radi ok
-           LATB.F6 = 1;
-           Delay_ms(1000);
-           LATB.F6 = 0;
-        }
-        Delay_ms(1000);  */
-  }
-}
+ #include <xc.h>
+ #include <string.h>
+ #include <stdlib.h>
+ #define FCY 16000000UL
+ #include <libpic30.h>
+ 
+ #define BAUD_RATE_WIFI 115200
+ #define BAUD_RATE 115200
+ #define BUF_SIZE 32
+ 
+ const char* CMD_AT = "AT\r\n";
+ const char* CMD_RST = "AT+RST\r\n";
+ const char* CMD_MODE = "AT+CWMODE=1\r\n";
+ const char* CMD_LIST_AP = "AT+CWLAP\r\n";
+ const char* CMD_WIFI_CONN = "AT+CWJAP=\"etfbl.net\",\"\"\r\n";
+ const char* CMD_CONN_TYPE = "AT+CIPMUX=0\r\n";
+ const char* CMD_START_TCP = "AT+CIPSTART=\"TCP\",\"10.99.130.47\",8084\r\n";
+ const char* CMD_SEND = "AT+CIPSEND=7\r\n";
+ const char* CMD_UART_MOD = "AT+UART_DEF\r\n";
+ 
+ volatile char buffer[BUF_SIZE];
+ volatile unsigned head = 0, tail = 0;
+ int flag = 0;
+ 
+ void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void) 
+ {
+     IFS0bits.U1RXIF = 0;
+     if (U1STAbits.URXDA) 
+     {
+         buffer[head] = U1RXREG;
+         head = (head + 1) % BUF_SIZE;
+     }
+ }
+ 
+ void __attribute__((interrupt, no_auto_psv)) _U1ErrInterrupt(void) 
+ {
+     IFS4bits.U1ERIF = 0;
+     U1STAbits.OERR = 0;
+ }
+ 
+ void sendCommand(const char* command) 
+ {
+     while (*command) 
+     {
+         while (U1STAbits.UTXBF);
+         U1TXREG = *command++;
+     }
+     __delay_ms(5000);
+ }
+ 
+ void UART_Write_Char(char c) 
+ {
+     while (U1STAbits.UTXBF);  
+     U1TXREG = c;
+ }
+ 
+ void UART_Write_Text(const char* text) 
+ {
+     while (*text) 
+     {
+         UART_Write_Char(*text++);
+     }
+ }
+ 
+ void configureOscillator()
+ {
+     CLKDIV = 2; 
+     __builtin_write_OSCCONH(0x01);  
+     __builtin_write_OSCCONL(OSCCON | 0x01);  
+     while (OSCCONbits.OSWEN);  
+ }
+ 
+ 
+ void checkFrequency() 
+ {
+     if (OSCCONbits.NOSC == 0b001) 
+     {  // Fast RC sa PLL
+         while(1) {
+             LATBbits.LATB6 = 1;
+             __delay_ms(1000);
+             LATBbits.LATB6 = 0;
+             __delay_ms(1000);
+         }
+     }
+ }
+ 
+ void configurePPS()
+ {
+     __builtin_write_OSCCONL(OSCCON & ~(1 << 6)); 
+ 
+     RPINR18bits.U1RXR = 11; // UART1 RX na RP11 (RB11)
+     RPOR6bits.RP12R = 3;    // UART1 TX na RP12 (RB12)
+ 
+     __builtin_write_OSCCONL(OSCCON | (1 << 6));  
+ }
+ void configureUART() 
+ {
+     U1MODEbits.BRGH = 1;
+     U1BRG = 34;
+     // u1brg = fcy/[(16*baud rate) - 1]
+     U1MODEbits.UARTEN = 1;
+     U1STAbits.UTXEN = 1;
+ 
+     IPC2bits.U1RXIP = 5;
+     IFS0bits.U1RXIF = 0;
+     IEC0bits.U1RXIE = 1;
+     
+     IPC16bits.U1ERIP = 5;
+     IFS4bits.U1ERIF = 0;
+     IEC4bits.U1ERIE = 1;
+ }
+ 
+ void configureIO() 
+ {
+     TRISB = 0;
+     TRISBbits.TRISB6 = 0;
+     TRISBbits.TRISB11 = 1;
+     LATBbits.LATB6 = 0;
+ }
+ 
+ int main() 
+ {
+     configureOscillator();
+     configureIO();
+     configurePPS();
+     configureUART();
+     // checkFrequency();
+     while (1) 
+     {
+         char msg[BUF_SIZE] = {0};
+         unsigned counter = 0;
+         while (tail != head && counter < BUF_SIZE - 1) 
+         {
+             msg[counter++] = buffer[tail];
+             tail = (tail + 1) % BUF_SIZE;
+         }
+         msg[counter] = '\0';
+         
+         // sendCommand(CMD_AT);
+         /* if(strstr(msg, "OK") != NULL) 
+         {
+             LATBbits.LATB6 = 1;
+             __delay_ms(500);
+             LATBbits.LATB6 = 0; 
+         } */
+         // __delay_ms(1000);
+         //sendCommand(CMD_MODE);// radi
+         // sendCommand(CMD_WIFI_CONN); radi i connected je
+          if(strstr(msg, "") != NULL) 
+         {
+             LATBbits.LATB6 = 1;
+             __delay_ms(500);
+             LATBbits.LATB6 = 0; 
+         }
+         __delay_ms(1000);
+         
+     }
+     return 0;
+ }
