@@ -39,9 +39,10 @@
 
 // TODO Insert declarations
 // Servo position definitions (in timer ticks)
-#define SERVO_LEFT     2000   // 1ms pulse (0°)
-#define SERVO_MIDDLE   3000   // 1.5ms pulse (90°)
-#define SERVO_RIGHT    4000   // 2ms pulse (180°)
+#define SERVO_LEFT 4600      // 1ms pulse (0Â°)
+#define SERVO_MIDDLE 3150   // 1.5ms pulse (90Â°) 3150
+#define SERVO_RIGHT 1400      // 2ms pulse (180Â°)
+
 
 extern uint8_t position;
 // Comment a function and leverage automatic documentation with slash star star
@@ -68,10 +69,15 @@ extern uint8_t position;
 // TODO Insert declarations or function prototypes (right here) to leverage 
 // live documentation
 
-void timer1_config(void);
-void __attribute__((interrupt, auto_psv)) _T1Interrupt(void);
+//void timer1_config(void);
+//void __attribute__((interrupt, auto_psv)) _T1Interrupt(void);
 void output_compare_config(void);
-void configurePins(void);
+void configureOscillatorServo(void);
+void moveLeft(void);
+void moveRight(void);
+void moveMiddle(void);
+
+
 
 
 #ifdef	__cplusplus
