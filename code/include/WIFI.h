@@ -1,33 +1,33 @@
-/* Microchip Technology Inc. and its subsidiaries.  You may use this software
- * and any derivatives exclusively with Microchip products.
+/* Microchip Technology Inc. and its subsidiaries.  You may use this software 
+ * and any derivatives exclusively with Microchip products. 
+ * 
+ * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES, WHETHER 
+ * EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
+ * WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A 
+ * PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION 
+ * WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION. 
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES, WHETHER
- * EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
- * WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
- * PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION
- * WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION.
- *
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
- * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
- * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
- * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE
- * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS
- * IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF
+ * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
+ * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
+ * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
+ * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE 
+ * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS 
+ * IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF 
  * ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
  *
- * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
- * TERMS.
+ * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE 
+ * TERMS. 
  */
 
- /*
-  * File:   WIFI.h
-  * Author: Dejana Smiljanic
-  * Comments: Includes basic functions used to communicate via UART.
-  * Revision history:
-  */
+/* 
+ * File:   WIFI.h
+ * Author: Dejana Smiljanic
+ * Comments: Includes basic functions used to communicate via UART.
+ * Revision history: 
+ */
 
-  // This is a guard condition so that contents of this file are not included
-  // more than once.  
+// This is a guard condition so that contents of this file are not included
+// more than once.  
 #ifndef _WIFI_H
 #define	_WIFI_H
 
@@ -41,11 +41,14 @@
 #define BRGH_VAL 1
 #define BRG_VAL 34 // Baud rate of 115200
 #define BUF_SIZE 80  // Buffer size
+#define COLOR_NUM  8 
 
 
 extern volatile char buffer[BUF_SIZE];  // Buffer used to store recieved data
 extern volatile unsigned head, tail;  // Buffer head and tail
-extern int flag;  // Used to enable or disable main program
+extern volatile uint8_t flag; 
+extern volatile uint8_t messageReady;
+extern volatile char colorBuffer[COLOR_NUM+1];
 
 // AT commands for ESP8266EX
 extern const char* CMD_AT;
@@ -77,6 +80,9 @@ extern const char* ORANGE_L;
 extern const char* WHITE_L;
 extern const char* BLACK_L;
 
+extern volatile uint8_t DIRECTION_BIT_ARRAY;
+
+
 // TODO Insert appropriate #include <>
 
 // TODO Insert C++ class definitions if appropriate
@@ -86,7 +92,7 @@ extern const char* BLACK_L;
 // Comment a function and leverage automatic documentation with slash star star
 /**
     <p><b>Function prototype:</b></p>
-
+  
     <p><b>Summary:</b></p>
 
     <p><b>Description:</b></p>
@@ -99,30 +105,30 @@ extern const char* BLACK_L;
 
     <p><b>Example:</b></p>
     <code>
-
+ 
     </code>
 
     <p><b>Remarks:</b></p>
  */
- // TODO Insert declarations or function prototypes (right here) to leverage 
- // live documentation
+// TODO Insert declarations or function prototypes (right here) to leverage 
+// live documentation
 
- /*
-  * @brief RX interrupt handler, used to process incoming data and
-  * handle interrupt calls.
-  */
+/*
+ * @brief RX interrupt handler, used to process incoming data and 
+ * handle interrupt calls. 
+ */
 void __attribute__((interrupt, no_auto_psv)) _U1RXInterrupt(void);
 
 /*
- * @brief Function used for clearing buffer overrun flag and
+ * @brief Function used for clearing buffer overrun flag and 
  * error interrupt flag.
- *
+ * 
  */
-void __attribute__((interrupt, no_auto_psv)) _U1ErrInterrupt(void);
+void __attribute__((interrupt, no_auto_psv)) _U1ErrInterrupt(void); 
 
 /*
- * @brief Function used for sending AT commands to WIFI and waiting for
- * predefined amount of time.
+ * @brief Function used for sending AT commands to WIFI and waiting for 
+ * predefined amount of time. 
  */
 void sendCommand(const char*);
 
@@ -157,14 +163,24 @@ void configurePPS(void);
 void configureIO(void);
 
 /*
- * Setup function for connection establishment
+ * Setup function for connection establishment 
  */
 void setupConnection(void);
 
 /*
- * Function used to send data to PC app via WIFI
+ * Function used to send data to PC app via WIFI 
  */
 void sendData(const char*);
+
+/*
+ * Function used to parse data recieved from app
+ */
+void parseData(void);
+
+/***/
+void stopAll(void);
+
+void processDataFromColorSensor(const char*);
 
 void configureOscillator(void);
 #ifdef	__cplusplus

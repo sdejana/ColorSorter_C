@@ -1,4 +1,3 @@
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,33 +17,68 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * The WiFiController class is a JavaFX controller that manages the GUI and network communication
+ * for a system that interacts with an PIC24FJ64GA002 microcontroller. It allows users to control
+ * and monitor color tokens (represented as circles in the UI) through a WiFi (ESP8266) connection.
+ *
+ * <p>The controller provides functionality to:
+ * <ul>
+ *   <li>Start and reset the color sorting process</li>
+ *   <li>Configure color directions (left or right) for each token color</li>
+ *   <li>Display real-time color changes received from the microcontroller</li>
+ *   <li>Manage network connections with the ESP8266 module</li>
+ *   <li>Handle application exit and resource cleanup</li>
+ * </ul>
+ *
+ * <p>Communication with the ESP8266 is done via TCP sockets, with the PC application acting as
+ * a server that listens for connections from the microcontroller.
+ */
+
 public class WiFiController
 {
 
-    /*
-    * IP address of ESP8266 module (local network).
-    *  */
+    /**
+     * IP address of the ESP8266 module on the local network.
+     */
     private static final String ESP8266_IP = "10.99.145.245";
-    /*
-    * Port used for TCP connection between ESP8266 and PC app.
-    * */
+
+    /**
+     * Port number used for TCP communication between the application and ESP8266.
+     */
     private static final int ESP8266_PORT = 8084;
 
+    /**
+     * Button to start the color sorting process.
+     */
     @FXML public Button startButton;
+
+    /**
+     * Button to apply color direction configurations.
+     */
     @FXML public Button applyButton;
+
+    /**
+     * Button to reset the system to its initial state.
+     */
     @FXML public Button resetButton;
+
+    /**
+     * Button to exit the application.
+     */
     @FXML public Button exitButton;
 
-    /*
-    * Circles used to represent left and right cup of real system and
-    * corresponding color.
-    *  */
+    /**
+     * Circle representing the left token in the UI.
+     */
     @FXML private Circle leftToken;
+
+    /**
+     * Circle representing the right token in the UI.
+     */
     @FXML private Circle rightToken;
 
-    /*
-    * Toggle groups for radio buttons
-    * */
+    // Toggle groups for color direction radio buttons
     private final ToggleGroup redToggleGroup = new ToggleGroup();
     private final ToggleGroup greenToggleGroup = new ToggleGroup();
     private final ToggleGroup blueToggleGroup = new ToggleGroup();
@@ -54,10 +88,7 @@ public class WiFiController
     private final ToggleGroup blackToggleGroup = new ToggleGroup();
     private final ToggleGroup whiteToggleGroup = new ToggleGroup();
 
-    /*
-    * Radio button fields used to allow user to choose direction of
-    * sorted tokens.
-    * */
+    // Radio buttons for color directions
     @FXML private RadioButton redLeft;
     @FXML private RadioButton redRight;
     @FXML private RadioButton greenLeft;
@@ -75,124 +106,50 @@ public class WiFiController
     @FXML private RadioButton whiteLeft;
     @FXML private RadioButton whiteRight;
 
-    /*
-    * Probably will be used for synchronized color change in GUI.
-    * Just for testing purposes right now.
-    * */
-    private static String color = "A";
+    // Network communication fields
+    private Socket clientSocket;
+    private PrintWriter out;
+    private BufferedReader in;
+    private ExecutorService executorService;
 
-    // Network communication
-    private Socket clientSocket;  /* trying to set WI-FI as client here in app */
-    private PrintWriter out; /* used for writing to WI-FI */
-    private BufferedReader in; /* i'll see about this, perhaps it'll screw the connection or stop it */
-    private ExecutorService executorService; /* not sure about this but it works, so I guess ok*/
-    private volatile boolean running = true;
+    // Flags
+    private volatile boolean appRunning = false;
     private volatile boolean resetActivated = false;
     private volatile boolean startActivated = false;
     private volatile boolean applyActivated = false;
+    private volatile boolean serverRunning = true;
 
-    public void start(Stage primaryStage) throws Exception
-    {
+    /**
+     * Initializes and starts the JavaFX application.
+     *
+     * @param primaryStage The primary stage for this application.
+     * @throws Exception if there is an error loading the FXML file.
+     */
+    public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("WiFiController.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root, 900, 600);
         WiFiController controller = loader.getController();
-        /*
-        * Just checking if these tokens are initialized.
-        * */
+
         System.out.println("Controller tokens: " + controller.rightToken + ", " + controller.leftToken);
 
         primaryStage.setTitle("WiFi Controller");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        //Platform.runLater(this::startServer); // this worked actually in some way
-        // startServer();
-        startJustToChangeColorTest();
-        /*
-        * TODO: add new method call that will handle color change
-        * */
     }
 
-    /*
-    * TODO: Perhaps change this so it works as if PC app is actually client
-    *  and WiFi is server?
-    *  UPDATE: Yes, did that.
-    * */
-
-    private void startJustToChangeColorTest()
-    {
+    /**
+     * Starts the server that listens for connections from the ESP8266.
+     * The server runs in a separate thread to avoid blocking the UI.
+     */
+    private void startServer() {
         executorService = Executors.newSingleThreadExecutor();
-
-        executorService.execute(() ->
-        {
-           String data = "A";
-           processIncomingMessage(data);
-           sleep();
-           data = "B";
-            processIncomingMessage(data);
-            sleep();
-            data = "C";
-            processIncomingMessage(data);
-            sleep();
-            data = "D";
-            processIncomingMessage(data);
-            sleep();
-            data = "E";
-            processIncomingMessage(data);
-            sleep();
-            data = "G";
-            processIncomingMessage(data);
-            sleep();
-            data = "H";
-            processIncomingMessage(data);
-            sleep();
-           data = "h";
-           processIncomingMessage(data);
-           sleep();
-           data = "f";
-            processIncomingMessage(data);
-            sleep();
-            data = "g";
-            processIncomingMessage(data);
-            sleep();
-            data = "d";
-            processIncomingMessage(data);
-            sleep();
-            data = "c";
-            processIncomingMessage(data);
-            sleep();
-            processIncomingMessage(data);
-            data = "b";
-            sleep();
-            processIncomingMessage(data);
-            sleep();
-            data = "a";
-            processIncomingMessage(data);
-            sleep();
-
-        });
-    }
-
-private void sleep()
-{
-    long millis = 1000;
-    try {
-        Thread.sleep(millis);
-    } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-    }
-}
-    private void startServer()
-    {
-        executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() ->
-        {
-            try (ServerSocket serverSocket = new ServerSocket(ESP8266_PORT))
-            {
+        executorService.execute(() -> {
+            try (ServerSocket serverSocket = new ServerSocket(ESP8266_PORT)) {
                 System.out.println("Server started on port " + ESP8266_PORT);
 
-                while (running) {
+                while (serverRunning) {
                     try {
                         clientSocket = serverSocket.accept();
                         System.out.println("Client connected: " + clientSocket.getInetAddress());
@@ -203,17 +160,14 @@ private void sleep()
 
                         // Listen for incoming messages
                         String inputLine;
-                        while ((inputLine = in.readLine()) != null && running) {
+                        while ((inputLine = in.readLine()) != null && serverRunning) {
                             System.out.println("Received: " + inputLine);
                             if(!inputLine.startsWith("AT+")) {
                                 // Process each character in the inputLine
                                 for (int i = 0; i < inputLine.length(); i++) {
                                     char c = inputLine.charAt(i);
                                     // Send or process each character
-                                    processIncomingMessage(String.valueOf(c));  // if your method expects a String
-                                    // or if your method can handle chars directly:
-                                    // processIncomingMessage(c);
-                                    // sendData("HELLO\r\n");
+                                    processIncomingMessage(String.valueOf(c));
                                 }
                             }
                         }
@@ -225,9 +179,6 @@ private void sleep()
                     } finally {
                         cleanupConnection();
                     }
-
-                    // Short delay before accepting new connection
-                    //try { Thread.sleep(1000); } catch (InterruptedException e) { break; }
                 }
             } catch (IOException e) {
                 System.err.println("Server error: " + e.getMessage());
@@ -235,13 +186,22 @@ private void sleep()
         });
     }
 
+    /**
+     * Stops the server and cleans up resources.
+     */
     private void stopServer() {
-        running = false;
+        serverRunning = false;
         cleanupConnection();
         if (executorService != null) {
             executorService.shutdownNow();
         }
     }
+
+    /**
+     * Clears the input buffer to remove any remaining data.
+     *
+     * @throws IOException if an I/O error occurs while clearing the buffer.
+     */
     private void clearInputBuffer() throws IOException {
         char[] buffer = new char[1024];
         while (in.ready()) {
@@ -249,6 +209,10 @@ private void sleep()
             if (bytesRead == -1) break;
         }
     }
+
+    /**
+     * Cleans up network connection resources.
+     */
     private void cleanupConnection() {
         try {
             if (out != null) out.close();
@@ -261,19 +225,41 @@ private void sleep()
         }
     }
 
+    /**
+     * Processes incoming messages from the ESP8266.
+     *
+     * @param message The message received from the microcontroller.
+     */
     private void processIncomingMessage(String message) {
         // Filter out AT commands and empty messages
         if (message.isEmpty() || message.startsWith("AT+")) {
             return;
         }
-
-        // Update GUI based on received color code
-        Platform.runLater(() -> {
-            changeCircleColorBasedOnData(message.trim());
-        });
+        if(message.trim().equals("S")) // Microcontroller sent START, so button has been pressed
+        {
+            serverRunning = true;
+            appRunning = true;
+            startActivated = true;
+            resetActivated = false;
+        } else if (message.trim().equals("R")) { // Microcontroller sent RESET, so button has been pressed again
+            serverRunning = true;
+            appRunning = false;
+            startActivated = false;
+            resetActivated = true;
+        }
+        else {
+            // Update GUI based on received color code if none of above is true
+            Platform.runLater(() -> {
+                changeCircleColorBasedOnData(message.trim());
+            });
+        }
     }
 
-    // Send data to microcontroller
+    /**
+     * Sends data to the connected ESP8266 microcontroller.
+     *
+     * @param data The data to be sent to the microcontroller.
+     */
     public void sendData(String data) {
         if (out != null && !clientSocket.isClosed()) {
             out.println(data);
@@ -284,6 +270,9 @@ private void sleep()
         }
     }
 
+    /**
+     * Shows a connection error dialog when communication with the ESP8266 fails.
+     */
     private void showConnectionError() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Connection Error");
@@ -292,7 +281,11 @@ private void sleep()
         alert.showAndWait();
     }
 
-    // Existing color change methods with slight modifications
+    /**
+     * Changes the color of the circles based on commands received from the ESP8266.
+     *
+     * @param command The command specifying which color to display and on which side.
+     */
     @FXML
     public void changeCircleColorBasedOnData(String command) {
         if(resetActivated)
@@ -323,103 +316,125 @@ private void sleep()
         }
     }
 
-    // Button handlers
+
+    /**
+     * Handles the start button action, initiating the color sorting process.
+     *
+     * @param actionEvent The event triggered by clicking the start button.
+     */
     @FXML
     public void handleButtonAction(ActionEvent actionEvent) {
-        // sendData("START");
+    
         startActivated = true;
         resetActivated = false;
         applyActivated = false;
-        sendData("S\r\n");
-        /*if(!applyActivated) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Not Finished Setup");
-            alert.setHeaderText("You must choose direction for each color!");
-            alert.setContentText("");
-            alert.showAndWait();
-            return;
-        }*/
+
+        sendData("<S>S<E>\r\n");
+
+        appRunning = true;
     }
-    private static String bytesToHex(byte[] bytes, int length)
-    {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < length; i++)
-        {
-            sb.append(String.format("%02X ", bytes[i]));
-        }
-        return sb.toString();
-    }
-    public static String bytesToAscii(byte[] hexBytes)
-    {
-        StringBuilder sb = new StringBuilder();
-        for (byte b : hexBytes)
-        {
-            sb.append((char) b);
-        }
-        return sb.toString();
-    }
+
+    /**
+     * Gets the currently selected color directions as a formatted string.
+     *
+     * @return A string containing all selected color directions in the format "a#A#c#C#..." etc.
+     */
     public String getSelectedColorSides()
     {
-        if (redToggleGroup.getSelectedToggle() == redLeft) return "Left Red";
-        if (redToggleGroup.getSelectedToggle() == redRight) return "Right Red";
+        String selection = "";
 
-        if (greenToggleGroup.getSelectedToggle() == greenLeft) return "Left Green";
-        if (greenToggleGroup.getSelectedToggle() == greenRight) return "Right Green";
+        if (redToggleGroup.getSelectedToggle() == redLeft) selection += "a#";
+        if (redToggleGroup.getSelectedToggle() == redRight) selection += "A#";
 
-        if (blueToggleGroup.getSelectedToggle() == blueLeft) return "Left Blue";
-        if (blueToggleGroup.getSelectedToggle() == blueRight) return "Right Blue";
+        if (greenToggleGroup.getSelectedToggle() == greenLeft) selection += "c#";
+        if (greenToggleGroup.getSelectedToggle() == greenRight) selection += "C#";
 
-        if (yellowToggleGroup.getSelectedToggle() == yellowLeft) return "Left Yellow";
-        if (yellowToggleGroup.getSelectedToggle() == yellowRight) return "Right Yellow";
+        if (blueToggleGroup.getSelectedToggle() == blueLeft) selection += "b#";
+        if (blueToggleGroup.getSelectedToggle() == blueRight) selection += "B#";
 
-        if (purpleToggleGroup.getSelectedToggle() == purpleLeft) return "Left Purple";
-        if (purpleToggleGroup.getSelectedToggle() == purpleRight) return "Right Purple";
+        if (yellowToggleGroup.getSelectedToggle() == yellowLeft) selection += "d#";
+        if (yellowToggleGroup.getSelectedToggle() == yellowRight) selection += "D#";
 
-        if (orangeToggleGroup.getSelectedToggle() == orangeLeft) return "Left Orange";
-        if (orangeToggleGroup.getSelectedToggle() == orangeRight) return "Right Orange";
+        if (purpleToggleGroup.getSelectedToggle() == purpleLeft) selection += "e#";
+        if (purpleToggleGroup.getSelectedToggle() == purpleRight) selection += "E#";
 
-        if (blackToggleGroup.getSelectedToggle() == blackLeft) return "Left Black";
-        if (blackToggleGroup.getSelectedToggle() == blackRight) return "Right Black";
+        if (orangeToggleGroup.getSelectedToggle() == orangeLeft) selection += "f#";
+        if (orangeToggleGroup.getSelectedToggle() == orangeRight) selection += "F#";
 
-        if (whiteToggleGroup.getSelectedToggle() == whiteLeft) return "Left White";
-        if (whiteToggleGroup.getSelectedToggle() == whiteRight) return "Right White";
+        if (blackToggleGroup.getSelectedToggle() == blackLeft) selection += "g#";
+        if (blackToggleGroup.getSelectedToggle() == blackRight) selection += "G#";
 
-        return "No selection";
+        if (whiteToggleGroup.getSelectedToggle() == whiteLeft) selection += "h#";
+        if (whiteToggleGroup.getSelectedToggle() == whiteRight) selection += "H#";
+
+        return selection;
     }
 
+    /**
+     * Changes the color of the left token circle.
+     *
+     * @param color The new color for the left token.
+     */
     @FXML
-    public void changeLeftTokenColor(Color color)
-    {
+    public void changeLeftTokenColor(Color color) {
         Objects.requireNonNull(leftToken, "leftToken not initialized!");
         leftToken.setFill(color);
 
     }
+
+    /**
+     * Changes the color of the right token circle.
+     *
+     * @param color The new color for the right token.
+     */
     @FXML
-    public void changeRightTokenColor(Color color)
-    {
+    public void changeRightTokenColor(Color color) {
         Objects.requireNonNull(rightToken, "rightToken not initialized!");
         rightToken.setFill(color);
     }
 
+
+    /**
+     * Handles the apply button action, sending color direction configurations to the ESP8266.
+     *
+     * @param actionEvent The event triggered by clicking the apply button.
+     */
     @FXML
     public void handleApplyCommand(ActionEvent actionEvent)
     {
-        /*
-        * Some nonsense function body.
-        * */
-        //changeCircleColorBasedOnData(color);
         applyActivated = true;
+        String selColors = getSelectedColorSides();
+        if(selColors.length() != 16)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Not Finished Setup");
+            alert.setHeaderText("You must choose direction for each color!");
+            alert.setContentText("Every color must have direction - left or right.");
+            alert.showAndWait();
+        }
+        else
+        {
+            // Sending data in format: <S> data <E>
+            sendData("<S>"+selColors+"<E>\r\n");
+        }
         /*
         * TODO: implement save option.
         * */
     }
 
+    /**
+     * Handles the reset button action, resetting the system to its initial state.
+     *
+     * @param actionEvent The event triggered by clicking the reset button.
+     */
     @FXML
     public void handleResetAction(ActionEvent actionEvent)
     {
         resetActivated = true;
         startActivated = false;
-        sendData("R\r\n");
+        appRunning = false;
+
+        sendData("<S>R<E>\r\n");
 
         if (executorService != null)
         {
@@ -440,16 +455,20 @@ private void sleep()
         // Reset token colors
         changeLeftTokenColor(Color.BLUE);
         changeRightTokenColor(Color.RED);
-        startJustToChangeColorTest();
 
     }
 
+    /**
+     * Initializes the controller after its root element has been processed.
+     * Sets up toggle groups, initial colors, and starts the server.
+     */
     @FXML
     public void initialize()
     {
         System.out.println("Initializing controller...");
         System.out.println("rightToken: " + (rightToken != null ? "set" : "NULL"));
         System.out.println("leftToken: " + (leftToken != null ? "set" : "NULL"));
+
         // Initialize toggle set
         redLeft.setToggleGroup(redToggleGroup);
         redRight.setToggleGroup(redToggleGroup);
@@ -484,6 +503,7 @@ private void sleep()
                 Thread.sleep(500);
                 // or startServer();
                 Platform.runLater(this::startServer);
+                //Platform.runLater(this::startJustToChangeColorTest);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -491,6 +511,11 @@ private void sleep()
 
     }
 
+    /**
+     * Handles the exit button action, showing a confirmation dialog before exiting.
+     *
+     * @param event The event triggered by clicking the exit button.
+     */
     @FXML
     public void handleExitAction(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -506,12 +531,14 @@ private void sleep()
         }
     }
 
+    /**
+     * Stops all running processes and cleans up resources before application exit.
+     */
     private void stopAllProcesses() {
-
         startActivated = false;
         resetActivated = true;
 
-        running = false;
+        appRunning = serverRunning = false;
 
         if (executorService != null) {
             executorService.shutdownNow();

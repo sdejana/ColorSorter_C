@@ -28,8 +28,8 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef _SERVO_H
-#define	_SERVO_H
+#ifndef XC_HEADER_TEMPLATE_H
+#define	XC_HEADER_TEMPLATE_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 
@@ -38,13 +38,7 @@
 // TODO Insert C++ class definitions if appropriate
 
 // TODO Insert declarations
-// Servo position definitions (in timer ticks)
-#define SERVO_LEFT 4600      // 1ms pulse (0°)
-#define SERVO_MIDDLE 3150   // 1.5ms pulse (90°) 3150
-#define SERVO_RIGHT 1400      // 2ms pulse (180°)
 
-
-extern uint8_t position;
 // Comment a function and leverage automatic documentation with slash star star
 /**
     <p><b>Function prototype:</b></p>
@@ -68,17 +62,6 @@ extern uint8_t position;
  */
 // TODO Insert declarations or function prototypes (right here) to leverage 
 // live documentation
-
-//void timer1_config(void);
-//void __attribute__((interrupt, auto_psv)) _T1Interrupt(void);
-void output_compare_config(void);
-void configureOscillatorServo(void);
-void moveLeft(void);
-void moveRight(void);
-void moveMiddle(void);
-
-
-
 
 #ifdef	__cplusplus
 extern "C" {
