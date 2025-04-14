@@ -9,7 +9,7 @@
 #include <math.h>
 #include "system.h"
 
-#define COLOR_QUANTITY 10
+#define COLOR_QUANTITY 9
 #define NUM_OF_SAMPLES 10
 
 
@@ -27,8 +27,8 @@ extern uint16_t blue_value;
 // local functions are being called as a part of global functions
 
 void set_slave(void);
-char* detect_color(void);
-float calcuate_distance(uint16_t, uint16_t, uint16_t, uint16_t, uint16_t, uint16_t);
+char* detect_color(uint16_t*,uint16_t*,uint16_t*);
+float calcuate_distance(int, int, int, int, int, int);
 void WS2812_Send_Byte(uint8_t);
 void I2C_free_stuck_slave(void);
 void __attribute__((interrupt, no_auto_psv)) _MI2C1Interrupt(void);
@@ -39,13 +39,13 @@ void I2C_write(uint8_t);
 void package_receive(uint16_t*);
 void request_data(uint8_t, uint16_t*);
 void I2C_config(void);
+void WS2812_Set_Color(uint8_t, uint8_t, uint8_t); // YET TO BE CALIBRATED
 
 
 // global functions here
 
 void color_click_configuration(void);
-void WS2812_Set_Color(uint8_t, uint8_t, uint8_t); // YET TO BE CALIBRATED
-char* read_color(void); // YET TO BE CALIBRATED
+char* read_color(void); // CALIBRATED
 
 // ------------
 

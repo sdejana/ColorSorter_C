@@ -27,17 +27,16 @@ typedef struct {
     uint16_t red_shade, green_shade, blue_shade;
 } Color;
 
-const Color colors[] = { // YET TO BE CALIBRATED
-    {"GREEN",     6500, 29000, 28000},
-    {"BLUE",      8800, 45100, 65500},
-    {"RED",    40500, 21800, 24400},
-    {"YELLOW",      45000, 65535, 40500},
-    {"ORANGE",40700, 18800, 14500},
-    {"PINK",      34100, 20200, 29800},
-    {"BLACK",       6000, 12300, 16500},
-    {"WHITE",    48900, 65535, 65535},
-    {"BROWN",     8000, 11800, 14700},
-    {"NO",         1200,  2000,  2000}
+const Color colors[] = { // CALIBRATED
+    {"GREEN",     103, 100, 60},
+    {"BLUE",      7, 21, 65},
+    {"RED",    105, 63, 100},
+    {"YELLOW",      26, 71, 77},
+    {"ORANGE",      115, 52, 34},
+    {"PINK",      17, 60, 95},
+    {"BLACK",       143, 170, 80},
+    {"WHITE",    20, 50, 100},    
+    {"NO",         192,  170,  200}
 };
 
 // local functions
@@ -53,28 +52,25 @@ void set_slave()
     __delay_us(10);
 }
 
-float calculate_distance(uint16_t r1, uint16_t g1, uint16_t b1, uint16_t r2, uint16_t g2, uint16_t b2)
+float calculate_distance(int r1, int g1, int b1, int r2, int g2, int b2)
 {    
     return sqrtf(powf(r1 - r2, 2) + powf(g1 - g2, 2) + powf(b1 - b2, 2));    
 }
 
-char* detect_color(void)
-{    
-    uint16_t red_shade = red_vector;
-    uint16_t green_shade = green_vector;
-    uint16_t blue_shade = blue_vector;
-
+char* detect_color(uint16_t* r,uint16_t* g,uint16_t* b)
+{   
     float min_distance = 1e9; 
-    const char* detected_color = "NN";
-
+    char* detected_color = "NN";
+    float distance = 0;
+    
     for (int i = 0; i < COLOR_QUANTITY; i++) {
-        float distance = calculate_distance(red_shade, green_shade, blue_shade, colors[i].red_shade, colors[i].green_shade, colors[i].blue_shade);
+        distance = calculate_distance(*r, *g, *b, colors[i].red_shade, colors[i].green_shade, colors[i].blue_shade);                
         if (distance < min_distance) {
             min_distance = distance;
-            detected_color = colors[i].name;
+            detected_color = colors[i].name;            
         }
-    }
-    
+    }   
+    __delay_ms(100);    
     return detected_color;  
 }
 
@@ -83,11 +79,7 @@ void WS2812_Send_Byte(uint8_t byte) // YET TO BE CALIBRATED
     for (int i = 7; i >= 0; i --) 
     {        
         uint8_t spi_data = (byte & (1 << i)) ? 0b11110000 : 0b11000000;        
-        SPI1_Exchange8bit(spi_data);  
-        __delay_ms(100);
-        LATBbits.LATB6 = 1;
-        __delay_ms(100);
-        LATBbits.LATB6 = 0;
+        SPI1_Exchange8bit(spi_data);                  
     }
 }
 
@@ -133,9 +125,14 @@ void I2C_stop()
     I2C1CONbits.PEN = 1;  // Stop condition
     int count = 10000;
     while (!interrupt_detected && --count > 0);
-    if (count == 0) {
-        LATBbits.LATB6 = 1;
-        while(1);
+    if (count == 0) {        
+        while(1)
+        {
+            LATBbits.LATB6 = 1;
+            __delay_ms(100);
+            LATBbits.LATB6 = 0;
+            __delay_ms(100);
+        }
     }  
 }
 
@@ -146,8 +143,13 @@ void I2C_start()
     int count = 10000;
     while (!interrupt_detected && --count > 0);
     if (count == 0) {
-        LATBbits.LATB6 = 1;
-        while(1);
+        while(1)
+        {
+            LATBbits.LATB6 = 1;
+            __delay_ms(100);
+            LATBbits.LATB6 = 0;
+            __delay_ms(100);
+        }
     }           
 }
 
@@ -159,8 +161,13 @@ void I2C_receive_enable()
     int count = 10000;
     while (!interrupt_detected && --count > 0);
     if (count == 0) {
-        LATBbits.LATB6 = 1;
-        while(1);
+        while(1)
+        {
+            LATBbits.LATB6 = 1;
+            __delay_ms(100);
+            LATBbits.LATB6 = 0;
+            __delay_ms(100);
+        }
     }  
 }
 
@@ -171,8 +178,13 @@ void I2C_write(uint8_t data)
     int count = 10000;
     while (!interrupt_detected && --count > 0);
     if (count == 0) {
-        LATBbits.LATB6 = 1;
-        while(1);
+        while(1)
+        {
+            LATBbits.LATB6 = 1;
+            __delay_ms(100);
+            LATBbits.LATB6 = 0;
+            __delay_ms(100);
+        }
     }  
 }
 
@@ -203,10 +215,6 @@ void request_data(uint8_t command_code, uint16_t* color_vector)
     I2C_stop();
     __delay_us(10);
 }
-
-// global functions
-
-
 void WS2812_Set_Color(uint8_t red, uint8_t green, uint8_t blue)
 {    
     SPI1STATbits.SPIEN = 0;
@@ -238,47 +246,65 @@ void I2C_config()
 }
 
 
+
+// global functions
+
 char* read_color(void)
-{
-    
+{           
     uint16_t sum_red = 0, sum_green = 0, sum_blue = 0;
-    uint16_t avg_red, avg_green, avg_blue;    
+    uint16_t avg_red, avg_green, avg_blue;               
+    uint16_t clear_vector;
+    uint16_t ir_vector;
+    uint16_t clear_vector_without_ir;
     
+    for (int i = 0; i < NUM_OF_SAMPLES; i++) {                         
     
-    __delay_ms(1000);
-       
-    
-    for (int i = 0; i < NUM_OF_SAMPLES; i++) { 
-                
+        red_vector = 0;
+        green_vector = 0;
+        blue_vector = 0;                        
         
         request_data(0x05,&red_vector);                
         
         request_data(0x06,&green_vector);                 
-               
-        request_data(0x07,&blue_vector);                  
         
+        request_data(0x07,&blue_vector);                 
+                
         sum_red += red_vector;
 
         sum_green += green_vector;
 
         sum_blue += blue_vector;
 
-        __delay_ms(100);     
+        __delay_ms(200);     
     }
             
+    
     avg_red = sum_red / NUM_OF_SAMPLES;
     avg_green = sum_green / NUM_OF_SAMPLES;
     avg_blue = sum_blue / NUM_OF_SAMPLES;
     
-    red_value = avg_red;
-    blue_value = avg_blue;
-    green_value = avg_green;   
+    request_data(0x04,&clear_vector);
+    __delay_ms(200);
+    request_data(0x08,&ir_vector);
+    __delay_ms(200);
     
-    return detect_color();    
-}
+    clear_vector_without_ir = clear_vector-ir_vector;    
+    
+    uint16_t normalized_red = (avg_red/(float)clear_vector_without_ir) * 1000;
+    uint16_t normalized_green = (avg_green/(float)clear_vector_without_ir) * 1000;
+    uint16_t normalized_blue = (avg_blue/(float)clear_vector_without_ir) * 1000;
+        
+    red_value = normalized_red;
+    blue_value = normalized_blue;
+    green_value = normalized_green;  
+    
+    return detect_color(&normalized_red,&normalized_green,&normalized_blue);    
+} 
 
 void color_click_configuration()
 {
     SYSTEM_Initialize();
     I2C_config();
+    __delay_us(500);
+    WS2812_Set_Color(255,255,255);
 }
