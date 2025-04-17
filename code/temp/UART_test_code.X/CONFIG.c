@@ -28,6 +28,8 @@ void configurePPS()
     RPINR18bits.U1RXR = 14; // 14 RX connected to TX of ESP8266EX
     RPOR5bits.RP10R = 3;    // 9 TX connected to RX of ESP8266EX
     RPOR2bits.RP5R = 18;        // Map OC1 to RB5
+    
+    RPOR5bits.RP11R = 5;
 
     __builtin_write_OSCCONL(OSCCON | (1 << 6));  // PPS lock
 }
@@ -43,8 +45,8 @@ void configureIO()
     TRISAbits.TRISA4 = 0; // Set enable pin as output pin
     LATAbits.LATA4 = 1; // Set enable pin to high voltage
     
-    TRISBbits.TRISB6 = 0; // set LED as output
-    TRISBbits.TRISB7 = 1; // set BUTTON as input
+    TRISBbits.TRISB6 = 0; // set LED as output 
+    TRISBbits.TRISB7 = 1; // set BUTTON as input 
     
     LATBbits.LATB6 = 0;    
     
@@ -60,19 +62,27 @@ void stopAll()
 {
     flag = 1;
     moveMiddle();
-    __delay_ms(200);
-    sendData("S\r\n");
+    __delay_ms(300);
+    sendData("R\r\n");
     LATBbits.LATB6 = 0;
 }
 
 void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void) 
 {
     IEC0bits.INT0IE = 0;
-    flag = ~flag;
+    flag = !flag;
+    LATBbits.LATB6 = 1;
+    __delay_ms(100);
+    LATBbits.LATB6 = 0;
     if(flag)
     {
-        stopAll();        
+        stopAll(); 
     }    
+    else 
+    {
+        sendData("S\r\n");
+        moveMiddle();
+    }
     IEC0bits.INT0IE = 1;
     IFS0bits.INT0IF = 0;  // Clear INT0 flag
 }
@@ -80,13 +90,9 @@ void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void)
 
 void configureAllComponents()
 {
-<<<<<<< HEAD
-=======
-    configureOscillator();    
->>>>>>> d0e666fc1c7724add0847dafa29d1f83833eea80
+    // configureOscillator();
     configureIO();
     configurePPS();
-    colorClickConfiguration();
-    outputCompareConfig();
-    __delay_ms(1000);
+    //colorClickConfiguration();
+    output_compare_config();
 }

@@ -28,15 +28,15 @@ typedef struct {
 } Color;
 
 const Color colors[] = { // CALIBRATED
-    {"GREEN",     103, 100, 60},
-    {"BLUE",      7, 21, 65},
-    {"RED",    105, 63, 100},
-    {"YELLOW",      26, 71, 77},
-    {"ORANGE",      115, 52, 34},
-    {"PINK",      17, 60, 95},
+    {"GREEN",     103, 100, 80},
+    {"BLUE",      7, 70, 100},
+    {"RED",    90, 60, 100},
+    {"YELLOW",      20, 50, 30},
+    {"ORANGE",      105, 52, 50},
+    {"PINK",      20, 50, 70},
     {"BLACK",       143, 170, 80},
-    {"WHITE",    20, 50, 100},    
-    {"NO",         192,  170,  200}
+    {"WHITE",    30, 50, 100},    
+    {"NO",         192,  120,  170}
 };
 
 // local functions
@@ -275,7 +275,7 @@ char* readColor(void)
 
         sum_blue += blue_vector;
 
-        __delay_ms(200);     
+        __delay_ms(100);     
     }
             
     

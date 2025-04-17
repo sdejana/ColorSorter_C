@@ -7,14 +7,19 @@
 
 #include "xc.h"
 #define FCY 16000000UL
+#define COLOR_QUANTITY 9
+#define NUM_OF_SAMPLES 10
 #include <p24FJ64GA002.h>
 #include <libpic30.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <math.h>
+#include "mcc_generated_files/system.h"
+
 
 unsigned int i;
 #define DELAY_105uS asm volatile ("REPEAT, #4201"); Nop(); // 105uS delay
-
 
 
 #pragma config FNOSC = FRCPLL     // Use Internal Fast RC Oscillator (FRC) without PLL
@@ -29,6 +34,30 @@ volatile uint16_t red_vector  = 0;
 volatile uint16_t green_vector  = 0;
 volatile uint16_t blue_vector  = 0;
 volatile uint8_t interrupt_detected = 0;
+
+
+volatile uint16_t red_value = 0;
+volatile uint16_t green_value = 0;
+volatile uint16_t blue_value = 0;
+
+
+typedef struct {
+    const char* name;
+    uint16_t red_shade, green_shade, blue_shade;
+} Color;
+
+const Color colors[] = { // YET TO BE CALIBRATED
+    {"GREEN",     103, 100, 80},
+    {"BLUE",      7, 70, 100},
+    {"RED",    90, 60, 100},
+    {"YELLOW",      20, 50, 30},
+    {"ORANGE",      105, 52, 50},
+    {"PINK",      20, 50, 70},
+    {"BLACK",       143, 170, 80},
+    {"WHITE",    30, 50, 100},    
+    {"NO",         192,  120,  170}
+};
+
 
 void configure_oscillator()
 {
@@ -89,13 +118,8 @@ void __attribute__((interrupt, no_auto_psv)) _MI2C1Interrupt(void) {
 }
 
 uint8_t color_to_display = 'n';
-void __attribute__((__interrupt__, no_auto_psv)) _U1TXInterrupt(void)
-{
-    IFS0bits.U1TXIF = 0; // Clear TX Interrupt flag
-    U1TXREG = color_to_display; // Transmit one character
-}
 
-void I2C_stop() {   
+void I2C_stop() {
     interrupt_detected = 0;
     I2C1CONbits.PEN = 1;  // Stop condition
     int count = 10000;
@@ -153,34 +177,6 @@ void set_slave(){
     __delay_us(10);
 }
 
-void uart_config(){
-    TRISBbits.TRISB12 = 0;
-    TRISBbits.TRISB11 = 1;        
-    // DO is RP12 = TX, RST is RP11 = RX
-    __builtin_write_OSCCONL(OSCCON & 0xBF);
-    // Assign U1RX To Pin RP11
-    //RPINR18bits.U1RXR = 11;
-    // Assign U1TX To Pin RP12
-    RPOR6bits.RP12R = 3;
-    __builtin_write_OSCCONL(OSCCON | 0x40);
-    
-    U1MODEbits.STSEL = 0; // 1-Stop bit
-    U1MODEbits.PDSEL = 0; // No Parity, 8-Data bits
-    U1MODEbits.ABAUD = 0; // Auto-Baud disabled
-    U1MODEbits.BRGH = 0; // Standard-Speed mode
-    //U1BRG = 50; // Baud Rate setting for 4800
-    U1BRG = 207; // baud rate for FCY = 16 MHz
-    U1STAbits.UTXISEL0 = 1; // Interrupt after the last transmission
-    U1STAbits.UTXISEL1 = 0;
-    IEC0bits.U1TXIE = 1; // Enable UART TX interrupt
-    IPC3bits.U1TXIP = 4;
-    U1MODEbits.UARTEN = 1; // Enable UART
-    U1STAbits.UTXEN = 1; // Enable UART TX
-   
-    /* Wait at least 210 microseconds (1/4800) before sending first char */
-    __delay_us(210);        
-}
-
 void package_transmitting(uint8_t register_address) {          
     I2C_start();                
     I2C_write((0x10 << 1) | 0); // Slave address + Write    
@@ -203,8 +199,8 @@ void package_receive(uint16_t* receive_vector) {
     *receive_vector = (msb << 8) | lsb;  // Correctly combine MSB and LSB
 }
 
-
 void request_data(uint8_t command_code, uint16_t* color_vector){
+    __delay_us(10);
     I2C_start();
     I2C_write((0x10 << 1) | 0); // slave address + write
     I2C_write(command_code);
@@ -215,95 +211,182 @@ void request_data(uint8_t command_code, uint16_t* color_vector){
     __delay_us(10);
 }
 
+void WS2812_Send_Byte(uint8_t byte)
+{
+    for (int i = 7; i >= 0; i --)
+    {        
+        uint8_t spi_data = (byte & (1 << i)) ? 0b11110000 : 0b11000000;  
+        
+        SPI1_Exchange8bit(spi_data);          
+    }
+}
+
+void WS2812_Set_Color(uint8_t red, uint8_t green, uint8_t blue)
+{    
+    SPI1STATbits.SPIEN = 0;
+    __delay_us(100);
+    SPI1STATbits.SPIEN = 1;
+    
+    WS2812_Send_Byte(green);
+    WS2812_Send_Byte(red);
+    WS2812_Send_Byte(blue);
+     
+    SPI1STATbits.SPIEN = 0;
+    __delay_us(100);
+    SPI1STATbits.SPIEN = 1;     
+}
+
+float calculate_distance(int r1, int g1, int b1, int r2, int g2, int b2)
+{        
+    return sqrtf(powf(r1 - r2, 2) + powf(g1 - g2, 2) + powf(b1 - b2, 2));    
+}
+
+char* detect_color(uint16_t* r,uint16_t* g,uint16_t* b)
+{    
+    /*uint16_t red_shade = red_vector;
+    uint16_t green_shade = green_vector;
+    uint16_t blue_shade = blue_vector;*/
+
+    float min_distance = 1e9; 
+    char* detected_color = "NN";
+    float distance = 0;
+    
+    for (int i = 0; i < COLOR_QUANTITY; i++) {
+        distance = calculate_distance(*r, *g, *b, colors[i].red_shade, colors[i].green_shade, colors[i].blue_shade);        
+        
+        if (distance < min_distance) {
+            min_distance = distance;
+            detected_color = colors[i].name;            
+        }
+    }   
+    __delay_ms(100);
+    char buffer[32];
+    sprintf(buffer, "D: %.2f\r\n", min_distance);
+    U1_Write_Text(buffer);
+    U1_Write_Text(detected_color);
+    U1_Write_Text("\n");
+    return detected_color;  
+}
+
+char* read_all_shades(void)
+{   
+    
+    
+    uint16_t sum_red = 0, sum_green = 0, sum_blue = 0;
+    uint16_t avg_red, avg_green, avg_blue;               
+    uint16_t clear_vector;
+    uint16_t ir_vector;
+    uint16_t clear_vector_without_ir;
+    
+    for (int i = 0; i < NUM_OF_SAMPLES; i++) {                         
+    
+        red_vector = 0;
+        green_vector = 0;
+        blue_vector = 0;                        
+        
+        request_data(0x05,&red_vector);                
+        
+        request_data(0x06,&green_vector);                 
+        
+        request_data(0x07,&blue_vector);                 
+        
+        /*char buffer[16];
+        sprintf(buffer, "Clear:%d\r\n", clear_vector);
+        U1_Write_Text(buffer);
+        
+        sprintf(buffer, "IR vector:%d\r\n", ir_vector);
+        U1_Write_Text(buffer);*/
+        
+        sum_red += red_vector;
+
+        sum_green += green_vector;
+
+        sum_blue += blue_vector;
+
+        __delay_ms(200);     
+    }
+            
+    
+    avg_red = sum_red / NUM_OF_SAMPLES;
+    avg_green = sum_green / NUM_OF_SAMPLES;
+    avg_blue = sum_blue / NUM_OF_SAMPLES;
+    
+    request_data(0x04,&clear_vector);
+    __delay_ms(200);
+    request_data(0x08,&ir_vector);
+    __delay_ms(200);
+    
+    clear_vector_without_ir = clear_vector-ir_vector;    
+    
+    uint16_t normalized_red = (avg_red/(float)clear_vector_without_ir) * 1000;
+    uint16_t normalized_green = (avg_green/(float)clear_vector_without_ir) * 1000;
+    uint16_t normalized_blue = (avg_blue/(float)clear_vector_without_ir) * 1000;
+    
+    char buffer[16];
+
+    /*sprintf(buffer, "R:%d\r\n", avg_red);
+    U1_Write_Text(buffer);
+    __delay_ms(10);
+
+    sprintf(buffer, "G:%d\r\n", avg_green);
+    U1_Write_Text(buffer);
+    __delay_ms(10);
+
+    sprintf(buffer, "B:%d\r\n", avg_blue);
+    U1_Write_Text(buffer);
+    __delay_ms(10);*/        
+    
+    red_value = normalized_red;
+    blue_value = normalized_blue;
+    green_value = normalized_green;  
+    
+    return detect_color(&normalized_red,&normalized_green,&normalized_blue);    
+} 
+
+
 int main(void) {
     
     configure_oscillator();
-    
+    SYSTEM_Initialize();
     __builtin_enable_interrupts();
     
     TRISBbits.TRISB6 = 0;  // LED as output       
     LATBbits.LATB6 = 0;
-    
-    uart_config();
-    
+      
     I2C_free_stuck_slave();
        
-    __delay_us(10);
+    __delay_us(100);
     
-    I2C_config();    
+    //WS2812_Set_Color(255,255,255);
     
-    set_slave();        
     
-    while(1){   
-        I2C_free_stuck_slave();
-        __delay_us(10);
-        request_data(0x05,&red_vector);
-        request_data(0x06,&green_vector);
-        request_data(0x07,&blue_vector);                      
-        
+    I2C_config();
+    
+    set_slave();
+    
+    
+    
+    while(1){                   
+        __delay_us(10); 
+        WS2812_Set_Color(255,255,255);
         LATBbits.LATB6 = 1;
+        char* color = read_all_shades();        
         __delay_ms(100);
         LATBbits.LATB6 = 0;
-        
-        if(red_vector>green_vector && red_vector>blue_vector){
-            while(U1STAbits.UTXBF);
-            color_to_display = 'R'; 
-        }
-        else if(red_vector<green_vector && green_vector>blue_vector){
-            while (U1STAbits.UTXBF);
-            color_to_display = 'G';
-        }
-        else{
-            while(U1STAbits.UTXBF);
-            color_to_display = 'B';
-        }
-        
-        __delay_ms(100);
-        /*while (U1STAbits.UTXBF);
-        
-        uint8_t lsb = red_vector & 0x00FF;  // Keep LSB as is
-        uint8_t msb = (red_vector >> 8) & 0x00FF;  // Shift MSB correctly
+        __delay_ms(100); 
+        char buffer[16];
+        sprintf(buffer, "R:%d\r\n", red_value);
+        U1_Write_Text(buffer);
+        __delay_ms(10);
 
-        U1TXREG = lsb; // Send LSB over UART
+        sprintf(buffer, "G:%d\r\n", green_value);
+        U1_Write_Text(buffer);
+        __delay_ms(10);
 
-        __delay_ms(1000);
-        while (U1STAbits.UTXBF);
-        U1TXREG = msb; // Send MSB over UART
-        
-        
-        __delay_ms(1000);
-        while (U1STAbits.UTXBF);
-        lsb = green_vector & 0x00FF;  
-        msb = (green_vector >> 8) & 0x00FF;  
-        U1TXREG = lsb; // send LSB over UART
-        __delay_ms(1000);
-        
-        while (U1STAbits.UTXBF);
-        U1TXREG = msb; // Send MSB over UART
-        
-        __delay_ms(1000);
-        while (U1STAbits.UTXBF);
-        lsb = blue_vector & 0x00FF;  
-        msb = (blue_vector >> 8) & 0x00FF; 
-        U1TXREG = lsb; // send LSB over UART
-
-        __delay_ms(1000);
-        while (U1STAbits.UTXBF);
-        U1TXREG = msb; // Send MSB over UART
-        LATBbits.LATB6 = 1;        
-        __delay_ms(1000); */       
+        sprintf(buffer, "B:%d\r\n", blue_value);
+        U1_Write_Text(buffer);
+        __delay_ms(10);
+        U1_Write_Text("Color:\n");
+        U1_Write_Text(color);            
     }
-    
-    /*while (1) {        
-        package_transmitting(0x05);  // Read RED register
-        package_receiving(red_vector);
-
-        while (U1STAbits.UTXBF);
-        U1TXREG = red_vector[0]; // Send LSB over UART
-
-        while (U1STAbits.UTXBF);
-        U1TXREG = red_vector[1]; // Send MSB over UART
-
-        __delay_ms(1000);
-    }*/
 }
