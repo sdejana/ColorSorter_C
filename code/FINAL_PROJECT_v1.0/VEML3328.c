@@ -28,15 +28,15 @@ typedef struct {
 } Color;
 
 const Color colors[] = { // CALIBRATED
-    {"GREEN",     103, 100, 60},
-    {"BLUE",     2, 40, 100},
-    {"RED",    105, 63, 90},
-    {"YELLOW",      25, 30, 20},
-    {"ORANGE",      100, 52, 34},
-    {"PINK",      24, 45, 70},
-    {"BLACK",       100, 75, 64},
-    {"WHITE",    30, 50, 100},
-    {"NO",         192,  150,  210}
+    {"GREEN",     103, 100, 80},
+    {"BLUE",      7, 70, 100},
+    {"RED",    90, 60, 100},
+    {"YELLOW",      20, 50, 30},
+    {"ORANGE",      105, 52, 50},
+    {"PINK",      20, 50, 70},
+    {"BLACK",       143, 170, 80},
+    {"WHITE",    30, 50, 100},    
+    {"NO",         192,  120,  170}
 };
 
 // local functions

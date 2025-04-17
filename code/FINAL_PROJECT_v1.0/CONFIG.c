@@ -43,8 +43,8 @@ void configureIO()
     TRISAbits.TRISA4 = 0; // Set enable pin as output pin
     LATAbits.LATA4 = 1; // Set enable pin to high voltage
     
-    TRISBbits.TRISB6 = 0; // set LED as output 
-    TRISBbits.TRISB7 = 1; // set BUTTON as input 
+    TRISBbits.TRISB6 = 0; // set LED as output
+    TRISBbits.TRISB7 = 1; // set BUTTON as input
     
     LATBbits.LATB6 = 0;    
     
@@ -80,8 +80,10 @@ void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void)
 
 void configureAllComponents()
 {
-    colorClickConfiguration();
-    configurePPS();
+    configureOscillator();    
     configureIO();
+    configurePPS();
+    colorClickConfiguration();
     outputCompareConfig();
+    __delay_ms(1000);
 }
