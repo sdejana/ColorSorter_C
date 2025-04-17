@@ -5,28 +5,10 @@
  * Created on 14. april 2025., 10.49
  */
 
-#pragma config FNOSC = FRCPLL    // FRC sa PLL omogucen
-#pragma config FCKSM = CSECMD // Clock switching enabled, fail-safe clock monitor disabled
-#pragma config OSCIOFNC = OFF  // OSC2/CLKO is not a clock output
-#pragma config POSCMOD = NONE  // Primary oscillator disabled
-#pragma config IESO = OFF      // Two-speed oscillator start-up disabled
-#pragma config JTAGEN = OFF    // JTAG disabled
-#pragma config FWDTEN = OFF    // Watchdog timer disabled
 
-<<<<<<< HEAD
-#include <xc.h>      // Ukljucivanje osnovne biblioteke za mikrokontroler
-#include <string.h>  // Biblioteka za rad sa stringovima
-#include <stdlib.h>  // Standardna biblioteka 
-#define FCY 16000000UL // Definisanje frekvencije CPU-a
-#include "CONFIG.h"
-#include <libpic30.h> // Biblioteka za kasnjenja (__delay_ms i __delay_us)
-#include "WIFI.h"
-#include "SERVO.h"
-=======
 #include "xc.h"
 #define FCY 16000000UL
 #include <libpic30.h>
->>>>>>> d0e666fc1c7724add0847dafa29d1f83833eea80
 #include "CONFIG.h"
 
 #pragma config FNOSC = FRCPLL     // Use Internal Fast RC Oscillator (FRC) without PLL
@@ -136,15 +118,6 @@ void processDataFromColorSensor(const char* data)
 
 int main(void)
 {
-<<<<<<< HEAD
-    configureOscillator();
-    configureAllComponents();
-  
-    while(1)
-    {
-        
-        /*char* color = readColor();
-=======
     
     configureAllComponents();
     TRISBbits.TRISB6 = 0;
@@ -167,28 +140,13 @@ int main(void)
          __delay_ms(200);
         char* color = readColor();
         
->>>>>>> d0e666fc1c7724add0847dafa29d1f83833eea80
         if(strcmp(color,"NO")!=0)
         {
             __delay_ms(100);
             processDataFromColorSensor(color);
-<<<<<<< HEAD
-        }*/
-        
-        LATBbits.LATB6 = 1;
-        __delay_ms(500);
-        LATBbits.LATB6 = 0;
-        __delay_ms(500);
-        
-        moveLeft();
-        __delay_ms(500);
-        moveMiddle();
-        __delay_ms(500);
-=======
             LATBbits.LATB6 = ~LATBbits.LATB6;
         }
         
->>>>>>> d0e666fc1c7724add0847dafa29d1f83833eea80
         
     }
     return 0;

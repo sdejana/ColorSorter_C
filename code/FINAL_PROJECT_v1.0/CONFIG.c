@@ -80,10 +80,7 @@ void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void)
 
 void configureAllComponents()
 {
-<<<<<<< HEAD
-=======
     configureOscillator();    
->>>>>>> d0e666fc1c7724add0847dafa29d1f83833eea80
     configureIO();
     configurePPS();
     colorClickConfiguration();
