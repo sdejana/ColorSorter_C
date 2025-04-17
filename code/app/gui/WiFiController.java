@@ -1,3 +1,4 @@
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,68 +18,35 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * The WiFiController class is a JavaFX controller that manages the GUI and network communication
- * for a system that interacts with an PIC24FJ64GA002 microcontroller. It allows users to control
- * and monitor color tokens (represented as circles in the UI) through a WiFi (ESP8266) connection.
- *
- * <p>The controller provides functionality to:
- * <ul>
- *   <li>Start and reset the color sorting process</li>
- *   <li>Configure color directions (left or right) for each token color</li>
- *   <li>Display real-time color changes received from the microcontroller</li>
- *   <li>Manage network connections with the ESP8266 module</li>
- *   <li>Handle application exit and resource cleanup</li>
- * </ul>
- *
- * <p>Communication with the ESP8266 is done via TCP sockets, with the PC application acting as
- * a server that listens for connections from the microcontroller.
- */
-
 public class WiFiController
 {
 
-    /**
-     * IP address of the ESP8266 module on the local network.
-     */
+    /*
+     * IP address of ESP8266 module (local network).
+     *  */
     private static final String ESP8266_IP = "10.99.145.245";
-
-    /**
-     * Port number used for TCP communication between the application and ESP8266.
-     */
+    /*
+     * Port used for TCP connection between ESP8266 and PC app.
+     * */
     private static final int ESP8266_PORT = 8084;
 
-    /**
-     * Button to start the color sorting process.
-     */
     @FXML public Button startButton;
-
-    /**
-     * Button to apply color direction configurations.
-     */
     @FXML public Button applyButton;
-
-    /**
-     * Button to reset the system to its initial state.
-     */
     @FXML public Button resetButton;
-
-    /**
-     * Button to exit the application.
-     */
     @FXML public Button exitButton;
+    @FXML public Button resetConnectionButton;
 
-    /**
-     * Circle representing the left token in the UI.
-     */
+
+    /*
+     * Circles used to represent left and right cup of real system and
+     * corresponding color.
+     *  */
     @FXML private Circle leftToken;
-
-    /**
-     * Circle representing the right token in the UI.
-     */
     @FXML private Circle rightToken;
 
-    // Toggle groups for color direction radio buttons
+    /*
+     * Toggle groups for radio buttons
+     * */
     private final ToggleGroup redToggleGroup = new ToggleGroup();
     private final ToggleGroup greenToggleGroup = new ToggleGroup();
     private final ToggleGroup blueToggleGroup = new ToggleGroup();
@@ -88,7 +56,10 @@ public class WiFiController
     private final ToggleGroup blackToggleGroup = new ToggleGroup();
     private final ToggleGroup whiteToggleGroup = new ToggleGroup();
 
-    // Radio buttons for color directions
+    /*
+     * Radio button fields used to allow user to choose direction of
+     * sorted tokens.
+     * */
     @FXML private RadioButton redLeft;
     @FXML private RadioButton redRight;
     @FXML private RadioButton greenLeft;
@@ -106,47 +77,67 @@ public class WiFiController
     @FXML private RadioButton whiteLeft;
     @FXML private RadioButton whiteRight;
 
-    // Network communication fields
-    private Socket clientSocket;
-    private PrintWriter out;
-    private BufferedReader in;
-    private ExecutorService executorService;
+    /*
+     * Probably will be used for synchronized color change in GUI.
+     * Just for testing purposes right now.
+     * */
 
-    // Flags
+    // Network communication
+    private Socket clientSocket;  /* trying to set WI-FI as client here in app */
+    private PrintWriter out; /* used for writing to WI-FI */
+    private BufferedReader in; /* I'll see about this, perhaps it'll screw the connection or stop it */
+    private ExecutorService executorService; /* not sure about this but it works, so I guess ok*/
     private volatile boolean appRunning = false;
     private volatile boolean resetActivated = false;
     private volatile boolean startActivated = false;
     private volatile boolean applyActivated = false;
     private volatile boolean serverRunning = true;
 
-    /**
-     * Initializes and starts the JavaFX application.
-     *
-     * @param primaryStage The primary stage for this application.
-     * @throws Exception if there is an error loading the FXML file.
-     */
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception
+    {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("WiFiController.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root, 900, 600);
         WiFiController controller = loader.getController();
-
+        /*
+         * Just checking if these tokens are initialized.
+         * */
         System.out.println("Controller tokens: " + controller.rightToken + ", " + controller.leftToken);
 
         primaryStage.setTitle("WiFi Controller");
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        //Platform.runLater(this::startServer); // this worked actually in some way
+        // startServer();
+        // startJustToChangeColorTest();
+        /*
+         * TODO: add new method call that will handle color change: NO NEED
+         * */
     }
 
-    /**
-     * Starts the server that listens for connections from the ESP8266.
-     * The server runs in a separate thread to avoid blocking the UI.
-     */
-    private void startServer() {
+    /*
+     * TODO: Perhaps change this so it works as if PC app is actually client
+     *  and WiFi is server?
+     *  UPDATE: Yes, did that.
+     * */
+
+    private void sleep()
+    {
+        long millis = 1000;
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void startServer()
+    {
         executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> {
-            try (ServerSocket serverSocket = new ServerSocket(ESP8266_PORT)) {
+        executorService.execute(() ->
+        {
+            try (ServerSocket serverSocket = new ServerSocket(ESP8266_PORT))
+            {
                 System.out.println("Server started on port " + ESP8266_PORT);
 
                 while (serverRunning) {
@@ -162,6 +153,8 @@ public class WiFiController
                         String inputLine;
                         while ((inputLine = in.readLine()) != null && serverRunning) {
                             System.out.println("Received: " + inputLine);
+                            inputLine = inputLine.replace("AT+","");
+
                             if(!inputLine.startsWith("AT+")) {
                                 // Process each character in the inputLine
                                 for (int i = 0; i < inputLine.length(); i++) {
@@ -179,6 +172,9 @@ public class WiFiController
                     } finally {
                         cleanupConnection();
                     }
+
+                    // Short delay before accepting new connection
+                    //try { Thread.sleep(1000); } catch (InterruptedException e) { break; }
                 }
             } catch (IOException e) {
                 System.err.println("Server error: " + e.getMessage());
@@ -186,9 +182,6 @@ public class WiFiController
         });
     }
 
-    /**
-     * Stops the server and cleans up resources.
-     */
     private void stopServer() {
         serverRunning = false;
         cleanupConnection();
@@ -196,12 +189,6 @@ public class WiFiController
             executorService.shutdownNow();
         }
     }
-
-    /**
-     * Clears the input buffer to remove any remaining data.
-     *
-     * @throws IOException if an I/O error occurs while clearing the buffer.
-     */
     private void clearInputBuffer() throws IOException {
         char[] buffer = new char[1024];
         while (in.ready()) {
@@ -209,10 +196,6 @@ public class WiFiController
             if (bytesRead == -1) break;
         }
     }
-
-    /**
-     * Cleans up network connection resources.
-     */
     private void cleanupConnection() {
         try {
             if (out != null) out.close();
@@ -225,11 +208,6 @@ public class WiFiController
         }
     }
 
-    /**
-     * Processes incoming messages from the ESP8266.
-     *
-     * @param message The message received from the microcontroller.
-     */
     private void processIncomingMessage(String message) {
         // Filter out AT commands and empty messages
         if (message.isEmpty() || message.startsWith("AT+")) {
@@ -246,6 +224,20 @@ public class WiFiController
             appRunning = false;
             startActivated = false;
             resetActivated = true;
+            // Reset all radio buttons
+            redToggleGroup.selectToggle(null);
+            greenToggleGroup.selectToggle(null);
+            blueToggleGroup.selectToggle(null);
+            yellowToggleGroup.selectToggle(null);
+            purpleToggleGroup.selectToggle(null);
+            orangeToggleGroup.selectToggle(null);
+            blackToggleGroup.selectToggle(null);
+            whiteToggleGroup.selectToggle(null);
+
+            // Reset token colors
+            changeLeftTokenColor(Color.BLUE);
+            changeRightTokenColor(Color.RED);
+
         }
         else {
             // Update GUI based on received color code if none of above is true
@@ -255,14 +247,11 @@ public class WiFiController
         }
     }
 
-    /**
-     * Sends data to the connected ESP8266 microcontroller.
-     *
-     * @param data The data to be sent to the microcontroller.
-     */
+    // Send data to microcontroller
     public void sendData(String data) {
         if (out != null && !clientSocket.isClosed()) {
             out.println(data);
+            out.flush(); // added this for force sending
             System.out.println("Sent to ESP8266: " + data);
         } else {
             System.err.println("Cannot send data - no active connection");
@@ -270,9 +259,6 @@ public class WiFiController
         }
     }
 
-    /**
-     * Shows a connection error dialog when communication with the ESP8266 fails.
-     */
     private void showConnectionError() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Connection Error");
@@ -281,11 +267,7 @@ public class WiFiController
         alert.showAndWait();
     }
 
-    /**
-     * Changes the color of the circles based on commands received from the ESP8266.
-     *
-     * @param command The command specifying which color to display and on which side.
-     */
+    // Existing color change methods with slight modifications
     @FXML
     public void changeCircleColorBasedOnData(String command) {
         if(resetActivated)
@@ -299,7 +281,7 @@ public class WiFiController
             case "B": changeRightTokenColor(Color.BLUE); break;
             case "C": changeRightTokenColor(Color.GREEN); break;
             case "D": changeRightTokenColor(Color.YELLOW); break;
-            case "E": changeRightTokenColor(Color.PURPLE); break;
+            case "E": changeRightTokenColor(Color.DEEPPINK); break;
             case "F": changeRightTokenColor(Color.ORANGE); break;
             case "G": changeRightTokenColor(Color.BLACK); break;
             case "H": changeRightTokenColor(Color.WHITE); break;
@@ -307,7 +289,7 @@ public class WiFiController
             case "b": changeLeftTokenColor(Color.BLUE); break;
             case "c": changeLeftTokenColor(Color.GREEN); break;
             case "d": changeLeftTokenColor(Color.YELLOW); break;
-            case "e": changeLeftTokenColor(Color.PURPLE); break;
+            case "e": changeLeftTokenColor(Color.DEEPPINK); break;
             case "f": changeLeftTokenColor(Color.ORANGE); break;
             case "g": changeLeftTokenColor(Color.BLACK); break;
             case "h": changeLeftTokenColor(Color.WHITE); break;
@@ -316,29 +298,20 @@ public class WiFiController
         }
     }
 
-
-    /**
-     * Handles the start button action, initiating the color sorting process.
-     *
-     * @param actionEvent The event triggered by clicking the start button.
-     */
+    // Button handlers
+    /* start button */
     @FXML
     public void handleButtonAction(ActionEvent actionEvent) {
-    
+
         startActivated = true;
         resetActivated = false;
         applyActivated = false;
 
-        sendData("<S>S<E>\r\n");
+        sendData("SSS\r\n");
 
         appRunning = true;
     }
 
-    /**
-     * Gets the currently selected color directions as a formatted string.
-     *
-     * @return A string containing all selected color directions in the format "a#A#c#C#..." etc.
-     */
     public String getSelectedColorSides()
     {
         String selection = "";
@@ -370,35 +343,20 @@ public class WiFiController
         return selection;
     }
 
-    /**
-     * Changes the color of the left token circle.
-     *
-     * @param color The new color for the left token.
-     */
     @FXML
-    public void changeLeftTokenColor(Color color) {
+    public void changeLeftTokenColor(Color color)
+    {
         Objects.requireNonNull(leftToken, "leftToken not initialized!");
         leftToken.setFill(color);
 
     }
-
-    /**
-     * Changes the color of the right token circle.
-     *
-     * @param color The new color for the right token.
-     */
     @FXML
-    public void changeRightTokenColor(Color color) {
+    public void changeRightTokenColor(Color color)
+    {
         Objects.requireNonNull(rightToken, "rightToken not initialized!");
         rightToken.setFill(color);
     }
 
-
-    /**
-     * Handles the apply button action, sending color direction configurations to the ESP8266.
-     *
-     * @param actionEvent The event triggered by clicking the apply button.
-     */
     @FXML
     public void handleApplyCommand(ActionEvent actionEvent)
     {
@@ -414,19 +372,41 @@ public class WiFiController
         }
         else
         {
-            // Sending data in format: <S> data <E>
-            sendData("<S>"+selColors+"<E>\r\n");
+            /* Sending data in format: <S> data <E>*/
+            sendData("0"+selColors+"1\r\n");
         }
         /*
-        * TODO: implement save option.
-        * */
+         * TODO: implement save option.
+         * */
     }
 
-    /**
-     * Handles the reset button action, resetting the system to its initial state.
-     *
-     * @param actionEvent The event triggered by clicking the reset button.
-     */
+    @FXML
+    public void handleResetConnectionAction(ActionEvent actionEvent) {
+        System.out.println("Resetting connection...");
+
+        // Stop the current connection
+        stopServer();
+
+        // Clear any existing connection state
+        cleanupConnection();
+
+        // Reset flags
+        serverRunning = true;
+        appRunning = false;
+
+        // Restart the server
+        startServer();
+
+        // Show confirmation
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Connection Reset");
+            alert.setHeaderText("Connection has been reset");
+            alert.setContentText("Attempting to reconnect to the ESP8266 module...");
+            alert.showAndWait();
+        });
+    }
+
     @FXML
     public void handleResetAction(ActionEvent actionEvent)
     {
@@ -434,7 +414,7 @@ public class WiFiController
         startActivated = false;
         appRunning = false;
 
-        sendData("<S>R<E>\r\n");
+        sendData("EEE\r\n");
 
         if (executorService != null)
         {
@@ -458,17 +438,12 @@ public class WiFiController
 
     }
 
-    /**
-     * Initializes the controller after its root element has been processed.
-     * Sets up toggle groups, initial colors, and starts the server.
-     */
     @FXML
     public void initialize()
     {
         System.out.println("Initializing controller...");
         System.out.println("rightToken: " + (rightToken != null ? "set" : "NULL"));
         System.out.println("leftToken: " + (leftToken != null ? "set" : "NULL"));
-
         // Initialize toggle set
         redLeft.setToggleGroup(redToggleGroup);
         redRight.setToggleGroup(redToggleGroup);
@@ -497,7 +472,7 @@ public class WiFiController
         changeLeftTokenColor(Color.BLUE);
         changeRightTokenColor(Color.RED);
 
-       new Thread(() -> {
+        new Thread(() -> {
             try {
                 // Small delay to ensure UI is fully loaded
                 Thread.sleep(500);
@@ -511,11 +486,6 @@ public class WiFiController
 
     }
 
-    /**
-     * Handles the exit button action, showing a confirmation dialog before exiting.
-     *
-     * @param event The event triggered by clicking the exit button.
-     */
     @FXML
     public void handleExitAction(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -531,10 +501,8 @@ public class WiFiController
         }
     }
 
-    /**
-     * Stops all running processes and cleans up resources before application exit.
-     */
     private void stopAllProcesses() {
+
         startActivated = false;
         resetActivated = true;
 

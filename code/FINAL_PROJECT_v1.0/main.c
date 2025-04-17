@@ -5,8 +5,22 @@
  * Created on 14. april 2025., 10.49
  */
 
+#pragma config FNOSC = FRCPLL    // FRC sa PLL omogucen
+#pragma config FCKSM = CSECMD // Clock switching enabled, fail-safe clock monitor disabled
+#pragma config OSCIOFNC = OFF  // OSC2/CLKO is not a clock output
+#pragma config POSCMOD = NONE  // Primary oscillator disabled
+#pragma config IESO = OFF      // Two-speed oscillator start-up disabled
+#pragma config JTAGEN = OFF    // JTAG disabled
+#pragma config FWDTEN = OFF    // Watchdog timer disabled
 
-#include "xc.h"
+#include <xc.h>      // Ukljucivanje osnovne biblioteke za mikrokontroler
+#include <string.h>  // Biblioteka za rad sa stringovima
+#include <stdlib.h>  // Standardna biblioteka 
+#define FCY 16000000UL // Definisanje frekvencije CPU-a
+#include "CONFIG.h"
+#include <libpic30.h> // Biblioteka za kasnjenja (__delay_ms i __delay_us)
+#include "WIFI.h"
+#include "SERVO.h"
 #include "CONFIG.h"
 
 
@@ -103,16 +117,28 @@ void processDataFromColorSensor(const char* data)
 
 int main(void)
 {
+    configureOscillator();
     configureAllComponents();
-    
+  
     while(1)
     {
         
-        char* color = readColor();
+        /*char* color = readColor();
         if(strcmp(color,"NO")!=0)
         {
             processDataFromColorSensor(color);
-        }
+        }*/
+        
+        LATBbits.LATB6 = 1;
+        __delay_ms(500);
+        LATBbits.LATB6 = 0;
+        __delay_ms(500);
+        
+        moveLeft();
+        __delay_ms(500);
+        moveMiddle();
+        __delay_ms(500);
+        
     }
     return 0;
 }

@@ -80,8 +80,8 @@ void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void)
 
 void configureAllComponents()
 {
-    colorClickConfiguration();
-    configurePPS();
     configureIO();
+    configurePPS();
+    colorClickConfiguration();
     outputCompareConfig();
 }

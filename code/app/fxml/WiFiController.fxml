@@ -7,15 +7,14 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WiFiController">
 
-    <!-- Dugme za primenu komande -->
     <Button fx:id="applyButton" layoutX="366.0" layoutY="77.0" onAction="#handleApplyCommand" prefHeight="46.0" prefWidth="72.0" text="SAVE" AnchorPane.leftAnchor="366.0" AnchorPane.topAnchor="77.0">
       <font>
          <Font name="Consolas Bold" size="14.0" />
       </font></Button>
+    <Button fx:id="resetConnectionButton" layoutX="761.0" layoutY="14.0" onAction="#handleResetConnectionAction" text="Reset Connection" />
 
     <Circle fx:id="leftToken" centerX="500.0" centerY="300.0" fill="blue" radius="50.0" stroke="white" strokeWidth="2" />
     <Circle fx:id="rightToken" centerX="650.0" centerY="300.0" fill="red" radius="50.0" stroke="white" strokeWidth="2" />
-    <!-- Boje žetona sa opcijama -->
     <VBox layoutX="50" layoutY="50" spacing="20">
         <HBox alignment="CENTER_LEFT" spacing="20">
             <Circle fill="red" radius="20" stroke="white" strokeWidth="1" />
@@ -38,7 +37,7 @@
             <RadioButton fx:id="yellowRight" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Consolas';" text="RIGHT" />
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="20">
-            <Circle fill="purple" radius="20" stroke="white" strokeWidth="1" />
+            <Circle fill="#e02894" radius="20" stroke="white" strokeWidth="1" />
             <RadioButton fx:id="purpleLeft" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Consolas';" text="LEFT" />
             <RadioButton fx:id="purpleRight" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Consolas';" text="RIGHT" />
         </HBox>
@@ -68,12 +67,11 @@
             <Font name="Consolas Bold" size="14.0" />
         </font>
     </Button>
-   <Button fx:id="exitButton" layoutX="780.0" layoutY="529.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="72.0" text="EXIT" onAction="#handleExitAction">
+   <Button fx:id="exitButton" layoutX="780.0" layoutY="529.0" mnemonicParsing="false" onAction="#handleExitAction" prefHeight="46.0" prefWidth="72.0" text="EXIT">
       <font>
          <Font name="Consolas Bold" size="14.0" />
       </font>
    </Button>
-    <!-- Dugme sa stilizovanim izgledom -->
     <Button fx:id="startButton" layoutX="444.0" layoutY="529.0" onAction="#handleButtonAction" prefHeight="42.0" prefWidth="72.0" style="-fx-font-size: 16px; -fx-padding: 10px;" text="START" textAlignment="CENTER">
         <font>
             <Font name="Consolas Bold" size="14.0" />
