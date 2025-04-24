@@ -63,6 +63,9 @@ void stopAll()
     LATBbits.LATB6 = 0;
     moveMiddle();
     __delay_ms(100);
+    WS2812_Set_Color(0,0,0);
+    WS2812_Set_Color(0,0,0);
+    WS2812_Set_Color(0,0,0);
     sendData("R\r\n");
 }
 
