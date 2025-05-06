@@ -1,0 +1,24 @@
+digraph "I2C_stop"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="I2C_stop",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Initiate I2C STOP condition and wait for completion."];
+  Node1 -> Node2 [id="edge9_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="request_data",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#aec77d8883de54418f21f5e7059c25427",tooltip="Send a command and read back one 16-bit register."];
+  Node2 -> Node3 [id="edge10_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="readColor",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#a140a3698efffb3d00c4643d18d2af932",tooltip="Read averaged normalized color values and detect color name."];
+  Node3 -> Node4 [id="edge11_Node000003_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="main",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$main_8c.html#a840291bc02cba5474a4cb46a9b9566fe",tooltip="Main application function."];
+  Node1 -> Node5 [id="edge12_Node000001_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="set_slave",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#a9b08272c5a08112db09aefaf13669dc0",tooltip="Initialize sensor registers for measurement."];
+  Node5 -> Node6 [id="edge13_Node000005_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="I2C_config",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#a59215e277210db3762f6ca0cfcdb3d63",tooltip="Configure I2C module parameters and prepare sensor."];
+  Node6 -> Node7 [id="edge14_Node000006_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="colorClickConfiguration",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#a1d78c09270f7ef97fbc044908cefdc53",tooltip="Perform system and sensor setup then indicate ready."];
+  Node7 -> Node8 [id="edge15_Node000007_Node000008",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node8 [id="Node000008",label="configureAllComponents",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_c_o_n_f_i_g_8c.html#afd34bcfa8f295c711b375c171d359176",tooltip="Initializes and configures all components."];
+  Node8 -> Node4 [id="edge16_Node000008_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+}

@@ -1,87 +1,90 @@
-/*
- * @author: Dejana S.
- */
+/******************************************************************************
+ * Faculty of Electrical Engineering
+ * MKS 2025
+ * https://github.com/lukavidic/ColorSorter_C.git
+ *****************************************************************************
+ *
+ * @file    main.c
+ * @brief   Application entry point and main processing loop.
+ *
+ * @details
+ *   Initializes system components, sets up Wi-Fi connection, and enters
+ *   an infinite loop where color sensor data is read and processed. LED
+ *   indicates active sensing, and servo is centered between measurements.
+ *
+ *****************************************************************************/
 
-#pragma config FNOSC = FRCPLL    // FRC sa PLL omogucen
-#pragma config FCKSM = CSECMD // Clock switching enabled, fail-safe clock monitor disabled
-#pragma config OSCIOFNC = OFF  // OSC2/CLKO is not a clock output
-#pragma config POSCMOD = NONE  // Primary oscillator disabled
-#pragma config IESO = OFF      // Two-speed oscillator start-up disabled
-#pragma config JTAGEN = OFF    // JTAG disabled
-#pragma config FWDTEN = OFF    // Watchdog timer disabled
+#pragma config FNOSC = FRCPLL    // FRC with PLL enabled
+#pragma config FCKSM = CSECMD    // Clock switching enabled, fail-safe disabled
+#pragma config OSCIOFNC = OFF    // OSC2/CLKO is not a clock output
+#pragma config POSCMOD = NONE    // Primary oscillator disabled
+#pragma config IESO = OFF        // Two-speed start-up disabled
+#pragma config JTAGEN = OFF      // JTAG disabled
+#pragma config FWDTEN = OFF      // Watchdog timer disabled
 
-#include <xc.h>      // Ukljucivanje osnovne biblioteke za mikrokontroler
-#include <string.h>  // Biblioteka za rad sa stringovima
-#include <stdlib.h>  // Standardna biblioteka 
-#define FCY 16000000UL // Definisanje frekvencije CPU-a
-#include <libpic30.h> // Biblioteka za kasnjenja (__delay_ms i __delay_us)
+#include <xc.h>
+#include <string.h>
+#include <stdlib.h>
+#define FCY 16000000UL
+#include <libpic30.h>
+#include "CONFIG.h"
 #include "WIFI.h"
 #include "SERVO.h"
-volatile uint8_t flag = 0;
 
-void toggleLED()
+/**
+ * @brief   Main application function.
+ *
+ * @details
+ *   Configures all hardware components, establishes UART connection,
+ *   and sets initial color buffer values. Then continuously polls
+ *   Wi-Fi for commands, toggles LED, reads color data, processes it,
+ *   and returns servo to middle position.
+ *
+ * @return  int Always returns 0 (never reached).
+ */
+int main(void)
 {
-    LATBbits.LATB6 = ~LATBbits.LATB6;
-}
+    int i = 0;
 
-/*void __attribute__((interrupt, auto_psv)) _CNInterrupt(void){
-    IEC1bits.CNIE = 0; // disable interrupt for little amount of time
-    LATBbits.LATB6 = ~LATBbits.LATB6;
-    flag = 1;
-   // __delay_ms(50); // software debouncing 
-    IEC1bits.CNIE = 1;
-    IFS1bits.CNIF = 0;
-}*/
-
-//sa int0
-/*
-void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void) {
-    
-    LATBbits.LATB6 = ~LATBbits.LATB6; // Just for debugging
-    flag = ~flag;  // program flag
-    IFS0bits.INT0IF = 0;  // Clear INT0 flag
-}*/
-
-int main() 
-{
-    configureOscillator();
-    
-    //configureOscillatorServo();
-    configureIO();
-    configurePPS();
+    /* Initialize all system components */
+    configureAllComponents();
     configureU1();
     setupConnection();
-    //configurePins();
-  
-    output_compare_config();
-    __delay_ms(1000);           // Wait for stable PWM
-    // timer1_config();
-    
-    //__builtin_enable_interrupts();
-    
-   
-    
-    while (1) 
+
+    /* Preload color buffer codes */
+    colorBuffer[0] = 'A'; // red
+    colorBuffer[1] = 'c'; // green
+    colorBuffer[2] = 'b'; // blue
+    colorBuffer[3] = 'D'; // yellow
+    colorBuffer[4] = 'e'; // pink
+    colorBuffer[5] = 'F'; // orange
+    colorBuffer[6] = 'G'; // black
+    colorBuffer[7] = 'h'; // white
+
+    /* Main processing loop */
+    while (1)
     {
-        moveMiddle();
-        
-        __delay_ms(500); // simulation of reading from color sensor
-        
-        sendData(GREEN_R); // send through wifi reading
-        __delay_ms(1000);
-        
-        moveLeft();
-        __delay_ms(500);
-        
-        moveMiddle();
-        __delay_ms(500);
-        
-         sendData(PURPLE_R); // send through wifi reading
-        __delay_ms(1000);
-        
-        moveRight();
-        __delay_ms(500);
-        
+        pollWiFi();
+
+        if (flag == 0)
+        {
+            turnOnLED();
+            pollWiFi();
+            __delay_ms(100);
+
+            char* color = readColor();
+
+            pollWiFi();
+            processDataFromColorSensor(color);
+
+            pollWiFi();
+            turnOffLED();
+            moveMiddle();
+
+            pollWiFi();
+            __delay_ms(250);
+        }
     }
+
     return 0;
 }

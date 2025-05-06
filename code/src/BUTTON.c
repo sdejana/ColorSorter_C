@@ -1,25 +1,18 @@
-/*
- * File:   BUTTON.c
- * Author: 23dej
+/******************************************************************************
+ * Faculty of Electrical Engineering
+ * MKS 2025
+ * https://github.com/lukavidic/ColorSorter_C.git
+ ******************************************************************************
  *
- * Created on April 10, 2025, 3:33 PM
- */
-
+ * @file   BUTTON
+ *
+ * @details
+ *   This file implements functions related to button handling on the
+ *   microcontroller. It provides initialization and debounce checking
+ *   functionalities for user input buttons.
+ *
+ ******************************************************************************/
 
 #include "xc.h"
 #include "BUTTON.h"
-#include "WIFI.h"
-
-void __attribute__((interrupt, auto_psv)) _INT0Interrupt(void) 
-{
-    IEC0bits.INT0IE = 0;
-    flag = ~flag;
-    if(flag)
-    {
-        stopAll();
-    }
-    IEC0bits.INT0IE = 1;
-    IFS0bits.INT0IF = 0;  // Clear INT0 flag
-}
-
-
+#include "CONFIG.h"

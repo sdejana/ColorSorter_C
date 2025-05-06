@@ -1,0 +1,86 @@
+\doxysection{src/\+SERVO.c File Reference}
+\hypertarget{_s_e_r_v_o_8c}{}\label{_s_e_r_v_o_8c}\index{src/SERVO.c@{src/SERVO.c}}
+{\ttfamily \#include "{}xc.\+h"{}}\newline
+{\ttfamily \#include "{}SERVO.\+h"{}}\newline
+{\ttfamily \#include "{}WIFI.\+h"{}}\newline
+{\ttfamily \#include $<$libpic30.\+h$>$}\newline
+Include dependency graph for SERVO.\+c\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_s_e_r_v_o_8c_adec4cfb449be449b50e176a703da3d64}{output\+Compare\+Config}} (void)
+\begin{DoxyCompactList}\small\item\em Configures Output Compare and Timer2 for servo PWM. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_s_e_r_v_o_8c_a75a0eee893b93c50892a823656265963}{configure\+Oscillator\+Servo}} (void)
+\begin{DoxyCompactList}\small\item\em Reconfigures system oscillator for servo routines. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_s_e_r_v_o_8c_a79e0ffb3627637312d9490214ce15746}{move\+Left}} (void)
+\begin{DoxyCompactList}\small\item\em Moves servo to leftmost position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_s_e_r_v_o_8c_a110abe3fbd973c9e85403c9d16581851}{move\+Right}} (void)
+\begin{DoxyCompactList}\small\item\em Moves servo to rightmost position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_s_e_r_v_o_8c_ad268d545633f7bb3df24643db473ca22}{move\+Middle}} (void)
+\begin{DoxyCompactList}\small\item\em Moves servo to middle position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_s_e_r_v_o_8c_a75a0eee893b93c50892a823656265963}\index{SERVO.c@{SERVO.c}!configureOscillatorServo@{configureOscillatorServo}}
+\index{configureOscillatorServo@{configureOscillatorServo}!SERVO.c@{SERVO.c}}
+\doxysubsubsection{\texorpdfstring{configureOscillatorServo()}{configureOscillatorServo()}}
+{\footnotesize\ttfamily \label{_s_e_r_v_o_8c_a75a0eee893b93c50892a823656265963} 
+void configure\+Oscillator\+Servo (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Reconfigures system oscillator for servo routines. 
+
+Reconfigure system oscillator for servo routines.
+
+Sets the frequency divider to zero, selects FRC with PLL, confirms change, and waits for oscillator switch completion. Ensures consistent clock for servo PWM generation. \Hypertarget{_s_e_r_v_o_8c_a79e0ffb3627637312d9490214ce15746}\index{SERVO.c@{SERVO.c}!moveLeft@{moveLeft}}
+\index{moveLeft@{moveLeft}!SERVO.c@{SERVO.c}}
+\doxysubsubsection{\texorpdfstring{moveLeft()}{moveLeft()}}
+{\footnotesize\ttfamily \label{_s_e_r_v_o_8c_a79e0ffb3627637312d9490214ce15746} 
+void move\+Left (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Moves servo to leftmost position. 
+
+Move servo to leftmost position. Here is the caller graph for this function\+:
+% FIG 1
+\Hypertarget{_s_e_r_v_o_8c_ad268d545633f7bb3df24643db473ca22}\index{SERVO.c@{SERVO.c}!moveMiddle@{moveMiddle}}
+\index{moveMiddle@{moveMiddle}!SERVO.c@{SERVO.c}}
+\doxysubsubsection{\texorpdfstring{moveMiddle()}{moveMiddle()}}
+{\footnotesize\ttfamily \label{_s_e_r_v_o_8c_ad268d545633f7bb3df24643db473ca22} 
+void move\+Middle (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Moves servo to middle position. 
+
+Move servo to middle (neutral) position. Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{_s_e_r_v_o_8c_a110abe3fbd973c9e85403c9d16581851}\index{SERVO.c@{SERVO.c}!moveRight@{moveRight}}
+\index{moveRight@{moveRight}!SERVO.c@{SERVO.c}}
+\doxysubsubsection{\texorpdfstring{moveRight()}{moveRight()}}
+{\footnotesize\ttfamily \label{_s_e_r_v_o_8c_a110abe3fbd973c9e85403c9d16581851} 
+void move\+Right (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Moves servo to rightmost position. 
+
+Move servo to rightmost position. Here is the caller graph for this function\+:
+% FIG 3
+\Hypertarget{_s_e_r_v_o_8c_adec4cfb449be449b50e176a703da3d64}\index{SERVO.c@{SERVO.c}!outputCompareConfig@{outputCompareConfig}}
+\index{outputCompareConfig@{outputCompareConfig}!SERVO.c@{SERVO.c}}
+\doxysubsubsection{\texorpdfstring{outputCompareConfig()}{outputCompareConfig()}}
+{\footnotesize\ttfamily \label{_s_e_r_v_o_8c_adec4cfb449be449b50e176a703da3d64} 
+void output\+Compare\+Config (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Configures Output Compare and Timer2 for servo PWM. 
+
+Configure PWM output compare and Timer2 for servo control.
+
+Resets Timer2, sets prescaler to 1\+:8, configures PR2 for 50Hz PWM, initializes OC1R and OC1\+RS to middle position, sets OC1 mode to edge-\/aligned PWM, selects Timer2 as clock source, and starts Timer2. Here is the caller graph for this function\+:
+% FIG 4

@@ -1,56 +1,50 @@
-/* Microchip Technology Inc. and its subsidiaries.  You may use this software 
- * and any derivatives exclusively with Microchip products. 
- * 
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES, WHETHER 
- * EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
- * WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A 
- * PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION 
- * WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION. 
+/******************************************************************************
+ * Faculty of Electrical Engineering
+ * MKS 2025
+ * https://github.com/lukavidic/ColorSorter_C.git
+ ******************************************************************************
  *
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
- * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
- * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
- * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE 
- * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS 
- * IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF 
- * ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * @file    system.h
+ * @brief   System initialization interface and core frequency definition.
  *
- * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE 
- * TERMS. 
- */
+ * @details
+ *   Defines the system crystal frequency macro and declares the
+ *   SYSTEM_Initialize function for initializing system-wide modules
+ *   such as pin manager, interrupt manager, and other peripherals.
+ *
+ * @note    _XTAL_FREQ must match the actual oscillator frequency.
+ *
+ * @date    10 April 2025
+ *******************************************************************************/
 
-/* 
- * File:   
- * Author: 
- * Comments:
- * Revision history: 
- */
-
-// This is a guard condition so that contents of this file are not included
-// more than once.  
 #ifndef _XTAL_FREQ
+/**
+ * @def     _XTAL_FREQ
+ * @brief   CPU clock frequency in Hertz (32 MHz).
+ */
 #define _XTAL_FREQ  32000000UL
 #endif
 
 #include "xc.h"
 #include "stdint.h"
+#include "pin_manager.h"
+#include "interrupt_manager.h"
 
 #ifndef SYSTEM_H
-#define	SYSTEM_H
+#define SYSTEM_H
 
 /**
- * @Param
-    none
- * @Returns
-    none
- * @Description
-    Initializes the device to the default states configured in the
- *                  MCC GUI
- * @Example
-    SYSTEM_Initialize(void);
+ * @brief   Perform system-level initialization.
+ *
+ * @details
+ *   Sets up core peripherals by calling initialization routines for
+ *   pin manager, interrupt manager, and other modules as needed.
  */
 void SYSTEM_Initialize(void);
-#endif	/* SYSTEM_H */
+
+#endif  /* SYSTEM_H */
+
 /**
- End of File
-*/
+ * @brief   End of File marker.
+ */
+/** End of File */

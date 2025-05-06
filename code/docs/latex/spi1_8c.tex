@@ -1,0 +1,182 @@
+\doxysection{src/spi1.c File Reference}
+\hypertarget{spi1_8c}{}\label{spi1_8c}\index{src/spi1.c@{src/spi1.c}}
+{\ttfamily \#include "{}spi1.\+h"{}}\newline
+Include dependency graph for spi1.\+c\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{spi1_8c_a0607cad7a6b302950091fea719146a54}{SPI1\+\_\+\+Initialize}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes the SPI1 peripheral. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{spi1_8c_ae318f05ebb6973a6620b67e61833c12b}{SPI1\+\_\+\+Exchange}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}p\+Transmit\+Data, uint8\+\_\+t \texorpdfstring{$\ast$}{*}p\+Receive\+Data)
+\begin{DoxyCompactList}\small\item\em Exchanges one byte over SPI1. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{spi1_8c_a25723d28d814934bf890e1e984a4c8d0}{SPI1\+\_\+\+Exchange\+Buffer}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}p\+Transmit\+Data, uint16\+\_\+t byte\+Count, uint8\+\_\+t \texorpdfstring{$\ast$}{*}p\+Receive\+Data)
+\begin{DoxyCompactList}\small\item\em Exchanges multiple bytes over SPI1. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{spi1_8c_a6553e18263c48505676958ce4c937167}{SPI1\+\_\+\+Exchange8bit}} (uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Exchanges a single byte and returns the received byte. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{spi1_8c_a466cff635af902560dbb6dacb5ace1bf}{SPI1\+\_\+\+Exchange8bit\+Buffer}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}data\+Transmitted, uint16\+\_\+t byte\+Count, uint8\+\_\+t \texorpdfstring{$\ast$}{*}data\+Received)
+\begin{DoxyCompactList}\small\item\em Exchanges multiple bytes and returns the count. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{spi1_8c_a4d1cdb4320aad66e1397f2cd7a0c0eac}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((\+\_\+\+\_\+always\+\_\+inline\+\_\+\+\_\+))
+\begin{DoxyCompactList}\small\item\em Gets the current SPI1 transfer mode. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{spi1_8h_a023db59f6551e56ce57ee219df328012}{SPI1\+\_\+\+STATUS}} \mbox{\hyperlink{spi1_8c_a05acfdd41894527bd8833b8f549680ed}{SPI1\+\_\+\+Status\+Get}} (void)
+\begin{DoxyCompactList}\small\item\em Retrieves the SPI1 status register. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{spi1_8c_a4d1cdb4320aad66e1397f2cd7a0c0eac}\index{spi1.c@{spi1.c}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!spi1.c@{spi1.c}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}}
+{\footnotesize\ttfamily \label{spi1_8c_a4d1cdb4320aad66e1397f2cd7a0c0eac} 
+\+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(\+\_\+\+\_\+always\+\_\+inline\+\_\+\+\_\+)}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the current SPI1 transfer mode. 
+
+The module\textquotesingle{}s transfer mode affects the operation of the exchange functions. The table below shows the effect on data sent or received\+: \texorpdfstring{$\vert$}{|}=======================================================================\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} Transfer Mode \texorpdfstring{$\vert$}{|} Exchange Function \texorpdfstring{$\vert$}{|} Comments \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}=======================================================================\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} SPIx\+\_\+\+Exchange8bit\+Buffer() \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$\vert$}{|} OK \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} SPIx\+\_\+\+Exchange8bit() \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} 8 bits \texorpdfstring{$\vert$}{|}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$\vert$}{|}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} SPIx\+\_\+\+Exchange16bit\+Buffer() \texorpdfstring{$\vert$}{|} Do not use. Only the \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---\texorpdfstring{$\vert$}{|} lower byte of the 16-\/bit\texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} \texorpdfstring{$\vert$}{|} SPIx\+\_\+\+Exchange16bit() \texorpdfstring{$\vert$}{|} data will be sent or \texorpdfstring{$\vert$}{|} \tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ received.    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ received.    }\\\cline{1-3}
+\endhead
+&SPIx\+\_\+\+Exchange8bit\+Buffer()   &Do not use. Additional    \\\cline{1-3}
+&-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   &data byte will be    \\\cline{1-3}
+&SPIx\+\_\+\+Exchange8bit()   &inserted for each    \\\cline{1-3}
+&&8-\/bit data.    \\\cline{1-3}
+16 bits   &-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   &-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---    \\\cline{1-3}
+&SPIx\+\_\+\+Exchange16bit\+Buffer()   &\\\cline{1-3}
+&-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   &OK    \\\cline{1-3}
+&SPIx\+\_\+\+Exchange16bit()   &\\\cline{1-3}
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   &-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   &-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---   \\\cline{1-3}
+\end{longtabu}
+
+
+\begin{DoxyReturn}{Returns}
+\doxylink{spi1_8h_a46876d5bc7fb1c46f19f110b9f9b6c51}{SPI1\+\_\+\+TRANSFER\+\_\+\+MODE} Current mode (8-\/bit or 16-\/bit). 
+\end{DoxyReturn}
+\Hypertarget{spi1_8c_ae318f05ebb6973a6620b67e61833c12b}\index{spi1.c@{spi1.c}!SPI1\_Exchange@{SPI1\_Exchange}}
+\index{SPI1\_Exchange@{SPI1\_Exchange}!spi1.c@{spi1.c}}
+\doxysubsubsection{\texorpdfstring{SPI1\_Exchange()}{SPI1\_Exchange()}}
+{\footnotesize\ttfamily \label{spi1_8c_ae318f05ebb6973a6620b67e61833c12b} 
+void SPI1\+\_\+\+Exchange (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{p\+Transmit\+Data}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{p\+Receive\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Exchanges one byte over SPI1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Transmit\+Data} & Pointer to byte to transmit. \\
+\hline
+{\em p\+Receive\+Data} & Pointer to variable to store received byte.\\
+\hline
+\end{DoxyParams}
+Waits until transmit buffer is empty, writes data to SPI1\+BUF, then waits until receive buffer has data and reads it back. Here is the caller graph for this function\+:
+% FIG 1
+\Hypertarget{spi1_8c_a6553e18263c48505676958ce4c937167}\index{spi1.c@{spi1.c}!SPI1\_Exchange8bit@{SPI1\_Exchange8bit}}
+\index{SPI1\_Exchange8bit@{SPI1\_Exchange8bit}!spi1.c@{spi1.c}}
+\doxysubsubsection{\texorpdfstring{SPI1\_Exchange8bit()}{SPI1\_Exchange8bit()}}
+{\footnotesize\ttfamily \label{spi1_8c_a6553e18263c48505676958ce4c937167} 
+uint8\+\_\+t SPI1\+\_\+\+Exchange8bit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Exchanges a single byte and returns the received byte. 
+
+Exchange a single 8-\/bit data word over SPI1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Byte to send. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t Received byte. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\Hypertarget{spi1_8c_a466cff635af902560dbb6dacb5ace1bf}\index{spi1.c@{spi1.c}!SPI1\_Exchange8bitBuffer@{SPI1\_Exchange8bitBuffer}}
+\index{SPI1\_Exchange8bitBuffer@{SPI1\_Exchange8bitBuffer}!spi1.c@{spi1.c}}
+\doxysubsubsection{\texorpdfstring{SPI1\_Exchange8bitBuffer()}{SPI1\_Exchange8bitBuffer()}}
+{\footnotesize\ttfamily \label{spi1_8c_a466cff635af902560dbb6dacb5ace1bf} 
+uint16\+\_\+t SPI1\+\_\+\+Exchange8bit\+Buffer (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data\+Transmitted}{, }\item[{uint16\+\_\+t}]{byte\+Count}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data\+Received}{}\end{DoxyParamCaption})}
+
+
+
+Exchanges multiple bytes and returns the count. 
+
+Exchange multiple 8-\/bit data words over SPI1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data\+Transmitted} & Pointer to transmit buffer. \\
+\hline
+{\em byte\+Count} & Number of bytes to exchange. \\
+\hline
+{\em data\+Received} & Pointer to receive buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint16\+\_\+t Number of bytes transmitted. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 4
+\Hypertarget{spi1_8c_a25723d28d814934bf890e1e984a4c8d0}\index{spi1.c@{spi1.c}!SPI1\_ExchangeBuffer@{SPI1\_ExchangeBuffer}}
+\index{SPI1\_ExchangeBuffer@{SPI1\_ExchangeBuffer}!spi1.c@{spi1.c}}
+\doxysubsubsection{\texorpdfstring{SPI1\_ExchangeBuffer()}{SPI1\_ExchangeBuffer()}}
+{\footnotesize\ttfamily \label{spi1_8c_a25723d28d814934bf890e1e984a4c8d0} 
+uint16\+\_\+t SPI1\+\_\+\+Exchange\+Buffer (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{p\+Transmit\+Data}{, }\item[{uint16\+\_\+t}]{byte\+Count}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{p\+Receive\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Exchanges multiple bytes over SPI1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Transmit\+Data} & Pointer to transmit buffer (or NULL to send dummy). \\
+\hline
+{\em byte\+Count} & Number of bytes to exchange. \\
+\hline
+{\em p\+Receive\+Data} & Pointer to receive buffer (or NULL to discard). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+uint16\+\_\+t Number of bytes transmitted.
+\end{DoxyReturn}
+Handles simultaneous transmit and receive of up to byte\+Count bytes. If transmit or receive buffer pointers are NULL, dummy data is used. Here is the caller graph for this function\+:
+% FIG 5
+\Hypertarget{spi1_8c_a0607cad7a6b302950091fea719146a54}\index{spi1.c@{spi1.c}!SPI1\_Initialize@{SPI1\_Initialize}}
+\index{SPI1\_Initialize@{SPI1\_Initialize}!spi1.c@{spi1.c}}
+\doxysubsubsection{\texorpdfstring{SPI1\_Initialize()}{SPI1\_Initialize()}}
+{\footnotesize\ttfamily \label{spi1_8c_a0607cad7a6b302950091fea719146a54} 
+void SPI1\+\_\+\+Initialize (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the SPI1 peripheral. 
+
+Initialize the SPI1 module.
+
+Configures SPI1 as master, sets clock polarity, phase, data input sample phase, buffer mode, and enables the module. Priorities are set by default. Here is the caller graph for this function\+:
+% FIG 6
+\Hypertarget{spi1_8c_a05acfdd41894527bd8833b8f549680ed}\index{spi1.c@{spi1.c}!SPI1\_StatusGet@{SPI1\_StatusGet}}
+\index{SPI1\_StatusGet@{SPI1\_StatusGet}!spi1.c@{spi1.c}}
+\doxysubsubsection{\texorpdfstring{SPI1\_StatusGet()}{SPI1\_StatusGet()}}
+{\footnotesize\ttfamily \label{spi1_8c_a05acfdd41894527bd8833b8f549680ed} 
+\mbox{\hyperlink{spi1_8h_a023db59f6551e56ce57ee219df328012}{SPI1\+\_\+\+STATUS}} SPI1\+\_\+\+Status\+Get (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Retrieves the SPI1 status register. 
+
+Get current SPI1 status flags.
+
+\begin{DoxyReturn}{Returns}
+\doxylink{spi1_8h_a023db59f6551e56ce57ee219df328012}{SPI1\+\_\+\+STATUS} Current contents of SPI1\+STAT. 
+\end{DoxyReturn}

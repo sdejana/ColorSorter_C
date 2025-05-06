@@ -1,123 +1,65 @@
+/******************************************************************************
+ * Faculty of Electrical Engineering
+ * MKS 2025
+ * https://github.com/lukavidic/ColorSorter_C.git
+ *****************************************************************************
+ *
+ * @file    interrupt_manager.h
+ * @brief   Interrupt controller interface.
+ *
+ * @details
+ *   Provides initialization and control functions for the interrupt system,
+ *   including global enable/disable and retrieval of the current interrupt vector.
+ *
+ *********************************************************************************/
+
 #ifndef _INTERRUPT_MANAGER_H
 #define _INTERRUPT_MANAGER_H
 
+
 /**
-  @Summary
-    Initializes the interrupt priorities of the PIC24FJ64GA002
-
-  @Description
-    This routine sets the interrupt priorities of the modules that have been configured
-    for the PIC24FJ64GA002
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    void SYSTEM_Initialize(void)
-    {
-        // Other initializers are called from this function
-        INTERRUPT_Initialize ();
-    }
-    </code>
-
-*/
+ * @brief   Initializes interrupt priorities for configured peripherals.
+ *
+ * @details
+ *   Sets up the default interrupt priority levels and enables any
+ *   peripheral-specific interrupts as required. Must be called at system startup.
+ */
 void INTERRUPT_Initialize(void);
 
 /**
-  @Summary
-    Enables global interrupts of the PIC24FJ64GA002
-
-  @Description
-    This routine enables the global interrupt bit for the PIC24FJ64GA002
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    void SYSTEM_Initialize(void)
-    {
-        // Other initializers are called from this function
-        INTERRUPT_GlobalEnable ();
-    }
-    </code>
-
-*/
+ * @brief   Globally enable interrupts.
+ *
+ * @details
+ *   Enables all unmasked CPU interrupts.
+ */
 inline static void INTERRUPT_GlobalEnable(void)
 {
     __builtin_enable_interrupts();
 }
 
 /**
-  @Summary
-    Disables global interrupts of the PIC24FJ64GA002
-
-  @Description
-    This routine disables the global interrupt bit for the PIC24FJ64GA002
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    void SYSTEM_Initialize(void)
-    {
-        // Other initializers are called from this function
-        INTERRUPT_GlobalDisable ();
-    }
-    </code>
-
-*/
+ * @brief   Globally disable interrupts.
+ *
+ * @details
+ *   Disables all CPU interrupts, preventing any interrupt service routines
+ *   from executing until re-enabled.
+ */
 inline static void INTERRUPT_GlobalDisable(void)
 {
     __builtin_disable_interrupts();
 }
 
 /**
-  @Summary
-    Returns the interrupt vector number of the interrupt which is pending.
-
-  @Description
-    This routine returns the interrupt vector number of the interrupt which is pending.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-        uint16_t ivrNum;
-        ivrNum = INTERRUPT_VectorNumberGet();
-    </code>
-
-*/
+ * @brief   Retrieves the current interrupt vector number.
+ *
+ * @return  uint16_t  The vector number of the currently serviced interrupt.
+ *
+ * @details
+ *   Reads the _VECNUM register to identify which interrupt source is active.
+ */
 inline static uint16_t INTERRUPT_VectorNumberGet(void)
 {
     return _VECNUM; 
 }
 
-#endif
+#endif /* _INTERRUPT_MANAGER_H */

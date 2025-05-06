@@ -1,0 +1,21 @@
+digraph "SPI1_Exchange"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="SPI1_Exchange",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Exchanges one byte over SPI1."];
+  Node1 -> Node2 [id="edge7_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="SPI1_Exchange8bit",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$spi1_8c.html#a6553e18263c48505676958ce4c937167",tooltip="Exchange a single 8-bit data word over SPI1."];
+  Node2 -> Node3 [id="edge8_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="WS2812_Send_Byte",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#a30da27c967c427811646a5a6f66f495f",tooltip="Transmit one byte to WS2812 LED via SPI timing patterns."];
+  Node3 -> Node4 [id="edge9_Node000003_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="WS2812_Set_Color",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#ac514f6fc306af2953b77c609751a624e",tooltip="Set WS2812 LED strip color with GRB order."];
+  Node4 -> Node5 [id="edge10_Node000004_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="colorClickConfiguration",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#a1d78c09270f7ef97fbc044908cefdc53",tooltip="Perform system and sensor setup then indicate ready."];
+  Node5 -> Node6 [id="edge11_Node000005_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="configureAllComponents",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_c_o_n_f_i_g_8c.html#afd34bcfa8f295c711b375c171d359176",tooltip="Initializes and configures all components."];
+  Node6 -> Node7 [id="edge12_Node000006_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="main",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$main_8c.html#a840291bc02cba5474a4cb46a9b9566fe",tooltip="Main application function."];
+}

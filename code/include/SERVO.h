@@ -1,95 +1,92 @@
-/* Microchip Technology Inc. and its subsidiaries.  You may use this software 
- * and any derivatives exclusively with Microchip products. 
- * 
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS".  NO WARRANTIES, WHETHER 
- * EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
- * WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A 
- * PARTICULAR PURPOSE, OR ITS INTERACTION WITH MICROCHIP PRODUCTS, COMBINATION 
- * WITH ANY OTHER PRODUCTS, OR USE IN ANY APPLICATION. 
+/******************************************************************************
+ * Faculty of Electrical Engineering
+ * MKS 2025
+ * https://github.com/lukavidic/ColorSorter_C.git
+ *****************************************************************************
  *
- * IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
- * INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
- * WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
- * BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE 
- * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS 
- * IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF 
- * ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * @file    SERVO.h
+ * @brief   Servo control interface.
  *
- * MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE 
- * TERMS. 
- */
+ * @details
+ *   Declares functions for configuring PWM output and moving the servo
+ *   to predefined positions. Pulse widths are defined for left, middle,
+ *   and right positions using Timer ticks for 50Hz operation.
+ *
+ ******************************************************************************/
 
-/* 
- * File:   
- * Author: 
- * Comments:
- * Revision history: 
- */
-
-// This is a guard condition so that contents of this file are not included
-// more than once.  
 #ifndef _SERVO_H
-#define	_SERVO_H
+#define _SERVO_H
 
-#include <xc.h> // include processor files - each processor file is guarded.  
+#include <xc.h> // Include processor files
 
-// TODO Insert appropriate #include <>
-
-// TODO Insert C++ class definitions if appropriate
-
-// TODO Insert declarations
-// Servo position definitions (in timer ticks)
-#define SERVO_LEFT 4600      // 1ms pulse (0°)
-#define SERVO_MIDDLE 3150   // 1.5ms pulse (90°) 3150
-#define SERVO_RIGHT 1400      // 2ms pulse (180°)
-
-
-extern uint8_t position;
-// Comment a function and leverage automatic documentation with slash star star
 /**
-    <p><b>Function prototype:</b></p>
-  
-    <p><b>Summary:</b></p>
-
-    <p><b>Description:</b></p>
-
-    <p><b>Precondition:</b></p>
-
-    <p><b>Parameters:</b></p>
-
-    <p><b>Returns:</b></p>
-
-    <p><b>Example:</b></p>
-    <code>
- 
-    </code>
-
-    <p><b>Remarks:</b></p>
+ * @brief Servo left position pulse width.
+ *
+ * Pulse width for leftmost position: 1ms (OC1RS = 4600).
  */
-// TODO Insert declarations or function prototypes (right here) to leverage 
-// live documentation
+#define SERVO_LEFT   4600
 
-//void timer1_config(void);
-//void __attribute__((interrupt, auto_psv)) _T1Interrupt(void);
-void output_compare_config(void);
+/**
+ * @brief Servo middle position pulse width.
+ *
+ * Pulse width for neutral position: 1.5ms (OC1RS = 3150).
+ */
+#define SERVO_MIDDLE 3150
+
+/**
+ * @brief Servo right position pulse width.
+ *
+ * Pulse width for rightmost position: 2ms (OC1RS = 1400).
+ */
+#define SERVO_RIGHT  1400
+
+/**
+ * @brief Configure PWM output compare and Timer2 for servo control.
+ *
+ * @details
+ *   Sets up Timer2 prescaler and period for 50Hz, initializes output compare
+ *   registers, and starts the timer to generate PWM signal on OC1.
+ */
+void outputCompareConfig(void);
+
+/**
+ * @brief Reconfigure system oscillator for servo routines.
+ *
+ * @details
+ *   Selects FRC with PLL, resets clock divider, and waits for oscillator
+ *   switch completion to ensure stable clock for PWM generation.
+ */
 void configureOscillatorServo(void);
+
+/**
+ * @brief Move servo to leftmost position.
+ *
+ * @details
+ *   Updates OC1RS value to SERVO_LEFT pulse width.
+ */
 void moveLeft(void);
+
+/**
+ * @brief Move servo to rightmost position.
+ *
+ * @details
+ *   Updates OC1RS value to SERVO_RIGHT pulse width.
+ */
 void moveRight(void);
+
+/**
+ * @brief Move servo to middle (neutral) position.
+ *
+ * @details
+ *   Updates OC1RS value to SERVO_MIDDLE pulse width.
+ */
 void moveMiddle(void);
-
-
-
-
 #ifdef	__cplusplus
 extern "C" {
 #endif /* __cplusplus */
-
-    // TODO If C++ is being used, regular C code needs function names to have C 
-    // linkage so the functions can be used by the c code. 
 
 #ifdef	__cplusplus
 }
 #endif /* __cplusplus */
 
-#endif	/* XC_HEADER_TEMPLATE_H */
-
+#endif /* _SERVO_H */

@@ -1,0 +1,445 @@
+\doxysection{include/\+VEML3328.h File Reference}
+\hypertarget{_v_e_m_l3328_8h}{}\label{_v_e_m_l3328_8h}\index{include/VEML3328.h@{include/VEML3328.h}}
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+{\ttfamily \#include $<$libpic30.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include "{}system.\+h"{}}\newline
+Include dependency graph for VEML3328.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_v_e_m_l3328_8h_a99d7c812ba23bfdba5d29ec2fddf1e83}{FCY}}~16000000\+UL
+\item 
+\#define \mbox{\hyperlink{_v_e_m_l3328_8h_a779d4de076a58874cc2a85eae3d20004}{COLOR\+\_\+\+QUANTITY}}~9
+\item 
+\#define \mbox{\hyperlink{_v_e_m_l3328_8h_add28519412f37ec4551e30e2aa3cc130}{NUM\+\_\+\+OF\+\_\+\+SAMPLES}}~10
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_a82e0b267bb7f66d18278854d87414c86}{set\+\_\+slave}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize sensor registers for measurement. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_v_e_m_l3328_8h_a719575f5040d8125173aae2c42138fc7}{detect\+\_\+color}} (uint16\+\_\+t \texorpdfstring{$\ast$}{*}r, uint16\+\_\+t \texorpdfstring{$\ast$}{*}g, uint16\+\_\+t \texorpdfstring{$\ast$}{*}b)
+\begin{DoxyCompactList}\small\item\em Detect color name from normalized RGB triple. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{_v_e_m_l3328_8h_a1605896c4d3b3b9e2cfd2bd4ba0e013b}{calculate\+\_\+distance}} (int r1, int g1, int b1, int r2, int g2, int b2)
+\begin{DoxyCompactList}\small\item\em Compute Euclidean distance between two RGB triples. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_a30da27c967c427811646a5a6f66f495f}{WS2812\+\_\+\+Send\+\_\+\+Byte}} (uint8\+\_\+t byte)
+\begin{DoxyCompactList}\small\item\em Transmit one byte to WS2812 LED via SPI timing patterns. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_afbc9f6148c8857fb5a175d4e6588e3ce}{I2\+C\+\_\+free\+\_\+stuck\+\_\+slave}} (void)
+\begin{DoxyCompactList}\small\item\em Force I2C bus release when stuck by slave. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_ae5579c153549761cc2089d2f1d71b945}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((interrupt, no\+\_\+auto\+\_\+psv)) \mbox{\hyperlink{_v_e_m_l3328_8h_a380dc7ebf9e9d69dc94b07a92a5dcd84}{\+\_\+\+MI2\+C1\+Interrupt}}(void)
+\begin{DoxyCompactList}\small\item\em I2C master interrupt service routine. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_v_e_m_l3328_8h_a380dc7ebf9e9d69dc94b07a92a5dcd84}{\+\_\+\+MI2\+C1\+Interrupt}} (void)
+\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_af6b4e1bf114a26416938dff94e24f3a5}{I2\+C\+\_\+stop}} (void)
+\begin{DoxyCompactList}\small\item\em Issue I2C stop condition and wait for completion. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_a62d959e4eb956935dc21708bfb8fad78}{I2\+C\+\_\+start}} (void)
+\begin{DoxyCompactList}\small\item\em Issue I2C start condition and wait for completion. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_a777b3fbdbc243808ff4bb3d250eedbcd}{I2\+C\+\_\+receive\+\_\+enable}} (void)
+\begin{DoxyCompactList}\small\item\em Enable I2C receive mode and wait for data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_a2a3fba87633c9fe1a4716be7b558fb21}{I2\+C\+\_\+write}} (uint8\+\_\+t data)
+\begin{DoxyCompactList}\small\item\em Write one byte to I2C bus and wait for ACK. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_a3114726ac47d4d647564500146d69693}{package\+\_\+receive}} (uint16\+\_\+t \texorpdfstring{$\ast$}{*})
+\begin{DoxyCompactList}\small\item\em Receive 16-\/bit package (LSB then MSB) over I2C. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_a3187c80851197f43a6d678c301a51da4}{request\+\_\+data}} (uint8\+\_\+t, uint16\+\_\+t \texorpdfstring{$\ast$}{*})
+\begin{DoxyCompactList}\small\item\em Send a command and read back one 16-\/bit register. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_ab00627ef6efacad0a99f00d4ec1b17b9}{I2\+C\+\_\+config}} (void)
+\begin{DoxyCompactList}\small\item\em Configure I2C module parameters and prepare sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_ab4a8bf27288c6529ecb713ec0b84bc13}{WS2812\+\_\+\+Set\+\_\+\+Color}} (uint8\+\_\+t, uint8\+\_\+t, uint8\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Set WS2812 LED strip color with GRB order. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_v_e_m_l3328_8h_af4b4174676a4dac551c89c5021224b6c}{color\+Click\+Configuration}} (void)
+\begin{DoxyCompactList}\small\item\em Perform system and sensor setup then indicate ready. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_v_e_m_l3328_8h_a140a3698efffb3d00c4643d18d2af932}{read\+Color}} (void)
+\begin{DoxyCompactList}\small\item\em Read averaged normalized color values and detect color name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile uint8\+\_\+t \mbox{\hyperlink{_v_e_m_l3328_8h_a08224680ff9877c07347af849aeaa0bd}{interrupt\+\_\+detected}}
+\item 
+volatile uint16\+\_\+t \mbox{\hyperlink{_v_e_m_l3328_8h_a2df505e9e05685f8508902f85dea98f2}{red\+\_\+vector}}
+\begin{DoxyCompactList}\small\item\em Latest raw color vector from sensor for each channel. \end{DoxyCompactList}\item 
+volatile uint16\+\_\+t \mbox{\hyperlink{_v_e_m_l3328_8h_a2eed9c0b130fe2f3959619bb230489a3}{green\+\_\+vector}}
+\item 
+volatile uint16\+\_\+t \mbox{\hyperlink{_v_e_m_l3328_8h_a3e729d5fa7116a2a807e871ddd0e77d6}{blue\+\_\+vector}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{_v_e_m_l3328_8h_a019686fc10ad6c53cc22f0490310684b}{red\+\_\+value}}
+\begin{DoxyCompactList}\small\item\em Latest normalized red value (scaled). \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{_v_e_m_l3328_8h_a93273d49dac8d6f9b26df4ba992051fa}{green\+\_\+value}}
+\begin{DoxyCompactList}\small\item\em Latest normalized green value (scaled). \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{_v_e_m_l3328_8h_ad620bf3b1cdfe426f376b701f6961e38}{blue\+\_\+value}}
+\begin{DoxyCompactList}\small\item\em Latest normalized blue value (scaled). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_v_e_m_l3328_8h_a779d4de076a58874cc2a85eae3d20004}\index{VEML3328.h@{VEML3328.h}!COLOR\_QUANTITY@{COLOR\_QUANTITY}}
+\index{COLOR\_QUANTITY@{COLOR\_QUANTITY}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{COLOR\_QUANTITY}{COLOR\_QUANTITY}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a779d4de076a58874cc2a85eae3d20004} 
+\#define COLOR\+\_\+\+QUANTITY~9}
+
+Number of calibrated colors in the detection table. \Hypertarget{_v_e_m_l3328_8h_a99d7c812ba23bfdba5d29ec2fddf1e83}\index{VEML3328.h@{VEML3328.h}!FCY@{FCY}}
+\index{FCY@{FCY}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{FCY}{FCY}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a99d7c812ba23bfdba5d29ec2fddf1e83} 
+\#define FCY~16000000\+UL}
+
+\Hypertarget{_v_e_m_l3328_8h_add28519412f37ec4551e30e2aa3cc130}\index{VEML3328.h@{VEML3328.h}!NUM\_OF\_SAMPLES@{NUM\_OF\_SAMPLES}}
+\index{NUM\_OF\_SAMPLES@{NUM\_OF\_SAMPLES}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{NUM\_OF\_SAMPLES}{NUM\_OF\_SAMPLES}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_add28519412f37ec4551e30e2aa3cc130} 
+\#define NUM\+\_\+\+OF\+\_\+\+SAMPLES~10}
+
+Number of samples to average for a single color reading. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_v_e_m_l3328_8h_ae5579c153549761cc2089d2f1d71b945}\index{VEML3328.h@{VEML3328.h}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_ae5579c153549761cc2089d2f1d71b945} 
+void \+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(interrupt, no\+\_\+auto\+\_\+psv)}]{}{}\end{DoxyParamCaption})}
+
+
+
+I2C master interrupt service routine. 
+
+UART1 error interrupt handler.
+
+Clears buffer overrun and error interrupt flags.
+
+Handles UART1 communication errors and resets error flags.
+
+\begin{DoxyNote}{Note}
+Clears flag and signals transaction complete.
+\end{DoxyNote}
+I2C master interrupt service routine.
+
+UART1 error interrupt handler.
+
+Handles incoming data from UART1 and stores it in the buffer.
+
+Handles UART1 communication errors and resets error flags. \Hypertarget{_v_e_m_l3328_8h_a380dc7ebf9e9d69dc94b07a92a5dcd84}\index{VEML3328.h@{VEML3328.h}!\_MI2C1Interrupt@{\_MI2C1Interrupt}}
+\index{\_MI2C1Interrupt@{\_MI2C1Interrupt}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{\_MI2C1Interrupt()}{\_MI2C1Interrupt()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a380dc7ebf9e9d69dc94b07a92a5dcd84} 
+\+\_\+\+MI2\+C1\+Interrupt (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_v_e_m_l3328_8h_a1605896c4d3b3b9e2cfd2bd4ba0e013b}\index{VEML3328.h@{VEML3328.h}!calculate\_distance@{calculate\_distance}}
+\index{calculate\_distance@{calculate\_distance}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{calculate\_distance()}{calculate\_distance()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a1605896c4d3b3b9e2cfd2bd4ba0e013b} 
+float calculate\+\_\+distance (\begin{DoxyParamCaption}\item[{int}]{r1}{, }\item[{int}]{g1}{, }\item[{int}]{b1}{, }\item[{int}]{r2}{, }\item[{int}]{g2}{, }\item[{int}]{b2}{}\end{DoxyParamCaption})}
+
+
+
+Compute Euclidean distance between two RGB triples. 
+
+Compute Euclidean distance between two RGB triples. Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{_v_e_m_l3328_8h_af4b4174676a4dac551c89c5021224b6c}\index{VEML3328.h@{VEML3328.h}!colorClickConfiguration@{colorClickConfiguration}}
+\index{colorClickConfiguration@{colorClickConfiguration}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{colorClickConfiguration()}{colorClickConfiguration()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_af4b4174676a4dac551c89c5021224b6c} 
+void color\+Click\+Configuration (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Perform system and sensor setup then indicate ready. 
+
+Calls system initialization, configures I2C and sensor, then lights up WS2812 LED to show readiness.
+
+Perform system and sensor setup then indicate ready. Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\Hypertarget{_v_e_m_l3328_8h_a719575f5040d8125173aae2c42138fc7}\index{VEML3328.h@{VEML3328.h}!detect\_color@{detect\_color}}
+\index{detect\_color@{detect\_color}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{detect\_color()}{detect\_color()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a719575f5040d8125173aae2c42138fc7} 
+char \texorpdfstring{$\ast$}{*} detect\+\_\+color (\begin{DoxyParamCaption}\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{r}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{b}{}\end{DoxyParamCaption})}
+
+
+
+Detect color name from normalized RGB triple. 
+
+Detect color name from normalized RGB triple. Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+\Hypertarget{_v_e_m_l3328_8h_ab00627ef6efacad0a99f00d4ec1b17b9}\index{VEML3328.h@{VEML3328.h}!I2C\_config@{I2C\_config}}
+\index{I2C\_config@{I2C\_config}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_config()}{I2C\_config()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_ab00627ef6efacad0a99f00d4ec1b17b9} 
+void I2\+C\+\_\+config (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Configure I2C module parameters and prepare sensor. 
+
+Configure I2C module parameters and prepare sensor. Here is the call graph for this function\+:
+% FIG 7
+Here is the caller graph for this function\+:
+% FIG 8
+\Hypertarget{_v_e_m_l3328_8h_afbc9f6148c8857fb5a175d4e6588e3ce}\index{VEML3328.h@{VEML3328.h}!I2C\_free\_stuck\_slave@{I2C\_free\_stuck\_slave}}
+\index{I2C\_free\_stuck\_slave@{I2C\_free\_stuck\_slave}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_free\_stuck\_slave()}{I2C\_free\_stuck\_slave()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_afbc9f6148c8857fb5a175d4e6588e3ce} 
+void I2\+C\+\_\+free\+\_\+stuck\+\_\+slave (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Force I2C bus release when stuck by slave. 
+
+Force I2C bus release when stuck by slave.
+
+Toggles SCL manually to clock out stuck data bits and generates a STOP condition then re-\/enables I2C. Here is the caller graph for this function\+:
+% FIG 9
+\Hypertarget{_v_e_m_l3328_8h_a777b3fbdbc243808ff4bb3d250eedbcd}\index{VEML3328.h@{VEML3328.h}!I2C\_receive\_enable@{I2C\_receive\_enable}}
+\index{I2C\_receive\_enable@{I2C\_receive\_enable}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_receive\_enable()}{I2C\_receive\_enable()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a777b3fbdbc243808ff4bb3d250eedbcd} 
+void I2\+C\+\_\+receive\+\_\+enable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Enable I2C receive mode and wait for data. 
+
+Here is the caller graph for this function\+:
+% FIG 10
+\Hypertarget{_v_e_m_l3328_8h_a62d959e4eb956935dc21708bfb8fad78}\index{VEML3328.h@{VEML3328.h}!I2C\_start@{I2C\_start}}
+\index{I2C\_start@{I2C\_start}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_start()}{I2C\_start()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a62d959e4eb956935dc21708bfb8fad78} 
+void I2\+C\+\_\+start (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Issue I2C start condition and wait for completion. 
+
+Issue I2C start condition and wait for completion. Here is the caller graph for this function\+:
+% FIG 11
+\Hypertarget{_v_e_m_l3328_8h_af6b4e1bf114a26416938dff94e24f3a5}\index{VEML3328.h@{VEML3328.h}!I2C\_stop@{I2C\_stop}}
+\index{I2C\_stop@{I2C\_stop}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_stop()}{I2C\_stop()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_af6b4e1bf114a26416938dff94e24f3a5} 
+void I2\+C\+\_\+stop (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Issue I2C stop condition and wait for completion. 
+
+Issue I2C stop condition and wait for completion. Here is the caller graph for this function\+:
+% FIG 12
+\Hypertarget{_v_e_m_l3328_8h_a2a3fba87633c9fe1a4716be7b558fb21}\index{VEML3328.h@{VEML3328.h}!I2C\_write@{I2C\_write}}
+\index{I2C\_write@{I2C\_write}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{I2C\_write()}{I2C\_write()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a2a3fba87633c9fe1a4716be7b558fb21} 
+void I2\+C\+\_\+write (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Write one byte to I2C bus and wait for ACK. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Byte to transmit.\\
+\hline
+\end{DoxyParams}
+Write one byte to I2C bus and wait for ACK.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Byte to transmit. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 13
+\Hypertarget{_v_e_m_l3328_8h_a3114726ac47d4d647564500146d69693}\index{VEML3328.h@{VEML3328.h}!package\_receive@{package\_receive}}
+\index{package\_receive@{package\_receive}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{package\_receive()}{package\_receive()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a3114726ac47d4d647564500146d69693} 
+void package\+\_\+receive (\begin{DoxyParamCaption}\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{receive\+\_\+vector}{}\end{DoxyParamCaption})}
+
+
+
+Receive 16-\/bit package (LSB then MSB) over I2C. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em receive\+\_\+vector} & Pointer to store the combined result.\\
+\hline
+\end{DoxyParams}
+Receive 16-\/bit package (LSB then MSB) over I2C.
+
+
+\begin{DoxyParams}{Parameters}
+{\em receive\+\_\+vector} & Pointer to store combined MSB/\+LSB. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 14
+Here is the caller graph for this function\+:
+% FIG 15
+\Hypertarget{_v_e_m_l3328_8h_a140a3698efffb3d00c4643d18d2af932}\index{VEML3328.h@{VEML3328.h}!readColor@{readColor}}
+\index{readColor@{readColor}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{readColor()}{readColor()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a140a3698efffb3d00c4643d18d2af932} 
+char \texorpdfstring{$\ast$}{*} read\+Color (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Read averaged normalized color values and detect color name. 
+
+\begin{DoxyReturn}{Returns}
+String name of detected color.
+\end{DoxyReturn}
+Read averaged normalized color values and detect color name.
+
+\begin{DoxyReturn}{Returns}
+Detected color string. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 16
+Here is the caller graph for this function\+:
+% FIG 17
+\Hypertarget{_v_e_m_l3328_8h_a3187c80851197f43a6d678c301a51da4}\index{VEML3328.h@{VEML3328.h}!request\_data@{request\_data}}
+\index{request\_data@{request\_data}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{request\_data()}{request\_data()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a3187c80851197f43a6d678c301a51da4} 
+void request\+\_\+data (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{command\+\_\+code}{, }\item[{uint16\+\_\+t \texorpdfstring{$\ast$}{*}}]{color\+\_\+vector}{}\end{DoxyParamCaption})}
+
+
+
+Send a command and read back one 16-\/bit register. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command\+\_\+code} & Register address/command. \\
+\hline
+{\em color\+\_\+vector} & Pointer to store returned data.\\
+\hline
+\end{DoxyParams}
+Send a command and read back one 16-\/bit register.
+
+
+\begin{DoxyParams}{Parameters}
+{\em command\+\_\+code} & Register address. \\
+\hline
+{\em color\+\_\+vector} & Pointer to store returned value. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 18
+Here is the caller graph for this function\+:
+% FIG 19
+\Hypertarget{_v_e_m_l3328_8h_a82e0b267bb7f66d18278854d87414c86}\index{VEML3328.h@{VEML3328.h}!set\_slave@{set\_slave}}
+\index{set\_slave@{set\_slave}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{set\_slave()}{set\_slave()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a82e0b267bb7f66d18278854d87414c86} 
+void set\+\_\+slave (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize sensor registers for measurement. 
+
+Initialize sensor registers for measurement.
+
+Sends I2C commands to set up the VEML3328 for measurements. Here is the call graph for this function\+:
+% FIG 20
+Here is the caller graph for this function\+:
+% FIG 21
+\Hypertarget{_v_e_m_l3328_8h_a30da27c967c427811646a5a6f66f495f}\index{VEML3328.h@{VEML3328.h}!WS2812\_Send\_Byte@{WS2812\_Send\_Byte}}
+\index{WS2812\_Send\_Byte@{WS2812\_Send\_Byte}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{WS2812\_Send\_Byte()}{WS2812\_Send\_Byte()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a30da27c967c427811646a5a6f66f495f} 
+void WS2812\+\_\+\+Send\+\_\+\+Byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{byte}{}\end{DoxyParamCaption})}
+
+
+
+Transmit one byte to WS2812 LED via SPI timing patterns. 
+
+Transmit one byte to WS2812 LED via SPI timing patterns. Here is the call graph for this function\+:
+% FIG 22
+Here is the caller graph for this function\+:
+% FIG 23
+\Hypertarget{_v_e_m_l3328_8h_ab4a8bf27288c6529ecb713ec0b84bc13}\index{VEML3328.h@{VEML3328.h}!WS2812\_Set\_Color@{WS2812\_Set\_Color}}
+\index{WS2812\_Set\_Color@{WS2812\_Set\_Color}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{WS2812\_Set\_Color()}{WS2812\_Set\_Color()}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_ab4a8bf27288c6529ecb713ec0b84bc13} 
+void WS2812\+\_\+\+Set\+\_\+\+Color (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{red}{, }\item[{uint8\+\_\+t}]{green}{, }\item[{uint8\+\_\+t}]{blue}{}\end{DoxyParamCaption})}
+
+
+
+Set WS2812 LED strip color with GRB order. 
+
+Set WS2812 LED strip color with GRB order. Here is the call graph for this function\+:
+% FIG 24
+Here is the caller graph for this function\+:
+% FIG 25
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_v_e_m_l3328_8h_ad620bf3b1cdfe426f376b701f6961e38}\index{VEML3328.h@{VEML3328.h}!blue\_value@{blue\_value}}
+\index{blue\_value@{blue\_value}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{blue\_value}{blue\_value}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_ad620bf3b1cdfe426f376b701f6961e38} 
+uint16\+\_\+t blue\+\_\+value\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Latest normalized blue value (scaled). 
+
+\Hypertarget{_v_e_m_l3328_8h_a3e729d5fa7116a2a807e871ddd0e77d6}\index{VEML3328.h@{VEML3328.h}!blue\_vector@{blue\_vector}}
+\index{blue\_vector@{blue\_vector}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{blue\_vector}{blue\_vector}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a3e729d5fa7116a2a807e871ddd0e77d6} 
+volatile uint16\+\_\+t blue\+\_\+vector\hspace{0.3cm}{\ttfamily [extern]}}
+
+Latest raw blue channel reading from sensor. \Hypertarget{_v_e_m_l3328_8h_a93273d49dac8d6f9b26df4ba992051fa}\index{VEML3328.h@{VEML3328.h}!green\_value@{green\_value}}
+\index{green\_value@{green\_value}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{green\_value}{green\_value}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a93273d49dac8d6f9b26df4ba992051fa} 
+uint16\+\_\+t green\+\_\+value\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Latest normalized green value (scaled). 
+
+\Hypertarget{_v_e_m_l3328_8h_a2eed9c0b130fe2f3959619bb230489a3}\index{VEML3328.h@{VEML3328.h}!green\_vector@{green\_vector}}
+\index{green\_vector@{green\_vector}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{green\_vector}{green\_vector}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a2eed9c0b130fe2f3959619bb230489a3} 
+volatile uint16\+\_\+t green\+\_\+vector\hspace{0.3cm}{\ttfamily [extern]}}
+
+Latest raw green channel reading from sensor. \Hypertarget{_v_e_m_l3328_8h_a08224680ff9877c07347af849aeaa0bd}\index{VEML3328.h@{VEML3328.h}!interrupt\_detected@{interrupt\_detected}}
+\index{interrupt\_detected@{interrupt\_detected}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{interrupt\_detected}{interrupt\_detected}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a08224680ff9877c07347af849aeaa0bd} 
+volatile uint8\+\_\+t interrupt\+\_\+detected\hspace{0.3cm}{\ttfamily [extern]}}
+
+Flag set by I2C interrupt when transaction completes. \Hypertarget{_v_e_m_l3328_8h_a019686fc10ad6c53cc22f0490310684b}\index{VEML3328.h@{VEML3328.h}!red\_value@{red\_value}}
+\index{red\_value@{red\_value}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{red\_value}{red\_value}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a019686fc10ad6c53cc22f0490310684b} 
+uint16\+\_\+t red\+\_\+value\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Latest normalized red value (scaled). 
+
+Latest normalized red value (scaled). \Hypertarget{_v_e_m_l3328_8h_a2df505e9e05685f8508902f85dea98f2}\index{VEML3328.h@{VEML3328.h}!red\_vector@{red\_vector}}
+\index{red\_vector@{red\_vector}!VEML3328.h@{VEML3328.h}}
+\doxysubsubsection{\texorpdfstring{red\_vector}{red\_vector}}
+{\footnotesize\ttfamily \label{_v_e_m_l3328_8h_a2df505e9e05685f8508902f85dea98f2} 
+volatile uint16\+\_\+t red\+\_\+vector\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Latest raw color vector from sensor for each channel. 
+
+Latest raw red channel reading from sensor. 

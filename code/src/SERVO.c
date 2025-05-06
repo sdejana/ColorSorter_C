@@ -1,51 +1,37 @@
-/*
- * File:   SERVO.c
- * Author: 23dej
+/******************************************************************************
+ * Faculty of Electrical Engineering
+ * MKS 2025
+ * https://github.com/lukavidic/ColorSorter_C.git
+ *****************************************************************************
  *
- * Created on April 2, 2025, 6:14 PM
- */
-
+ * @file    SERVO.c
+ * @brief   Servo motor control implementation.
+ *
+ * @details
+ *   Provides functions to configure PWM output for servo control and
+ *   to move the servo to left, right, and middle positions. Uses Timer2
+ *   and Output Compare 1 modules to generate 50Hz PWM signal.
+ *
+ ******************************************************************************/
 
 #include "xc.h"
 #include "SERVO.h"
 #include "WIFI.h"
 #include <libpic30.h>
 
-uint8_t position = 0;
-
-
-/*void timer1_config() {
-    TMR1 = 0;
-    T1CONbits.TCKPS = 0b11;     // 1:256 prescaler
-    PR1 = 30860;                // 0.5s interrupts at 16MHz
-    IFS0bits.T1IF = 0;
-    IEC0bits.T1IE = 1;
-    IPC0bits.T1IP = 5;
-    T1CONbits.TON = 1;
-}*/
-
-/*void __attribute__((interrupt, auto_psv)) _T1Interrupt(void) {
-    LATBbits.LATB6 = ~LATBbits.LATB6;  // Toggle LED for debugging
-    IFS0bits.T1IF = 0;
-    
-    // Change position every 4 interrupts (every 2 seconds)
-    static uint8_t counter = 0;
-    if (++counter >= 2) {
-        counter = 0;
-        // Pattern: left, middle, right, middle, left, middle, right, etc.
-        switch(position) {
-            case 0: OC1RS = SERVO_LEFT; position = 1; break;    //-> next Middle
-            case 1: OC1RS = SERVO_MIDDLE; position = 2; break;  //-> next Right
-            case 2: OC1RS = SERVO_RIGHT; position = 3; break;   //-> next Middle
-            case 3: OC1RS = SERVO_MIDDLE; position = 0; break; //-> next Left
-        }
-    }
-}*/
-
-void output_compare_config() {
+/**
+ * @brief   Configures Output Compare and Timer2 for servo PWM.
+ *
+ * @details
+ *   Resets Timer2, sets prescaler to 1:8, configures PR2 for 50Hz PWM,
+ *   initializes OC1R and OC1RS to middle position, sets OC1 mode to
+ *   edge-aligned PWM, selects Timer2 as clock source, and starts Timer2.
+ */
+void outputCompareConfig(void)
+{
     TMR2 = 0;
     T2CONbits.TCKPS = 0b01;     // 1:8 prescaler
-    PR2 = 39999;                // 50Hz PWM (16MHz/8/40000) 
+    PR2 = 39999;                // 50Hz PWM (16MHz/8/40000)
     OC1R = SERVO_MIDDLE;        // Initial position (neutral)
     OC1RS = SERVO_MIDDLE;
     OC1CONbits.OCM = 0b110;
@@ -53,25 +39,42 @@ void output_compare_config() {
     T2CONbits.TON = 1;
 }
 
-void configureOscillatorServo() {
+/**
+ * @brief   Reconfigures system oscillator for servo routines.
+ *
+ * @details
+ *   Sets the frequency divider to zero, selects FRC with PLL, confirms
+ *   change, and waits for oscillator switch completion. Ensures consistent
+ *   clock for servo PWM generation.
+ */
+void configureOscillatorServo(void)
+{
     CLKDIV = 0;
     __builtin_write_OSCCONH(0x01);
     __builtin_write_OSCCONL(OSCCON | 0x01);
     while (OSCCONbits.OSWEN);
 }
 
-void moveLeft()
+/**
+ * @brief   Moves servo to leftmost position.
+ */
+void moveLeft(void)
 {
     OC1RS = SERVO_LEFT;
 }
 
-void moveRight()
+/**
+ * @brief   Moves servo to rightmost position.
+ */
+void moveRight(void)
 {
-    OC1RS = SERVO_RIGHT; 
+    OC1RS = SERVO_RIGHT;
 }
 
-void moveMiddle()
+/**
+ * @brief   Moves servo to middle position.
+ */
+void moveMiddle(void)
 {
     OC1RS = SERVO_MIDDLE;
 }
-

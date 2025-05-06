@@ -1,0 +1,32 @@
+\doxysection{src/system.c File Reference}
+\hypertarget{system_8c}{}\label{system_8c}\index{src/system.c@{src/system.c}}
+{\ttfamily \#include "{}pin\+\_\+manager.\+h"{}}\newline
+{\ttfamily \#include "{}system.\+h"{}}\newline
+{\ttfamily \#include "{}spi1.\+h"{}}\newline
+{\ttfamily \#include "{}interrupt\+\_\+manager.\+h"{}}\newline
+Include dependency graph for system.\+c\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{system_8c_a5e8391114a0cf91ac20002be25e3d352}{SYSTEM\+\_\+\+Initialize}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize system-\/level modules and peripherals. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{system_8c_a5e8391114a0cf91ac20002be25e3d352}\index{system.c@{system.c}!SYSTEM\_Initialize@{SYSTEM\_Initialize}}
+\index{SYSTEM\_Initialize@{SYSTEM\_Initialize}!system.c@{system.c}}
+\doxysubsubsection{\texorpdfstring{SYSTEM\_Initialize()}{SYSTEM\_Initialize()}}
+{\footnotesize\ttfamily \label{system_8c_a5e8391114a0cf91ac20002be25e3d352} 
+void SYSTEM\+\_\+\+Initialize (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize system-\/level modules and peripherals. 
+
+Perform system-\/level initialization.
+
+Calls the generated interrupt manager initialization and the SPI1 driver initialization. Pin manager init is commented out and can be enabled if pin setup via MCC is required. Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2

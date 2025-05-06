@@ -1,0 +1,28 @@
+var _v_e_m_l3328_8c =
+[
+    [ "Color", "struct_color.html", "struct_color" ],
+    [ "__attribute__", "_v_e_m_l3328_8c.html#a226557d5e42f7e29ddaff30606138459", null ],
+    [ "calculate_distance", "_v_e_m_l3328_8c.html#a1605896c4d3b3b9e2cfd2bd4ba0e013b", null ],
+    [ "colorClickConfiguration", "_v_e_m_l3328_8c.html#a1d78c09270f7ef97fbc044908cefdc53", null ],
+    [ "detect_color", "_v_e_m_l3328_8c.html#a719575f5040d8125173aae2c42138fc7", null ],
+    [ "I2C_config", "_v_e_m_l3328_8c.html#a59215e277210db3762f6ca0cfcdb3d63", null ],
+    [ "I2C_free_stuck_slave", "_v_e_m_l3328_8c.html#a38da2baf404af52f5be8b054e4e11077", null ],
+    [ "I2C_receive_enable", "_v_e_m_l3328_8c.html#ab448250e4ec10b4e9405e409276aa27b", null ],
+    [ "I2C_start", "_v_e_m_l3328_8c.html#a263c74ce484e3680c05a9118707fadb7", null ],
+    [ "I2C_stop", "_v_e_m_l3328_8c.html#af8dcc1bcb3e1c6c0fcdca4cf599a239b", null ],
+    [ "I2C_write", "_v_e_m_l3328_8c.html#a2a3fba87633c9fe1a4716be7b558fb21", null ],
+    [ "package_receive", "_v_e_m_l3328_8c.html#a70fabcf7a30ad44b555a17d873b65635", null ],
+    [ "readColor", "_v_e_m_l3328_8c.html#a140a3698efffb3d00c4643d18d2af932", null ],
+    [ "request_data", "_v_e_m_l3328_8c.html#aec77d8883de54418f21f5e7059c25427", null ],
+    [ "set_slave", "_v_e_m_l3328_8c.html#a9b08272c5a08112db09aefaf13669dc0", null ],
+    [ "WS2812_Send_Byte", "_v_e_m_l3328_8c.html#a30da27c967c427811646a5a6f66f495f", null ],
+    [ "WS2812_Set_Color", "_v_e_m_l3328_8c.html#ac514f6fc306af2953b77c609751a624e", null ],
+    [ "blue_value", "_v_e_m_l3328_8c.html#ad620bf3b1cdfe426f376b701f6961e38", null ],
+    [ "blue_vector", "_v_e_m_l3328_8c.html#a3e729d5fa7116a2a807e871ddd0e77d6", null ],
+    [ "colors", "_v_e_m_l3328_8c.html#a0e450f8f554764fb50c75197d16a7c9f", null ],
+    [ "green_value", "_v_e_m_l3328_8c.html#a93273d49dac8d6f9b26df4ba992051fa", null ],
+    [ "green_vector", "_v_e_m_l3328_8c.html#a2eed9c0b130fe2f3959619bb230489a3", null ],
+    [ "interrupt_detected", "_v_e_m_l3328_8c.html#a08224680ff9877c07347af849aeaa0bd", null ],
+    [ "red_value", "_v_e_m_l3328_8c.html#a019686fc10ad6c53cc22f0490310684b", null ],
+    [ "red_vector", "_v_e_m_l3328_8c.html#a2df505e9e05685f8508902f85dea98f2", null ]
+];
