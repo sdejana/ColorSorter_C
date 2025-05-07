@@ -1,0 +1,96 @@
+;Proteus Design Interchange Format
+(PDIF
+ (vendor "SamacSys Limited")
+ (version 1 0)
+ (library
+  (part "CL03A225MO5C65C"
+   (description "Multilayer Ceramic Capacitors MLCC - SMD/SMT 2.2uF X5R 16V 0201")
+   (family "CAP")
+   (package "CAPC0603X35N")
+   (attribute "Datasheet Link" "https://www.samsungsem.com/resources/file/global/support/product_catalog/MLCC.pdf")
+   (attribute "Geometry.Height" "0.35mm")
+   (attribute "Mouser Part Number" "187-CL03A225MO5C65C")
+   (attribute "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Samsung-Electro-Mechanics/CL03A225MO5C65C?qs=i8QVZAFTkqSietvJWGyvXw%3D%3D")
+   (attribute "Manufacturer_Name" "SAMSUNG")
+   (attribute "Manufacturer_Part_Number" "CL03A225MO5C65C")
+   (gate
+    (symbol "CL03A225MO5C65C")
+    (pin "1" 1 PS)
+    (pin "2" 2 PS)
+   )
+  )
+  (symbol "CL03A225MO5C65C"
+   (units THOU)
+   (origin (pt 0 0))
+   (graphic
+    (stroke 10)
+    (path (pt 220 100) (pt 220 -100))
+   )
+   (graphic
+    (stroke 10)
+    (path (pt 280 100) (pt 280 -100))
+   )
+   (graphic
+    (stroke 10)
+    (path (pt 200 0) (pt 220 0))
+   )
+   (graphic
+    (stroke 10)
+    (path (pt 280 0) (pt 300 0))
+   )
+   (terminal
+    (body (symbol "PIN") (pt 0 0) (rot 0) (mir 0) (visible true))
+    (name (pt 0 -10) (rot 0) (just TOP LEFT) (visible false))
+    (number (pt 0 10) (rot 0) (just BOTTOM LEFT) (visible true)))
+   (terminal
+    (body (symbol "PIN") (pt 500 0) (rot 0) (mir X) (visible true))
+    (name (pt 0 -10) (rot 0) (just TOP LEFT) (visible false))
+    (number (pt 0 10) (rot 0) (just BOTTOM LEFT) (visible true)))
+  )
+  (symbol "PIN"
+   (units THOU)
+   (origin (pt 0 0))
+   (graphic
+    (stroke 10)
+    (path (pt 0 0) (pt 200 0))))
+  (symbol "PINSHORT"
+   (units THOU)
+   (origin (pt 0 0))
+   (graphic
+    (stroke 10)
+    (path (pt 0 0) (pt 100 0))))
+  (package "CAPC0603X35N"
+   (units MM)
+   (layer OCCA
+    (graphic
+     (stroke 0.05)
+     (path
+      (closed true)
+      (pt -0.71 0.36)
+      (pt 0.71 0.36)
+      (pt 0.71 -0.36)
+      (pt -0.71 -0.36)
+      (pt -0.71 0.36))))
+   (layer TASM
+    (graphic
+     (stroke 0.1)
+     (path
+      (closed true)
+      (pt -0.3 0.15)
+      (pt 0.3 0.15)
+      (pt 0.3 -0.15)
+      (pt -0.3 -0.15)
+      (pt -0.3 0.15))))
+   (leg 1 (pt -0.33 0) (padstack 0))
+   (leg 2 (pt 0.33 0) (padstack 0))
+   (padstack 0
+    (plated false)
+    (pad (layer TCOP) (rectf 0.42 0.46 0 0 0))
+   )
+   (model "CL03A225MO5C65C.stp"
+    (euler 0 0 0)
+    (offset 0 0 0)
+   )
+  )
+ )
+)

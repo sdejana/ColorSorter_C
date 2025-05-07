@@ -1,0 +1,9 @@
+Manufacturer=TE Connectivity
+PartNumber=5-534206-4
+PartCategory=Connector
+PackageCategory=Header, Receptacle - Straight PTH Box
+PinCount=8
+Version=3.1
+Released=2021-05-27 09:14:34
+Downloaded=2024-12-27 09:28:55
+3D=Y

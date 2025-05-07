@@ -1,0 +1,40 @@
+\doxysection{pin\+\_\+manager.\+h}
+\hypertarget{pin__manager_8h_source}{}\label{pin__manager_8h_source}\index{include/pin\_manager.h@{include/pin\_manager.h}}
+\mbox{\hyperlink{pin__manager_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Faculty\ of\ Electrical\ Engineering}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ MKS\ 2025}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ https://github.com/lukavidic/ColorSorter\_C.git}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *****************************************************************************}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ @file\ \ \ \ pin\_manager.h}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ @brief\ \ \ Pin\ manager\ interface\ definitions.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ Provides\ macros\ for\ controlling\ SDO1\ pin\ (RB11)\ and\ declares\ the}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ \ PIN\_MANAGER\_Initialize\ function\ for\ setting\ up\ pin\ configurations.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *****************************************************************************/}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ \_PIN\_MANAGER\_H}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ \_PIN\_MANAGER\_H}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <xc.h>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ SDO1\_SetHigh()\ \ \ \ \ \ \ \ \ \ (\_LATB11\ =\ 1)}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ SDO1\_SetLow()\ \ \ \ \ \ \ \ \ \ \ (\_LATB11\ =\ 0)}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ SDO1\_Toggle()\ \ \ \ \ \ \ \ \ \ \ (\_LATB11\ \string^=\ 1)}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ SDO1\_GetValue()\ \ \ \ \ \ \ \ \ \_RB11}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ SDO1\_SetDigitalInput()\ \ (\_TRISB11\ =\ 1)}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ SDO1\_SetDigitalOutput()\ (\_TRISB11\ =\ 0)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00068\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{pin__manager_8h_a50357774183a136d9490f64ad0d5c6cb}{PIN\_MANAGER\_Initialize}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_PIN\_MANAGER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

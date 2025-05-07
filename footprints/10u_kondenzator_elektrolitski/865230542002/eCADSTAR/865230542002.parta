@@ -1,0 +1,66 @@
+(Japanese_coding: sjis)
+(function "ECS_467776"
+    (uver 1)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (ctime 2018-06-17-10:52:31)
+    (utime 2023-03-07-16:10:32)
+    (interface
+        (port "1" (symbPinId 1) (portType INOUT))
+        (port "2" (symbPinId 2) (portType INOUT))
+    )
+    (property "symbolName" "865230542002")
+)
+
+
+(pinAssign "ECS_467776"
+    (uver 1)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (ctime 2018-06-17-10:52:31)
+    (utime 2023-03-07-16:10:32)
+    (interface
+        (port "1" (symbPinId 1) (portName "+") (portType INOUT))
+        (port "2" (symbPinId 2) (portName "-") (portType INOUT))
+    )
+    (internal
+        (funcInst (functionRef "ECS_467776")
+                (port "1" (match "1"))
+                (port "2" (match "2"))
+        )
+    )
+    (property "usePowerBox" "No")
+    (property "symbolName" "865230542002")
+)
+
+
+(part "865230542002"
+    (uver 1)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (ctime 2018-06-17-10:52:31)
+    (utime 2023-03-07-16:10:32)
+    (packageRef "865230542002")
+    (pinAssignRef "ECS_467776")
+    (interface
+        (port "1" (symbPinId 1) (portName "+") (portType INOUT))
+        (port "2" (symbPinId 2) (portName "-") (portType INOUT))
+    )
+    (partClass UNDEF)
+    (useInSchema Y)
+    (useInLayout Y)
+    (inPartsList Y)
+    (partType NORMAL)
+    (placeRestriction FREE)
+    (property "enetNonSeries" "NO")
+    (property "refDesPrefix" "C")
+    (property "description" "Wurth Elektronik 10uF 35 V dc Aluminium Electrolytic Capacitor, WCAP-AS5H Series 5000h 5.5 (Dia.) x 4.85mm")
+    (property "Mouser_Part_Number" "710-865230542002")
+    (property "Mouser_Price/Stock" "https://www.mouser.co.uk/ProductDetail/Wurth-Elektronik/865230542002?qs=0KOYDY2FL2%2F9Zrx1rvGWxQ%3D%3D")
+    (property "Manufacturer_Name" "Wurth Elektronik")
+    (property "Manufacturer_Part_Number" "865230542002")
+    (property "Datasheet_Link" "http://katalog.we-online.com/pbs/datasheet/865230542002.pdf")
+    (property "compAreaTopHeight" 5.5)
+)
+
+

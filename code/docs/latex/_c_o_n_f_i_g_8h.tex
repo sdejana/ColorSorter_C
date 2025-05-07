@@ -1,0 +1,110 @@
+\doxysection{include/\+CONFIG.h File Reference}
+\hypertarget{_c_o_n_f_i_g_8h}{}\label{_c_o_n_f_i_g_8h}\index{include/CONFIG.h@{include/CONFIG.h}}
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+{\ttfamily \#include "{}VEML3328.\+h"{}}\newline
+{\ttfamily \#include "{}WIFI.\+h"{}}\newline
+{\ttfamily \#include "{}SERVO.\+h"{}}\newline
+Include dependency graph for CONFIG.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_c_o_n_f_i_g_8h_a4dee7b456189dd9700887e4bad2e100f}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((interrupt, auto\+\_\+psv)) \+\_\+\+INT0\+Interrupt(void)
+\begin{DoxyCompactList}\small\item\em External interrupt 0 service routine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_c_o_n_f_i_g_8h_a95840f40bd30049c7cf254a3a1b37b69}{configure\+Oscillator}} (void)
+\begin{DoxyCompactList}\small\item\em Configures the system oscillator. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_c_o_n_f_i_g_8h_a772e86424a379ac931191b6ede9d9f0a}{configure\+PPS}} (void)
+\begin{DoxyCompactList}\small\item\em Configures peripheral pin select (PPS). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_c_o_n_f_i_g_8h_a19430249dc98c544ea73d06a71487ced}{configure\+IO}} (void)
+\begin{DoxyCompactList}\small\item\em Configures I/O ports and interrupt settings. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_c_o_n_f_i_g_8h_a776854c00eb8a571abbfb27130ba4849}{stop\+All}} (void)
+\begin{DoxyCompactList}\small\item\em Stops all operations and resets actuators. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_c_o_n_f_i_g_8h_ab88b80397e78c0d45bec5872346e5770}{configure\+All\+Components}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes and configures all components. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_c_o_n_f_i_g_8h_a4dee7b456189dd9700887e4bad2e100f}\index{CONFIG.h@{CONFIG.h}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!CONFIG.h@{CONFIG.h}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}}
+{\footnotesize\ttfamily \label{_c_o_n_f_i_g_8h_a4dee7b456189dd9700887e4bad2e100f} 
+void \+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(interrupt, auto\+\_\+psv)}]{}{}\end{DoxyParamCaption})}
+
+
+
+External interrupt 0 service routine. 
+
+Handles button presses on INT0, toggles system flag, and invokes stop or start routines accordingly. Clears and re-\/enables the interrupt.
+
+Toggles the global flag, disables button interrupt, calls stop or start commands, then clears and re-\/enables the interrupt. \Hypertarget{_c_o_n_f_i_g_8h_ab88b80397e78c0d45bec5872346e5770}\index{CONFIG.h@{CONFIG.h}!configureAllComponents@{configureAllComponents}}
+\index{configureAllComponents@{configureAllComponents}!CONFIG.h@{CONFIG.h}}
+\doxysubsubsection{\texorpdfstring{configureAllComponents()}{configureAllComponents()}}
+{\footnotesize\ttfamily \label{_c_o_n_f_i_g_8h_ab88b80397e78c0d45bec5872346e5770} 
+void configure\+All\+Components (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes and configures all components. 
+
+Calls oscillator, I/O, and PPS configuration functions, then configures color sensor and output compare modules, and delays for stabilization.
+
+Initializes and configures all components.
+
+Calls oscillator, I/O, PPS configurations, sets up color click, output compare, and delays for stabilization. Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\Hypertarget{_c_o_n_f_i_g_8h_a19430249dc98c544ea73d06a71487ced}\index{CONFIG.h@{CONFIG.h}!configureIO@{configureIO}}
+\index{configureIO@{configureIO}!CONFIG.h@{CONFIG.h}}
+\doxysubsubsection{\texorpdfstring{configureIO()}{configureIO()}}
+{\footnotesize\ttfamily \label{_c_o_n_f_i_g_8h_a19430249dc98c544ea73d06a71487ced} 
+void configure\+IO (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Configures I/O ports and interrupt settings. 
+
+Disables analog functions, sets pin directions for UART, enable pin, LED, and button. Initializes LAT registers and configures INT0.
+
+Disables analog functions on Port B, sets data direction for RX, TX, enable, LED, and button pins. Initializes LAT registers and configures INT0 external interrupt on falling edge with highest priority. \Hypertarget{_c_o_n_f_i_g_8h_a95840f40bd30049c7cf254a3a1b37b69}\index{CONFIG.h@{CONFIG.h}!configureOscillator@{configureOscillator}}
+\index{configureOscillator@{configureOscillator}!CONFIG.h@{CONFIG.h}}
+\doxysubsubsection{\texorpdfstring{configureOscillator()}{configureOscillator()}}
+{\footnotesize\ttfamily \label{_c_o_n_f_i_g_8h_a95840f40bd30049c7cf254a3a1b37b69} 
+void configure\+Oscillator (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Configures the system oscillator. 
+
+Sets up the frequency divider, selects the Fast RC oscillator with PLL, and waits for the oscillator switch to complete.
+
+Sets the frequency divider to zero, selects Fast RC oscillator with PLL, confirms the change, and waits until the oscillator switch completes. \Hypertarget{_c_o_n_f_i_g_8h_a772e86424a379ac931191b6ede9d9f0a}\index{CONFIG.h@{CONFIG.h}!configurePPS@{configurePPS}}
+\index{configurePPS@{configurePPS}!CONFIG.h@{CONFIG.h}}
+\doxysubsubsection{\texorpdfstring{configurePPS()}{configurePPS()}}
+{\footnotesize\ttfamily \label{_c_o_n_f_i_g_8h_a772e86424a379ac931191b6ede9d9f0a} 
+void configure\+PPS (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Configures peripheral pin select (PPS). 
+
+Unlocks PPS, maps UART and SPI pins for Wi‑\+Fi and servo control, and then locks PPS configuration.
+
+Unlocks PPS, maps UART RX/\+TX pins for ESP8266 communication, maps OC1 output compare to RB5, and sets SPI1 SDO on RB11, then locks PPS. \Hypertarget{_c_o_n_f_i_g_8h_a776854c00eb8a571abbfb27130ba4849}\index{CONFIG.h@{CONFIG.h}!stopAll@{stopAll}}
+\index{stopAll@{stopAll}!CONFIG.h@{CONFIG.h}}
+\doxysubsubsection{\texorpdfstring{stopAll()}{stopAll()}}
+{\footnotesize\ttfamily \label{_c_o_n_f_i_g_8h_a776854c00eb8a571abbfb27130ba4849} 
+void stop\+All (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Stops all operations and resets actuators. 
+
+Sets global flag, turns off LED and RGB LED, moves servo to middle, and sends stop command over Wi‑\+Fi.
+
+Sets the global flag, turns off LED, moves servo to middle position, turns off RGB LED, and sends stop command over Wi-\/\+Fi. Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5

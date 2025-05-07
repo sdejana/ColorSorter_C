@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "CL03A225MO5C65C"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2024-10-12-04:05:17)
+    (mountForm default
+        (footprintRef "CAPC0603X35N")
+        (spec "System")
+    )
+)

@@ -1,0 +1,19 @@
+digraph "I2C_config"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="I2C_config",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Configure I2C module parameters and prepare sensor."];
+  Node1 -> Node2 [id="edge6_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="I2C_free_stuck_slave",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#a38da2baf404af52f5be8b054e4e11077",tooltip="Recover I2C bus if a slave is stuck driving SDA."];
+  Node1 -> Node3 [id="edge7_Node000001_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="set_slave",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#a9b08272c5a08112db09aefaf13669dc0",tooltip="Configure sensor registers for slave mode."];
+  Node3 -> Node4 [id="edge8_Node000003_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="I2C_start",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#a263c74ce484e3680c05a9118707fadb7",tooltip="Initiate I2C START condition and wait for completion."];
+  Node3 -> Node5 [id="edge9_Node000003_Node000005",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="I2C_stop",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#af8dcc1bcb3e1c6c0fcdca4cf599a239b",tooltip="Initiate I2C STOP condition and wait for completion."];
+  Node3 -> Node6 [id="edge10_Node000003_Node000006",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="I2C_write",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$_v_e_m_l3328_8c.html#a2a3fba87633c9fe1a4716be7b558fb21",tooltip="Write one byte over I2C and wait for ACK."];
+}

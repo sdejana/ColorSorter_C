@@ -1,0 +1,33 @@
+\doxysection{src/interrupt\+\_\+manager.c File Reference}
+\hypertarget{interrupt__manager_8c}{}\label{interrupt__manager_8c}\index{src/interrupt\_manager.c@{src/interrupt\_manager.c}}
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+Include dependency graph for interrupt\+\_\+manager.\+c\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interrupt__manager_8c_a5c526129ee879458dff6755f5768a6e3}{INTERRUPT\+\_\+\+Initialize}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes interrupt priorities for peripherals. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{interrupt__manager_8c_a5c526129ee879458dff6755f5768a6e3}\index{interrupt\_manager.c@{interrupt\_manager.c}!INTERRUPT\_Initialize@{INTERRUPT\_Initialize}}
+\index{INTERRUPT\_Initialize@{INTERRUPT\_Initialize}!interrupt\_manager.c@{interrupt\_manager.c}}
+\doxysubsubsection{\texorpdfstring{INTERRUPT\_Initialize()}{INTERRUPT\_Initialize()}}
+{\footnotesize\ttfamily \label{interrupt__manager_8c_a5c526129ee879458dff6755f5768a6e3} 
+void INTERRUPT\+\_\+\+Initialize (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes interrupt priorities for peripherals. 
+
+Initializes interrupt priorities for configured peripherals.
+
+Sets the priority level (1) for the following interrupts\+:
+\begin{DoxyItemize}
+\item SPI1 Transfer Done (SPII)
+\item UART1 Error (UERI)
+\item UART1 Transmitter (UTXI)
+\item UART1 Receiver (URXI) 
+\end{DoxyItemize}Here is the caller graph for this function\+:
+% FIG 1

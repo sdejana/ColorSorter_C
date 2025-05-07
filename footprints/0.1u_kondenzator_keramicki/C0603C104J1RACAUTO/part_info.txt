@@ -1,0 +1,9 @@
+Manufacturer=KEMET
+PartNumber=C0603C104J1RACAUTO
+PartCategory=Capacitor
+PackageCategory=Capacitor Chip Non-polarised
+PinCount=2
+Version=1.1
+Released=2023-10-10 06:41:49
+Downloaded=2024-11-28 11:54:18
+3D=Y

@@ -1,0 +1,9 @@
+Manufacturer=SAMSUNG
+PartNumber=CL03A225MO5C65C
+PartCategory=Capacitor
+PackageCategory=Capacitor Chip Non-polarised
+PinCount=2
+Version=1.1
+Released=2024-10-12 04:05:17
+Downloaded=2024-12-24 18:42:04
+3D=Y

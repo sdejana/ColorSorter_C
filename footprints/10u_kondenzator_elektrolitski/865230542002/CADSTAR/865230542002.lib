@@ -1,0 +1,16 @@
+.865230542002 :1 ;Wurth Elektronik 10uF 35 V dc Aluminium Electrolytic Capacitor, WCAP-AS5H Series 5000h 5.5 (Dia.) x 4.85mm
+CAPAE530X550N
+*STM C
+*NGS
+*PLB 1="+" 2="-"
+*MXP 2
+*DFN 865230542002
+~!Mouser Part Number (710-865230542002)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Wurth-Elektronik/865230542002?qs=0KOYDY2FL2%2F9Zrx1rvGWxQ%3D%3D)
+~!Manufacturer_Name (Wurth Elektronik)
+~!Manufacturer_Part_Number (865230542002)
+~!Link Datasheet (http://katalog.we-online.com/pbs/datasheet/865230542002.pdf)
+~!Height (5.5mm)
+~!3D_Model (865230542002)
+"865230542002"
+1.1!U 2.1!U 

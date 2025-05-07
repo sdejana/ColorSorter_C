@@ -1,0 +1,617 @@
+\doxysection{src/\+WIFI.c File Reference}
+\hypertarget{_w_i_f_i_8c}{}\label{_w_i_f_i_8c}\index{src/WIFI.c@{src/WIFI.c}}
+
+
+Wi\+Fi communication and color processing implementation.  
+
+
+{\ttfamily \#include "{}WIFI.\+h"{}}\newline
+{\ttfamily \#include "{}SERVO.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+{\ttfamily \#include $<$libpic30.\+h$>$}\newline
+Include dependency graph for WIFI.\+c\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_a226557d5e42f7e29ddaff30606138459}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((interrupt, no\+\_\+auto\+\_\+psv))
+\begin{DoxyCompactList}\small\item\em UART1 RX interrupt handler. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_a24ddf9541290b087af9974b720d1c794}{send\+Command}} (const char \texorpdfstring{$\ast$}{*}command)
+\begin{DoxyCompactList}\small\item\em Sends a command string via UART1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_a0028d36aa22d224dde92cb26e9e35d97}{U1\+\_\+\+Write\+\_\+\+Char}} (char c)
+\begin{DoxyCompactList}\small\item\em Writes a single character to UART1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_acc42a6ebae479dcc1419af831ff82492}{U1\+\_\+\+Write\+\_\+\+Text}} (const char \texorpdfstring{$\ast$}{*}text)
+\begin{DoxyCompactList}\small\item\em Writes a text string to UART1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_a750be53afe22b006b8b36b42f3c12323}{clean\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em Cleans the communication buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_a7eba721a37bc65b69329ca79c2e121b6}{configure\+U1}} ()
+\begin{DoxyCompactList}\small\item\em Configures UART1 settings. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_a05e6bca081b1306e1a0e51fc267e297b}{setup\+Connection}} ()
+\begin{DoxyCompactList}\small\item\em Establishes connection between microcontroller and app. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_a4e1d99ad3a0d84d1f32cba4586225e15}{send\+Data}} (const char \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Sends data via TCP. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_adfdfdb1d0c086404094887e826ac154e}{process\+Data\+From\+Color\+Sensor}} (const char \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Processes data received from app. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_a9d5a07c32323d6699ef48f2ec287fee5}{parse\+Data\+FSM}} ()
+\begin{DoxyCompactList}\small\item\em Used for parsing data received from app. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_w_i_f_i_8c_aa5c06ea76cb3e897ec04b891ebe03567}{poll\+Wi\+Fi}} ()
+\begin{DoxyCompactList}\small\item\em Checks received data for start or reset sequence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a2f02c951091b93013b8b9781970eb454}{CMD\+\_\+\+AT}} = "{}AT\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em AT command strings for Wi\+Fi module control. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a1f3bff4b7aba7c018b667b8dc2b754ef}{CMD\+\_\+\+RST}} = "{}AT+RST\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em AT command\+: Reset the module. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a5143a707f11ad9c09203675081255f6f}{CMD\+\_\+\+MODE}} = "{}AT+CWMODE=1\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em AT command\+: Set operation mode. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_ad51f1a68d1b226b78a7d1a703ef073da}{CMD\+\_\+\+LIST\+\_\+\+AP}} = "{}AT+CWLAP\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em AT command\+: List available access points. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_aff3173962307965de346f4d909e7e60b}{CMD\+\_\+\+WIFI\+\_\+\+CONN}} = "{}AT+CWJAP=\textbackslash{}"{}etfbl.\+net\textbackslash{}"{},\textbackslash{}"{}\textbackslash{}"{}\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em AT command\+: Connect to Wi\+Fi. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_abb0a03ee6dcc397253ca31f83a30cfb5}{CMD\+\_\+\+CONN\+\_\+\+TYPE}} = "{}AT+CIPMUX=0\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em AT command\+: Set connection type. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a5d787dab9afed7007f302b8d82443c59}{CMD\+\_\+\+START\+\_\+\+TCP}} = "{}AT+CIPSTART=\textbackslash{}"{}TCP\textbackslash{}"{},\textbackslash{}"{}10.\+99.\+131.\+223\textbackslash{}"{},8084\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em AT command\+: Start a TCP connection. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_abcee2b0af8d8dccca4398ed6cb0978dc}{CMD\+\_\+\+SEND}} = "{}AT+CIPSEND=3\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em AT command\+: Send data command. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a71ff45a6f220c3b16f815edfb21b9d70}{CMD\+\_\+\+IP}} = "{}AT+CIFSR\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em AT command\+: Get IP address. \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_ad951f453b8e9302d4ce568cd17d4f4e9}{RED\+\_\+R}} = "{}A\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for RED (right). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a5a5f3ca3eedf8e6f35789411a2e57918}{BLUE\+\_\+R}} = "{}B\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for BLUE (right). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a3a3dc5383e7c58e3a7e2ed8c430ce1ee}{YELLOW\+\_\+R}} = "{}D\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for YELLOW (right). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a4472722bff0249a9cded8916935aca53}{GREEN\+\_\+R}} = "{}C\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for GREEN (right). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a71019eb73042e7ead9c5b10ab307de7d}{PINK\+\_\+R}} = "{}E\textbackslash{}r\textbackslash{}n"{}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a348963cabd4b91e92c08ff94fef4f004}{ORANGE\+\_\+R}} = "{}F\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for ORANGE (right). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_aa4db537bb41c79f4b079b9c815b8d90d}{WHITE\+\_\+R}} = "{}H\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for WHITE (right). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a7a30930956fa6dc6a983c698fc236fb9}{BLACK\+\_\+R}} = "{}G\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for BLACK (right). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_ad8cba8aaaee621e56835eec8d2dbafc1}{RED\+\_\+L}} = "{}a\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for RED (left). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a07db7af497514c7a822bfbe159f33460}{BLUE\+\_\+L}} = "{}b\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for BLUE (left). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_ae1258c439efe55ef8784c215d7683bc6}{YELLOW\+\_\+L}} = "{}d\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for YELLOW (left). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a30adaf039f99af3af02458071425717d}{GREEN\+\_\+L}} = "{}c\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for GREEN (left). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a16d991d64570c881fad91826c2e24834}{PINK\+\_\+L}} = "{}e\textbackslash{}r\textbackslash{}n"{}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_aae3a4fb81323d5c38bd9b2463b1482d7}{ORANGE\+\_\+L}} = "{}f\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for ORANGE (left). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a0d1a7f2084460b76b703cf892f19b4c6}{WHITE\+\_\+L}} = "{}h\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for WHITE (left). \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_w_i_f_i_8c_a2157a367fa87d9215d6959ac9e330c53}{BLACK\+\_\+L}} = "{}g\textbackslash{}r\textbackslash{}n"{}
+\begin{DoxyCompactList}\small\item\em \doxylink{struct_color}{Color} mapping for BLACK (left). \end{DoxyCompactList}\item 
+volatile char \mbox{\hyperlink{_w_i_f_i_8c_a351db0eb9c30b88b0d8b227895d6bcb9}{buffer}} \mbox{[}\mbox{\hyperlink{_w_i_f_i_8h_a6821bafc3c88dfb2e433a095df9940c6}{BUF\+\_\+\+SIZE}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em Buffer used to store received UART data. \end{DoxyCompactList}\item 
+volatile char \mbox{\hyperlink{_w_i_f_i_8c_acd27c393325d377521d892a99067b012}{color\+Buffer}} \mbox{[}\mbox{\hyperlink{_w_i_f_i_8h_a92be0a39616911a39ed284c01a23fa5c}{COLOR\+\_\+\+NUM}}+1\mbox{]}
+\begin{DoxyCompactList}\small\item\em Buffer for storing color-\/related data. \end{DoxyCompactList}\item 
+volatile unsigned \mbox{\hyperlink{_w_i_f_i_8c_a65f8b91c0d19c0ae6cd36c8edadd48aa}{head}} = 0
+\begin{DoxyCompactList}\small\item\em Head index of the buffer. \end{DoxyCompactList}\item 
+volatile unsigned \mbox{\hyperlink{_w_i_f_i_8c_aab357daad99da131c2c9b87e603abfeb}{tail}} = 0
+\begin{DoxyCompactList}\small\item\em Tail index of the buffer. \end{DoxyCompactList}\item 
+volatile uint8\+\_\+t \mbox{\hyperlink{_w_i_f_i_8c_aa043779ff6ca752cdff814fbb767aff7}{flag}} = 0
+\begin{DoxyCompactList}\small\item\em General-\/purpose status flag. \end{DoxyCompactList}\item 
+volatile uint8\+\_\+t \mbox{\hyperlink{_w_i_f_i_8c_af31452ec85f4f608eded50058ed8d301}{message\+Ready}} = 0
+\begin{DoxyCompactList}\small\item\em Flag indicating that a complete message is ready. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Wi\+Fi communication and color processing implementation. 
+
+\begin{DoxyAuthor}{Author}
+Dejana S. 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+April 2, 2025 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_w_i_f_i_8c_a226557d5e42f7e29ddaff30606138459}\index{WIFI.c@{WIFI.c}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a226557d5e42f7e29ddaff30606138459} 
+void \+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(interrupt, no\+\_\+auto\+\_\+psv)}]{}{}\end{DoxyParamCaption})}
+
+
+
+UART1 RX interrupt handler. 
+
+RX interrupt handler, used to process incoming data and handle interrupt calls.
+
+I2C master interrupt service routine.
+
+UART1 error interrupt handler.
+
+Handles incoming data from UART1 and stores it in the buffer.
+
+Handles UART1 communication errors and resets error flags. \Hypertarget{_w_i_f_i_8c_a750be53afe22b006b8b36b42f3c12323}\index{WIFI.c@{WIFI.c}!cleanBuffer@{cleanBuffer}}
+\index{cleanBuffer@{cleanBuffer}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{cleanBuffer()}{cleanBuffer()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a750be53afe22b006b8b36b42f3c12323} 
+void clean\+Buffer (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Cleans the communication buffer. 
+
+Clears the buffer by initializing all characters to \textquotesingle{}0\textquotesingle{}.
+
+Resets all buffer elements to 0 and resets head and tail pointers. Here is the caller graph for this function\+:
+% FIG 1
+\Hypertarget{_w_i_f_i_8c_a7eba721a37bc65b69329ca79c2e121b6}\index{WIFI.c@{WIFI.c}!configureU1@{configureU1}}
+\index{configureU1@{configureU1}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{configureU1()}{configureU1()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a7eba721a37bc65b69329ca79c2e121b6} 
+void configure\+U1 (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Configures UART1 settings. 
+
+Initializes UART1 with predefined settings.
+
+Sets baud rate, enables UART, and configures interrupts. Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{_w_i_f_i_8c_a9d5a07c32323d6699ef48f2ec287fee5}\index{WIFI.c@{WIFI.c}!parseDataFSM@{parseDataFSM}}
+\index{parseDataFSM@{parseDataFSM}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{parseDataFSM()}{parseDataFSM()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a9d5a07c32323d6699ef48f2ec287fee5} 
+void parse\+Data\+FSM (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Used for parsing data received from app. 
+
+Parses the received data using a finite state machine.
+
+Expects data in \textquotesingle{}0\#a\#b\#...\#h\#1\textquotesingle{} format. Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\Hypertarget{_w_i_f_i_8c_aa5c06ea76cb3e897ec04b891ebe03567}\index{WIFI.c@{WIFI.c}!pollWiFi@{pollWiFi}}
+\index{pollWiFi@{pollWiFi}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{pollWiFi()}{pollWiFi()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_aa5c06ea76cb3e897ec04b891ebe03567} 
+void poll\+Wi\+Fi (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Checks received data for start or reset sequence. 
+
+Polls the Wi\+Fi module for new data or status.
+
+Handles start (SSS) and stop/reset (EEE) sequence, as well as color directions vector. Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+\Hypertarget{_w_i_f_i_8c_adfdfdb1d0c086404094887e826ac154e}\index{WIFI.c@{WIFI.c}!processDataFromColorSensor@{processDataFromColorSensor}}
+\index{processDataFromColorSensor@{processDataFromColorSensor}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{processDataFromColorSensor()}{processDataFromColorSensor()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_adfdfdb1d0c086404094887e826ac154e} 
+void process\+Data\+From\+Color\+Sensor (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Processes data received from app. 
+
+Processes received data from the color sensor.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & String representing color. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 7
+Here is the caller graph for this function\+:
+% FIG 8
+\Hypertarget{_w_i_f_i_8c_a24ddf9541290b087af9974b720d1c794}\index{WIFI.c@{WIFI.c}!sendCommand@{sendCommand}}
+\index{sendCommand@{sendCommand}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{sendCommand()}{sendCommand()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a24ddf9541290b087af9974b720d1c794} 
+void send\+Command (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Sends a command string via UART1. 
+
+Sends an AT command to the Wi\+Fi module and waits for a response.
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string to send. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 9
+\Hypertarget{_w_i_f_i_8c_a4e1d99ad3a0d84d1f32cba4586225e15}\index{WIFI.c@{WIFI.c}!sendData@{sendData}}
+\index{sendData@{sendData}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{sendData()}{sendData()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a4e1d99ad3a0d84d1f32cba4586225e15} 
+void send\+Data (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Sends data via TCP. 
+
+Sends data to a PC application via Wi\+Fi.
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & String representing payload. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 10
+Here is the caller graph for this function\+:
+% FIG 11
+\Hypertarget{_w_i_f_i_8c_a05e6bca081b1306e1a0e51fc267e297b}\index{WIFI.c@{WIFI.c}!setupConnection@{setupConnection}}
+\index{setupConnection@{setupConnection}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{setupConnection()}{setupConnection()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a05e6bca081b1306e1a0e51fc267e297b} 
+void setup\+Connection (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Establishes connection between microcontroller and app. 
+
+Performs initial setup for Wi\+Fi connection.
+
+Sends consecutive commands to ESP8266 and waits for predefined amount of time. Here is the call graph for this function\+:
+% FIG 12
+Here is the caller graph for this function\+:
+% FIG 13
+\Hypertarget{_w_i_f_i_8c_a0028d36aa22d224dde92cb26e9e35d97}\index{WIFI.c@{WIFI.c}!U1\_Write\_Char@{U1\_Write\_Char}}
+\index{U1\_Write\_Char@{U1\_Write\_Char}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{U1\_Write\_Char()}{U1\_Write\_Char()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a0028d36aa22d224dde92cb26e9e35d97} 
+void U1\+\_\+\+Write\+\_\+\+Char (\begin{DoxyParamCaption}\item[{char}]{c}{}\end{DoxyParamCaption})}
+
+
+
+Writes a single character to UART1. 
+
+Sends a single character via UART1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & The character to send. \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 14
+\Hypertarget{_w_i_f_i_8c_acc42a6ebae479dcc1419af831ff82492}\index{WIFI.c@{WIFI.c}!U1\_Write\_Text@{U1\_Write\_Text}}
+\index{U1\_Write\_Text@{U1\_Write\_Text}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{U1\_Write\_Text()}{U1\_Write\_Text()}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_acc42a6ebae479dcc1419af831ff82492} 
+void U1\+\_\+\+Write\+\_\+\+Text (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{text}{}\end{DoxyParamCaption})}
+
+
+
+Writes a text string to UART1. 
+
+Sends a null-\/terminated string via UART1.
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & The string to send. \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 15
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_w_i_f_i_8c_a2157a367fa87d9215d6959ac9e330c53}\index{WIFI.c@{WIFI.c}!BLACK\_L@{BLACK\_L}}
+\index{BLACK\_L@{BLACK\_L}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{BLACK\_L}{BLACK\_L}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a2157a367fa87d9215d6959ac9e330c53} 
+const char\texorpdfstring{$\ast$}{*} BLACK\+\_\+L = "{}g\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for BLACK (left). 
+
+\Hypertarget{_w_i_f_i_8c_a7a30930956fa6dc6a983c698fc236fb9}\index{WIFI.c@{WIFI.c}!BLACK\_R@{BLACK\_R}}
+\index{BLACK\_R@{BLACK\_R}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{BLACK\_R}{BLACK\_R}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a7a30930956fa6dc6a983c698fc236fb9} 
+const char\texorpdfstring{$\ast$}{*} BLACK\+\_\+R = "{}G\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for BLACK (right). 
+
+\Hypertarget{_w_i_f_i_8c_a07db7af497514c7a822bfbe159f33460}\index{WIFI.c@{WIFI.c}!BLUE\_L@{BLUE\_L}}
+\index{BLUE\_L@{BLUE\_L}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{BLUE\_L}{BLUE\_L}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a07db7af497514c7a822bfbe159f33460} 
+const char\texorpdfstring{$\ast$}{*} BLUE\+\_\+L = "{}b\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for BLUE (left). 
+
+\Hypertarget{_w_i_f_i_8c_a5a5f3ca3eedf8e6f35789411a2e57918}\index{WIFI.c@{WIFI.c}!BLUE\_R@{BLUE\_R}}
+\index{BLUE\_R@{BLUE\_R}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{BLUE\_R}{BLUE\_R}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a5a5f3ca3eedf8e6f35789411a2e57918} 
+const char\texorpdfstring{$\ast$}{*} BLUE\+\_\+R = "{}B\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for BLUE (right). 
+
+\Hypertarget{_w_i_f_i_8c_a351db0eb9c30b88b0d8b227895d6bcb9}\index{WIFI.c@{WIFI.c}!buffer@{buffer}}
+\index{buffer@{buffer}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{buffer}{buffer}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a351db0eb9c30b88b0d8b227895d6bcb9} 
+volatile char buffer\mbox{[}\mbox{\hyperlink{_w_i_f_i_8h_a6821bafc3c88dfb2e433a095df9940c6}{BUF\+\_\+\+SIZE}}\mbox{]}}
+
+
+
+Buffer used to store received UART data. 
+
+\Hypertarget{_w_i_f_i_8c_a2f02c951091b93013b8b9781970eb454}\index{WIFI.c@{WIFI.c}!CMD\_AT@{CMD\_AT}}
+\index{CMD\_AT@{CMD\_AT}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{CMD\_AT}{CMD\_AT}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a2f02c951091b93013b8b9781970eb454} 
+const char\texorpdfstring{$\ast$}{*} CMD\+\_\+\+AT = "{}AT\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+AT command strings for Wi\+Fi module control. 
+
+AT command\+: Basic attention command. \Hypertarget{_w_i_f_i_8c_abb0a03ee6dcc397253ca31f83a30cfb5}\index{WIFI.c@{WIFI.c}!CMD\_CONN\_TYPE@{CMD\_CONN\_TYPE}}
+\index{CMD\_CONN\_TYPE@{CMD\_CONN\_TYPE}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{CMD\_CONN\_TYPE}{CMD\_CONN\_TYPE}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_abb0a03ee6dcc397253ca31f83a30cfb5} 
+const char\texorpdfstring{$\ast$}{*} CMD\+\_\+\+CONN\+\_\+\+TYPE = "{}AT+CIPMUX=0\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+AT command\+: Set connection type. 
+
+\Hypertarget{_w_i_f_i_8c_a71ff45a6f220c3b16f815edfb21b9d70}\index{WIFI.c@{WIFI.c}!CMD\_IP@{CMD\_IP}}
+\index{CMD\_IP@{CMD\_IP}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{CMD\_IP}{CMD\_IP}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a71ff45a6f220c3b16f815edfb21b9d70} 
+const char\texorpdfstring{$\ast$}{*} CMD\+\_\+\+IP = "{}AT+CIFSR\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+AT command\+: Get IP address. 
+
+\Hypertarget{_w_i_f_i_8c_ad51f1a68d1b226b78a7d1a703ef073da}\index{WIFI.c@{WIFI.c}!CMD\_LIST\_AP@{CMD\_LIST\_AP}}
+\index{CMD\_LIST\_AP@{CMD\_LIST\_AP}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{CMD\_LIST\_AP}{CMD\_LIST\_AP}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_ad51f1a68d1b226b78a7d1a703ef073da} 
+const char\texorpdfstring{$\ast$}{*} CMD\+\_\+\+LIST\+\_\+\+AP = "{}AT+CWLAP\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+AT command\+: List available access points. 
+
+\Hypertarget{_w_i_f_i_8c_a5143a707f11ad9c09203675081255f6f}\index{WIFI.c@{WIFI.c}!CMD\_MODE@{CMD\_MODE}}
+\index{CMD\_MODE@{CMD\_MODE}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{CMD\_MODE}{CMD\_MODE}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a5143a707f11ad9c09203675081255f6f} 
+const char\texorpdfstring{$\ast$}{*} CMD\+\_\+\+MODE = "{}AT+CWMODE=1\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+AT command\+: Set operation mode. 
+
+\Hypertarget{_w_i_f_i_8c_a1f3bff4b7aba7c018b667b8dc2b754ef}\index{WIFI.c@{WIFI.c}!CMD\_RST@{CMD\_RST}}
+\index{CMD\_RST@{CMD\_RST}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{CMD\_RST}{CMD\_RST}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a1f3bff4b7aba7c018b667b8dc2b754ef} 
+const char\texorpdfstring{$\ast$}{*} CMD\+\_\+\+RST = "{}AT+RST\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+AT command\+: Reset the module. 
+
+\Hypertarget{_w_i_f_i_8c_abcee2b0af8d8dccca4398ed6cb0978dc}\index{WIFI.c@{WIFI.c}!CMD\_SEND@{CMD\_SEND}}
+\index{CMD\_SEND@{CMD\_SEND}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{CMD\_SEND}{CMD\_SEND}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_abcee2b0af8d8dccca4398ed6cb0978dc} 
+const char\texorpdfstring{$\ast$}{*} CMD\+\_\+\+SEND = "{}AT+CIPSEND=3\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+AT command\+: Send data command. 
+
+\Hypertarget{_w_i_f_i_8c_a5d787dab9afed7007f302b8d82443c59}\index{WIFI.c@{WIFI.c}!CMD\_START\_TCP@{CMD\_START\_TCP}}
+\index{CMD\_START\_TCP@{CMD\_START\_TCP}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{CMD\_START\_TCP}{CMD\_START\_TCP}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a5d787dab9afed7007f302b8d82443c59} 
+const char\texorpdfstring{$\ast$}{*} CMD\+\_\+\+START\+\_\+\+TCP = "{}AT+CIPSTART=\textbackslash{}"{}TCP\textbackslash{}"{},\textbackslash{}"{}10.\+99.\+131.\+223\textbackslash{}"{},8084\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+AT command\+: Start a TCP connection. 
+
+\Hypertarget{_w_i_f_i_8c_aff3173962307965de346f4d909e7e60b}\index{WIFI.c@{WIFI.c}!CMD\_WIFI\_CONN@{CMD\_WIFI\_CONN}}
+\index{CMD\_WIFI\_CONN@{CMD\_WIFI\_CONN}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{CMD\_WIFI\_CONN}{CMD\_WIFI\_CONN}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_aff3173962307965de346f4d909e7e60b} 
+const char\texorpdfstring{$\ast$}{*} CMD\+\_\+\+WIFI\+\_\+\+CONN = "{}AT+CWJAP=\textbackslash{}"{}etfbl.\+net\textbackslash{}"{},\textbackslash{}"{}\textbackslash{}"{}\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+AT command\+: Connect to Wi\+Fi. 
+
+\Hypertarget{_w_i_f_i_8c_acd27c393325d377521d892a99067b012}\index{WIFI.c@{WIFI.c}!colorBuffer@{colorBuffer}}
+\index{colorBuffer@{colorBuffer}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{colorBuffer}{colorBuffer}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_acd27c393325d377521d892a99067b012} 
+volatile char color\+Buffer\mbox{[}\mbox{\hyperlink{_w_i_f_i_8h_a92be0a39616911a39ed284c01a23fa5c}{COLOR\+\_\+\+NUM}}+1\mbox{]}}
+
+
+
+Buffer for storing color-\/related data. 
+
+\Hypertarget{_w_i_f_i_8c_aa043779ff6ca752cdff814fbb767aff7}\index{WIFI.c@{WIFI.c}!flag@{flag}}
+\index{flag@{flag}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{flag}{flag}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_aa043779ff6ca752cdff814fbb767aff7} 
+volatile uint8\+\_\+t flag = 0}
+
+
+
+General-\/purpose status flag. 
+
+\Hypertarget{_w_i_f_i_8c_a30adaf039f99af3af02458071425717d}\index{WIFI.c@{WIFI.c}!GREEN\_L@{GREEN\_L}}
+\index{GREEN\_L@{GREEN\_L}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{GREEN\_L}{GREEN\_L}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a30adaf039f99af3af02458071425717d} 
+const char\texorpdfstring{$\ast$}{*} GREEN\+\_\+L = "{}c\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for GREEN (left). 
+
+\Hypertarget{_w_i_f_i_8c_a4472722bff0249a9cded8916935aca53}\index{WIFI.c@{WIFI.c}!GREEN\_R@{GREEN\_R}}
+\index{GREEN\_R@{GREEN\_R}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{GREEN\_R}{GREEN\_R}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a4472722bff0249a9cded8916935aca53} 
+const char\texorpdfstring{$\ast$}{*} GREEN\+\_\+R = "{}C\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for GREEN (right). 
+
+\Hypertarget{_w_i_f_i_8c_a65f8b91c0d19c0ae6cd36c8edadd48aa}\index{WIFI.c@{WIFI.c}!head@{head}}
+\index{head@{head}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{head}{head}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a65f8b91c0d19c0ae6cd36c8edadd48aa} 
+volatile unsigned head = 0}
+
+
+
+Head index of the buffer. 
+
+\Hypertarget{_w_i_f_i_8c_af31452ec85f4f608eded50058ed8d301}\index{WIFI.c@{WIFI.c}!messageReady@{messageReady}}
+\index{messageReady@{messageReady}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{messageReady}{messageReady}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_af31452ec85f4f608eded50058ed8d301} 
+volatile uint8\+\_\+t message\+Ready = 0}
+
+
+
+Flag indicating that a complete message is ready. 
+
+\Hypertarget{_w_i_f_i_8c_aae3a4fb81323d5c38bd9b2463b1482d7}\index{WIFI.c@{WIFI.c}!ORANGE\_L@{ORANGE\_L}}
+\index{ORANGE\_L@{ORANGE\_L}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{ORANGE\_L}{ORANGE\_L}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_aae3a4fb81323d5c38bd9b2463b1482d7} 
+const char\texorpdfstring{$\ast$}{*} ORANGE\+\_\+L = "{}f\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for ORANGE (left). 
+
+\Hypertarget{_w_i_f_i_8c_a348963cabd4b91e92c08ff94fef4f004}\index{WIFI.c@{WIFI.c}!ORANGE\_R@{ORANGE\_R}}
+\index{ORANGE\_R@{ORANGE\_R}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{ORANGE\_R}{ORANGE\_R}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a348963cabd4b91e92c08ff94fef4f004} 
+const char\texorpdfstring{$\ast$}{*} ORANGE\+\_\+R = "{}F\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for ORANGE (right). 
+
+\Hypertarget{_w_i_f_i_8c_a16d991d64570c881fad91826c2e24834}\index{WIFI.c@{WIFI.c}!PINK\_L@{PINK\_L}}
+\index{PINK\_L@{PINK\_L}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{PINK\_L}{PINK\_L}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a16d991d64570c881fad91826c2e24834} 
+const char\texorpdfstring{$\ast$}{*} PINK\+\_\+L = "{}e\textbackslash{}r\textbackslash{}n"{}}
+
+\Hypertarget{_w_i_f_i_8c_a71019eb73042e7ead9c5b10ab307de7d}\index{WIFI.c@{WIFI.c}!PINK\_R@{PINK\_R}}
+\index{PINK\_R@{PINK\_R}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{PINK\_R}{PINK\_R}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a71019eb73042e7ead9c5b10ab307de7d} 
+const char\texorpdfstring{$\ast$}{*} PINK\+\_\+R = "{}E\textbackslash{}r\textbackslash{}n"{}}
+
+\Hypertarget{_w_i_f_i_8c_ad8cba8aaaee621e56835eec8d2dbafc1}\index{WIFI.c@{WIFI.c}!RED\_L@{RED\_L}}
+\index{RED\_L@{RED\_L}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{RED\_L}{RED\_L}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_ad8cba8aaaee621e56835eec8d2dbafc1} 
+const char\texorpdfstring{$\ast$}{*} RED\+\_\+L = "{}a\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for RED (left). 
+
+\Hypertarget{_w_i_f_i_8c_ad951f453b8e9302d4ce568cd17d4f4e9}\index{WIFI.c@{WIFI.c}!RED\_R@{RED\_R}}
+\index{RED\_R@{RED\_R}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{RED\_R}{RED\_R}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_ad951f453b8e9302d4ce568cd17d4f4e9} 
+const char\texorpdfstring{$\ast$}{*} RED\+\_\+R = "{}A\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for RED (right). 
+
+\Hypertarget{_w_i_f_i_8c_aab357daad99da131c2c9b87e603abfeb}\index{WIFI.c@{WIFI.c}!tail@{tail}}
+\index{tail@{tail}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{tail}{tail}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_aab357daad99da131c2c9b87e603abfeb} 
+volatile unsigned tail = 0}
+
+
+
+Tail index of the buffer. 
+
+\Hypertarget{_w_i_f_i_8c_a0d1a7f2084460b76b703cf892f19b4c6}\index{WIFI.c@{WIFI.c}!WHITE\_L@{WHITE\_L}}
+\index{WHITE\_L@{WHITE\_L}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{WHITE\_L}{WHITE\_L}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a0d1a7f2084460b76b703cf892f19b4c6} 
+const char\texorpdfstring{$\ast$}{*} WHITE\+\_\+L = "{}h\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for WHITE (left). 
+
+\Hypertarget{_w_i_f_i_8c_aa4db537bb41c79f4b079b9c815b8d90d}\index{WIFI.c@{WIFI.c}!WHITE\_R@{WHITE\_R}}
+\index{WHITE\_R@{WHITE\_R}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{WHITE\_R}{WHITE\_R}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_aa4db537bb41c79f4b079b9c815b8d90d} 
+const char\texorpdfstring{$\ast$}{*} WHITE\+\_\+R = "{}H\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for WHITE (right). 
+
+\Hypertarget{_w_i_f_i_8c_ae1258c439efe55ef8784c215d7683bc6}\index{WIFI.c@{WIFI.c}!YELLOW\_L@{YELLOW\_L}}
+\index{YELLOW\_L@{YELLOW\_L}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{YELLOW\_L}{YELLOW\_L}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_ae1258c439efe55ef8784c215d7683bc6} 
+const char\texorpdfstring{$\ast$}{*} YELLOW\+\_\+L = "{}d\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for YELLOW (left). 
+
+\Hypertarget{_w_i_f_i_8c_a3a3dc5383e7c58e3a7e2ed8c430ce1ee}\index{WIFI.c@{WIFI.c}!YELLOW\_R@{YELLOW\_R}}
+\index{YELLOW\_R@{YELLOW\_R}!WIFI.c@{WIFI.c}}
+\doxysubsubsection{\texorpdfstring{YELLOW\_R}{YELLOW\_R}}
+{\footnotesize\ttfamily \label{_w_i_f_i_8c_a3a3dc5383e7c58e3a7e2ed8c430ce1ee} 
+const char\texorpdfstring{$\ast$}{*} YELLOW\+\_\+R = "{}D\textbackslash{}r\textbackslash{}n"{}}
+
+
+
+\doxylink{struct_color}{Color} mapping for YELLOW (right). 
+

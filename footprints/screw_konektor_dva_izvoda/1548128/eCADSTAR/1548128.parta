@@ -1,0 +1,66 @@
+(Japanese_coding: sjis)
+(function "ECS_19282950"
+    (uver 1)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (ctime 2024-03-18-05:32:25)
+    (utime 2024-12-09-04:24:41)
+    (interface
+        (port "1" (symbPinId 1) (portType INOUT))
+        (port "2" (symbPinId 2) (portType INOUT))
+    )
+    (property "symbolName" "1548128")
+)
+
+
+(pinAssign "ECS_19282950"
+    (uver 1)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (ctime 2024-03-18-05:32:25)
+    (utime 2024-12-09-04:24:41)
+    (interface
+        (port "1" (symbPinId 1) (portName "1") (portType INOUT))
+        (port "2" (symbPinId 2) (portName "2") (portType INOUT))
+    )
+    (internal
+        (funcInst (functionRef "ECS_19282950")
+                (port "1" (match "1"))
+                (port "2" (match "2"))
+        )
+    )
+    (property "usePowerBox" "No")
+    (property "symbolName" "1548128")
+)
+
+
+(part "1548128"
+    (uver 1)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (ctime 2024-03-18-05:32:25)
+    (utime 2024-12-09-04:24:41)
+    (packageRef "1548128")
+    (pinAssignRef "ECS_19282950")
+    (interface
+        (port "1" (symbPinId 1) (portName "1") (portType INOUT))
+        (port "2" (symbPinId 2) (portName "2") (portType INOUT))
+    )
+    (partClass UNDEF)
+    (useInSchema Y)
+    (useInLayout Y)
+    (inPartsList Y)
+    (partType NORMAL)
+    (placeRestriction FREE)
+    (property "enetNonSeries" "YES")
+    (property "refDesPrefix" "J")
+    (property "description" "Pluggable Terminal Blocks MKDSN 1,5/ 2-5,08 SPE")
+    (property "Mouser_Part_Number" "651-1548128")
+    (property "Mouser_Price/Stock" "https://www.mouser.co.uk/ProductDetail/Phoenix-Contact/1548128?qs=ulEaXIWI0c87QOzP9yohxA%3D%3D")
+    (property "Manufacturer_Name" "Phoenix Contact")
+    (property "Manufacturer_Part_Number" "1548128")
+    (property "Datasheet_Link" "https://product-download.phoenixcontact.com/8064728?response-content-disposition=inline;%20filename%3D%22pxc_1548128_00_05_MKDSN-1-5-2-5-08-SPE_FAM.pdf%22&Expires=1710663383&Signature=dNE3xUpP8aZKNM7MbijW96iZv~1ZSU7z-jr1GpV8auc4knETZVFd79aWCcONAeV4hWLRa32")
+    (property "compAreaTopHeight" 10.15)
+)
+
+

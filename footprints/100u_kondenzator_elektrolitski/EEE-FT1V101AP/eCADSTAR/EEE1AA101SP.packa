@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "EEE-FT1V101AP"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2021-11-09-17:30:21)
+    (mountForm default
+        (footprintRef "EEE1AA101SP")
+        (spec "System")
+    )
+)

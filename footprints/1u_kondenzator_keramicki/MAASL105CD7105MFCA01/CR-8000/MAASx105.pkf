@@ -1,0 +1,10 @@
+(unit MM)
+
+(package "MAASx105"
+    (type UNDEF)
+    (uver 2)
+    (mountForm default
+        (footprintRef "MAASx105")
+        (spec "default")
+    )
+)

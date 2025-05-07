@@ -1,0 +1,118 @@
+\doxysection{WIFI.\+h}
+\hypertarget{_w_i_f_i_8h_source}{}\label{_w_i_f_i_8h_source}\index{include/WIFI.h@{include/WIFI.h}}
+\mbox{\hyperlink{_w_i_f_i_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_WIFI\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_WIFI\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ FCY\ 16000000UL\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <xc.h>}\ \ \ \ \ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <stdlib.h>}\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <string.h>}\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <libpic30.h>}\ }
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ BRGH\_VAL\ 1\ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ BRG\_VAL\ 34\ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ BUF\_SIZE\ 80\ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ COLOR\_NUM\ \ 8\ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{_w_i_f_i_8h_a351db0eb9c30b88b0d8b227895d6bcb9}{buffer}}[\mbox{\hyperlink{_w_i_f_i_8h_a6821bafc3c88dfb2e433a095df9940c6}{BUF\_SIZE}}];}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{_w_i_f_i_8h_a65f8b91c0d19c0ae6cd36c8edadd48aa}{head}};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \mbox{\hyperlink{_w_i_f_i_8h_aab357daad99da131c2c9b87e603abfeb}{tail}};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint8\_t\ \mbox{\hyperlink{_w_i_f_i_8h_aa043779ff6ca752cdff814fbb767aff7}{flag}};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint8\_t\ \mbox{\hyperlink{_w_i_f_i_8h_af31452ec85f4f608eded50058ed8d301}{messageReady}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00049\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{_w_i_f_i_8h_acd27c393325d377521d892a99067b012}{colorBuffer}}[\mbox{\hyperlink{_w_i_f_i_8h_a92be0a39616911a39ed284c01a23fa5c}{COLOR\_NUM}}+1];}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a2f02c951091b93013b8b9781970eb454}{CMD\_AT}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a1f3bff4b7aba7c018b667b8dc2b754ef}{CMD\_RST}};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a5143a707f11ad9c09203675081255f6f}{CMD\_MODE}};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_ad51f1a68d1b226b78a7d1a703ef073da}{CMD\_LIST\_AP}};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00074\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_aff3173962307965de346f4d909e7e60b}{CMD\_WIFI\_CONN}};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_abb0a03ee6dcc397253ca31f83a30cfb5}{CMD\_CONN\_TYPE}};}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00084\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a5d787dab9afed7007f302b8d82443c59}{CMD\_START\_TCP}};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00089\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_abcee2b0af8d8dccca4398ed6cb0978dc}{CMD\_SEND}};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a71ff45a6f220c3b16f815edfb21b9d70}{CMD\_IP}};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00099\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_ad951f453b8e9302d4ce568cd17d4f4e9}{RED\_R}};}
+\DoxyCodeLine{00101\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a5a5f3ca3eedf8e6f35789411a2e57918}{BLUE\_R}};}
+\DoxyCodeLine{00103\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a3a3dc5383e7c58e3a7e2ed8c430ce1ee}{YELLOW\_R}};}
+\DoxyCodeLine{00105\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a4472722bff0249a9cded8916935aca53}{GREEN\_R}};}
+\DoxyCodeLine{00107\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a0e6e9b42e7225c34c55652567bdf04bd}{PURPLE\_R}};}
+\DoxyCodeLine{00109\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a348963cabd4b91e92c08ff94fef4f004}{ORANGE\_R}};}
+\DoxyCodeLine{00111\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_aa4db537bb41c79f4b079b9c815b8d90d}{WHITE\_R}};}
+\DoxyCodeLine{00113\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a7a30930956fa6dc6a983c698fc236fb9}{BLACK\_R}};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_ad8cba8aaaee621e56835eec8d2dbafc1}{RED\_L}};}
+\DoxyCodeLine{00118\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a07db7af497514c7a822bfbe159f33460}{BLUE\_L}};}
+\DoxyCodeLine{00120\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_ae1258c439efe55ef8784c215d7683bc6}{YELLOW\_L}};}
+\DoxyCodeLine{00122\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a30adaf039f99af3af02458071425717d}{GREEN\_L}};}
+\DoxyCodeLine{00124\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a0274f389b3149b4fa88e4a1a0333457b}{PURPLE\_L}};}
+\DoxyCodeLine{00126\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_aae3a4fb81323d5c38bd9b2463b1482d7}{ORANGE\_L}};}
+\DoxyCodeLine{00128\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a0d1a7f2084460b76b703cf892f19b4c6}{WHITE\_L}};}
+\DoxyCodeLine{00130\ \textcolor{keyword}{extern}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_w_i_f_i_8h_a2157a367fa87d9215d6959ac9e330c53}{BLACK\_L}};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint8\_t\ \mbox{\hyperlink{_w_i_f_i_8h_a3c90054f75a050b537e0c0b3984e2632}{DIRECTION\_BIT\_ARRAY}};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ TODO\ Insert\ appropriate\ \#include\ <>}}
+\DoxyCodeLine{00138\ \textcolor{comment}{//\ TODO\ Insert\ C++\ class\ definitions\ if\ appropriate}}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ TODO\ Insert\ declarations}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00145\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_abff56c223cafe250db06aa104e98ca75}{\_\_attribute\_\_}}((interrupt,\ no\_auto\_psv))\ \_U1RXInterrupt(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00150\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_abff56c223cafe250db06aa104e98ca75}{\_\_attribute\_\_}}((interrupt,\ no\_auto\_psv))\ \_U1ErrInterrupt(\textcolor{keywordtype}{void});\ }
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00156\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_a24ddf9541290b087af9974b720d1c794}{sendCommand}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ command);}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00162\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_ac8feeec2af2484c0ee290eefa3b4c2f7}{U1\_Write\_Char}}(\textcolor{keywordtype}{char}\ ch);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00168\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_acc42a6ebae479dcc1419af831ff82492}{U1\_Write\_Text}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ text);}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00173\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_afcff8068365c8a6c29e373aba6c502a6}{configureU1}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00178\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_aedac14fdf764e59cfb793a04b3ca2cbb}{cleanBuffer}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00183\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_a772e86424a379ac931191b6ede9d9f0a}{configurePPS}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00188\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_a19430249dc98c544ea73d06a71487ced}{configureIO}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00193\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_a0fc912d7e8ff4b0908303847912e0da1}{setupConnection}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00199\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_a4e1d99ad3a0d84d1f32cba4586225e15}{sendData}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ data);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00205\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_aceacff1618b5cd1a26ae32cc8a1377d7}{processDataFromColorSensor}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ input);}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00210\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_a729684ced0b7f40cedf7718d690987cf}{parseDataFSM}}(\textcolor{keywordtype}{void});\ }
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00215\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_aa26aed44054211c960960c15e483e893}{pollWiFi}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00220\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_w_i_f_i_8h_a95840f40bd30049c7cf254a3a1b37b69}{configureOscillator}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#ifdef\ \ \_\_cplusplus}}
+\DoxyCodeLine{00223\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{comment}{//\ TODO\ If\ C++\ is\ being\ used,\ regular\ C\ code\ needs\ function\ names\ to\ have\ C\ }}
+\DoxyCodeLine{00227\ \textcolor{comment}{//\ linkage\ so\ the\ functions\ can\ be\ used\ by\ the\ c\ code.\ }}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#ifdef\ \ \_\_cplusplus}}
+\DoxyCodeLine{00230\ \}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ XC\_HEADER\_TEMPLATE\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

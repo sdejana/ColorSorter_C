@@ -1,0 +1,45 @@
+\doxysection{include/\+LED.h File Reference}
+\hypertarget{_l_e_d_8h}{}\label{_l_e_d_8h}\index{include/LED.h@{include/LED.h}}
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+Include dependency graph for LED.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_l_e_d_8h_aeff70ba17075ade5835ecb4af6932fee}{turn\+On\+LED}} (void)
+\begin{DoxyCompactList}\small\item\em Turns the LED on. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_l_e_d_8h_aa6e24531f437452df610f6a7dbac40a1}{turn\+Off\+LED}} (void)
+\begin{DoxyCompactList}\small\item\em Turns the LED off. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_l_e_d_8h_aa6e24531f437452df610f6a7dbac40a1}\index{LED.h@{LED.h}!turnOffLED@{turnOffLED}}
+\index{turnOffLED@{turnOffLED}!LED.h@{LED.h}}
+\doxysubsubsection{\texorpdfstring{turnOffLED()}{turnOffLED()}}
+{\footnotesize\ttfamily \label{_l_e_d_8h_aa6e24531f437452df610f6a7dbac40a1} 
+void turn\+Off\+LED (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Turns the LED off. 
+
+Sets LATB6 to 0, driving the LED pin low to extinguish the LED.
+
+Clears the LATB6 bit to drive the LED pin low, turning the LED off. Here is the caller graph for this function\+:
+% FIG 2
+\Hypertarget{_l_e_d_8h_aeff70ba17075ade5835ecb4af6932fee}\index{LED.h@{LED.h}!turnOnLED@{turnOnLED}}
+\index{turnOnLED@{turnOnLED}!LED.h@{LED.h}}
+\doxysubsubsection{\texorpdfstring{turnOnLED()}{turnOnLED()}}
+{\footnotesize\ttfamily \label{_l_e_d_8h_aeff70ba17075ade5835ecb4af6932fee} 
+void turn\+On\+LED (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Turns the LED on. 
+
+Sets LATB6 to 1, driving the LED pin high to illuminate the LED.
+
+Sets the LATB6 bit to drive the LED pin high, turning the LED on. Here is the caller graph for this function\+:
+% FIG 3

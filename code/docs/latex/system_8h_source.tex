@@ -1,0 +1,41 @@
+\doxysection{system.\+h}
+\hypertarget{system_8h_source}{}\label{system_8h_source}\index{include/system.h@{include/system.h}}
+\mbox{\hyperlink{system_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Faculty\ of\ Electrical\ Engineering}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ MKS\ 2025}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ https://github.com/lukavidic/ColorSorter\_C.git}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ ******************************************************************************}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ @file\ \ \ \ system.h}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ @brief\ \ \ System\ initialization\ interface\ and\ core\ frequency\ definition.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ Defines\ the\ system\ crystal\ frequency\ macro\ and\ declares\ the}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ \ SYSTEM\_Initialize\ function\ for\ initializing\ system-\/wide\ modules}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ such\ as\ pin\ manager,\ interrupt\ manager,\ and\ other\ peripherals.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ @note\ \ \ \ \_XTAL\_FREQ\ must\ match\ the\ actual\ oscillator\ frequency.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ @date\ \ \ \ 10\ April\ 2025}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *******************************************************************************/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ \_XTAL\_FREQ}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ \_XTAL\_FREQ\ \ 32000000UL}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}xc.h"{}}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}stdint.h"{}}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pin__manager_8h}{pin\_manager.h}}"{}}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{interrupt__manager_8h}{interrupt\_manager.h}}"{}}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifndef\ SYSTEM\_H}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ SYSTEM\_H}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{system_8h_a5e8391114a0cf91ac20002be25e3d352}{SYSTEM\_Initialize}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{/*\ SYSTEM\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00046\ }
+
+\end{DoxyCode}

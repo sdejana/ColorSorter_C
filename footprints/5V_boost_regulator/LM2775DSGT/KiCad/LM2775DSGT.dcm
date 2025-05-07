@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP LM2775DSGT
+D Charge Pump Switching Regulator IC Positive Fixed 5V 1 Output 200mA 8-WFDFN Exposed Pad
+K
+F http://www.ti.com/lit/ds/symlink/lm2775.pdf
+$ENDCMP
+#
+#End Doc Library

@@ -1,0 +1,68 @@
+\doxysection{VEML3328.\+h}
+\hypertarget{_v_e_m_l3328_8h_source}{}\label{_v_e_m_l3328_8h_source}\index{include/VEML3328.h@{include/VEML3328.h}}
+\mbox{\hyperlink{_v_e_m_l3328_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{\ /******************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Faculty\ of\ Electrical\ Engineering}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ MKS\ 2025}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ https://github.com/lukavidic/ColorSorter\_C.git}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ ******************************************************************************}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ @file\ \ \ \ VEML3328.h}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ @brief\ \ \ Interface\ for\ VEML3328\ color\ sensor\ driver\ and\ WS2812\ LED\ control.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ Declares\ macros,\ external\ variables,\ and\ functions\ for\ initializing\ and}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ \ communicating\ with\ the\ VEML3328\ I2C\ color\ sensor,\ handling\ I2C\ bus\ recovery,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ interrupt\ management,\ RGB\ data\ normalization,\ color\ detection,\ and\ sending}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ output\ to\ WS2812\ LEDs\ via\ SPI.\ Supports\ reading\ multiple\ samples\ and}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ \ \ matching\ against\ calibrated\ color\ values.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *******************************************************************************/}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifndef\ \_VEML3328\_H}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ \_VEML3328\_H}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <xc.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ FCY\ 16000000UL}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <libpic30.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{system_8h}{system.h}}"{}}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ COLOR\_QUANTITY\ \ \ \ 9}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ NUM\_OF\_SAMPLES\ \ \ \ 10}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint8\_t\ \mbox{\hyperlink{_v_e_m_l3328_8h_a08224680ff9877c07347af849aeaa0bd}{interrupt\_detected}};}
+\DoxyCodeLine{00037\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint16\_t\ \mbox{\hyperlink{_v_e_m_l3328_8h_a2df505e9e05685f8508902f85dea98f2}{red\_vector}};}
+\DoxyCodeLine{00039\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint16\_t\ \mbox{\hyperlink{_v_e_m_l3328_8h_a2eed9c0b130fe2f3959619bb230489a3}{green\_vector}};}
+\DoxyCodeLine{00041\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ uint16\_t\ \mbox{\hyperlink{_v_e_m_l3328_8h_a3e729d5fa7116a2a807e871ddd0e77d6}{blue\_vector}};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{extern}\ uint16\_t\ \mbox{\hyperlink{_v_e_m_l3328_8h_a019686fc10ad6c53cc22f0490310684b}{red\_value}};}
+\DoxyCodeLine{00050\ \textcolor{keyword}{extern}\ uint16\_t\ \mbox{\hyperlink{_v_e_m_l3328_8h_a93273d49dac8d6f9b26df4ba992051fa}{green\_value}};}
+\DoxyCodeLine{00054\ \textcolor{keyword}{extern}\ uint16\_t\ \mbox{\hyperlink{_v_e_m_l3328_8h_ad620bf3b1cdfe426f376b701f6961e38}{blue\_value}};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_a82e0b267bb7f66d18278854d87414c86}{set\_slave}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_v_e_m_l3328_8h_a719575f5040d8125173aae2c42138fc7}{detect\_color}}(uint16\_t\ *r,\ uint16\_t\ *g,\ uint16\_t\ *b);}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_v_e_m_l3328_8h_a1605896c4d3b3b9e2cfd2bd4ba0e013b}{calculate\_distance}}(\textcolor{keywordtype}{int}\ r1,\ \textcolor{keywordtype}{int}\ g1,\ \textcolor{keywordtype}{int}\ b1,}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ r2,\ \textcolor{keywordtype}{int}\ g2,\ \textcolor{keywordtype}{int}\ b2);}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_a30da27c967c427811646a5a6f66f495f}{WS2812\_Send\_Byte}}(uint8\_t\ \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_afbc9f6148c8857fb5a175d4e6588e3ce}{I2C\_free\_stuck\_slave}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_ae5579c153549761cc2089d2f1d71b945}{\_\_attribute\_\_}}((interrupt,\ no\_auto\_psv))\ \mbox{\hyperlink{_v_e_m_l3328_8h_a380dc7ebf9e9d69dc94b07a92a5dcd84}{\_MI2C1Interrupt}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00081\ \mbox{\hyperlink{_v_e_m_l3328_8h_a380dc7ebf9e9d69dc94b07a92a5dcd84}{\_MI2C1Interrupt}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_af6b4e1bf114a26416938dff94e24f3a5}{I2C\_stop}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_a62d959e4eb956935dc21708bfb8fad78}{I2C\_start}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_a777b3fbdbc243808ff4bb3d250eedbcd}{I2C\_receive\_enable}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_a2a3fba87633c9fe1a4716be7b558fb21}{I2C\_write}}(uint8\_t\ data);}
+\DoxyCodeLine{00103\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_a3114726ac47d4d647564500146d69693}{package\_receive}}(uint16\_t*);}
+\DoxyCodeLine{00109\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_a3187c80851197f43a6d678c301a51da4}{request\_data}}(uint8\_t,\ uint16\_t*);}
+\DoxyCodeLine{00113\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_ab00627ef6efacad0a99f00d4ec1b17b9}{I2C\_config}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00117\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_ab4a8bf27288c6529ecb713ec0b84bc13}{WS2812\_Set\_Color}}(uint8\_t,\ uint8\_t,\ uint8\_t);}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{comment}{/*\ Global\ API\ functions\ */}}
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_v_e_m_l3328_8h_af4b4174676a4dac551c89c5021224b6c}{colorClickConfiguration}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00132\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{_v_e_m_l3328_8h_a140a3698efffb3d00c4643d18d2af932}{readColor}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_VEML3328\_H\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,72 @@
+\doxysection{spi1.\+h}
+\hypertarget{spi1_8h_source}{}\label{spi1_8h_source}\index{include/spi1.h@{include/spi1.h}}
+\mbox{\hyperlink{spi1_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Faculty\ of\ Electrical\ Engineering}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ MKS\ 2025}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ https://github.com/lukavidic/ColorSorter\_C.git}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ ******************************************************************************}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ @file\ \ \ \ spi1.h}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ @brief\ \ \ SPI1\ driver\ API\ definitions.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ Provides\ the\ interface\ for\ initializing\ SPI1\ module,\ performing}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ \ data\ exchanges\ in\ 8-\/bit\ and\ buffer\ modes,\ and\ retrieving\ module\ status}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ and\ transfer\ mode.\ Supports\ both\ 8-\/bit\ and\ 16-\/bit\ data\ transfer\ modes.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ ******************************************************************************/}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#ifndef\ \_SPI1\_H}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ \_SPI1\_H}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <xc.h>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ SPI1\_DUMMY\_DATA\ \ \ \ \ \ \ \ \ \ \ 0x0}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ SPI1\_FIFO\_FILL\_LIMIT\ \ \ \ \ \ 0x8}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{/*\ Ensure\ FIFO\ limit\ does\ not\ exceed\ hardware\ maximum\ */}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#if\ (SPI1\_FIFO\_FILL\_LIMIT\ >\ 8)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\ \ \ \ \#undef\ SPI1\_FIFO\_FILL\_LIMIT}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\ \ \ \ \#define\ SPI1\_FIFO\_FILL\_LIMIT\ \ 8}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \mbox{\hyperlink{spi1_8h_a023db59f6551e56ce57ee219df328012a69e392271481ac8c49fb6f35a7bc7c53}{SPI1\_SHIFT\_REGISTER\_EMPTY}}\ \ =\ 1\ <<\ 7,\ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{spi1_8h_a023db59f6551e56ce57ee219df328012a877f4b63731f235b5fe552030d1388c5}{SPI1\_RECEIVE\_OVERFLOW}}\ \ \ \ \ \ =\ 1\ <<\ 6,\ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{spi1_8h_a023db59f6551e56ce57ee219df328012afc7ba2714535aa5d614b5759b1d40579}{SPI1\_RECEIVE\_FIFO\_EMPTY}}\ \ \ \ =\ 1\ <<\ 5,\ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{spi1_8h_a023db59f6551e56ce57ee219df328012a949c786b6788d844c479a2f299fdf7dc}{SPI1\_TRANSMIT\_BUFFER\_FULL}}\ \ =\ 1\ <<\ 1,\ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{spi1_8h_a023db59f6551e56ce57ee219df328012aba7791551998b7c485e613812eaa6a84}{SPI1\_RECEIVE\_BUFFER\_FULL}}\ \ \ =\ 1\ <<\ 0\ \ \ }
+\DoxyCodeLine{00057\ \}\ \mbox{\hyperlink{spi1_8h_a023db59f6551e56ce57ee219df328012}{SPI1\_STATUS}};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{spi1_8h_a46876d5bc7fb1c46f19f110b9f9b6c51a23c5fcba4cc55d9063d51b2dcdef52cc}{SPI1\_DRIVER\_TRANSFER\_MODE\_8BIT}}\ \ =\ 0,\ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{spi1_8h_a46876d5bc7fb1c46f19f110b9f9b6c51ad3284e79e4c96476b2881599977fb721}{SPI1\_DRIVER\_TRANSFER\_MODE\_16BIT}}\ =\ 1,\ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{spi1_8h_a46876d5bc7fb1c46f19f110b9f9b6c51a4c88eb2e945d427afede5ec0321317a1}{SPI1\_DRIVER\_TRANSFER\_MODE\_32BIT}}\ =\ 2\ \ \ }
+\DoxyCodeLine{00066\ \}\ \mbox{\hyperlink{spi1_8h_a46876d5bc7fb1c46f19f110b9f9b6c51}{SPI1\_TRANSFER\_MODE}};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{spi1_8h_a0607cad7a6b302950091fea719146a54}{SPI1\_Initialize}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00090\ uint8\_t\ \mbox{\hyperlink{spi1_8h_a6553e18263c48505676958ce4c937167}{SPI1\_Exchange8bit}}(uint8\_t\ data);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00102\ uint16\_t\ \mbox{\hyperlink{spi1_8h_a466cff635af902560dbb6dacb5ace1bf}{SPI1\_Exchange8bitBuffer}}(uint8\_t\ *dataTransmitted,}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ byteCount,}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ *dataReceived);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00111\ \mbox{\hyperlink{spi1_8h_a023db59f6551e56ce57ee219df328012}{SPI1\_STATUS}}\ \mbox{\hyperlink{spi1_8h_a05acfdd41894527bd8833b8f549680ed}{SPI1\_StatusGet}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_SPI1\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,16 @@
+.LM2775DSGT :1 ;Charge Pump Switching Regulator IC Positive Fixed 5V 1 Output 200mA 8-WFDFN Exposed Pad
+SON50P200X200X80-9N
+*STM IC
+*NGS
+*PLB 1="PFM" 2="C1-" 3="C1+" 4="OUTDIS" 5="EN" 6="VOUT" 7="VIN" 8="GND_1" 9="GND_2"
+*MXP 9
+*DFN LM2775DSGT
+~!Mouser Part Number (595-LM2775DSGT)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Texas-Instruments/LM2775DSGT?qs=GURawfaeGuC8OeiXDzqVsg%3D%3D)
+~!Manufacturer_Name (Texas Instruments)
+~!Manufacturer_Part_Number (LM2775DSGT)
+~!Link Datasheet (http://www.ti.com/lit/ds/symlink/lm2775.pdf)
+~!Height (0.8mm)
+~!3D_Model (LM2775DSGT)
+LM2775DSGT
+1.1!U 2.1!U 3.1!U 4.1!U 9.1!U 8.1!U 7.1!U 6.1!U 5.1!U 

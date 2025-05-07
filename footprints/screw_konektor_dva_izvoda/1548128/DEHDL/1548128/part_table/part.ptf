@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART '1548128'
+CLASS = IO
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Phoenix Contact", "1548128" (!) = "", "1548128", "Other", "651-1548128", "https://www.mouser.co.uk/ProductDetail/Phoenix-Contact/1548128?qs=ulEaXIWI0c87QOzP9yohxA%3D%3D", "Pluggable Terminal Blocks MKDSN 1,5/ 2-5,08 SPE", "https://product-download.phoenixcontact.com/8064728?response-content-disposition=inline;%20filename%3D%22pxc_1548128_00_05_MKDSN-1-5-2-5-08-SPE_FAM.pdf%22&Expires=1710663383&Signature=dNE3xUpP8aZKNM7MbijW96iZv~1ZSU7z-jr1GpV8auc4knETZVFd79aWCcONAeV4hWLRa32", "10.15 mm"
+END_PART
+
+END.

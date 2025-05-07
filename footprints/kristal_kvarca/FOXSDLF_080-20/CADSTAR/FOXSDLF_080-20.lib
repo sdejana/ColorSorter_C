@@ -1,0 +1,16 @@
+.FOXSDLF_080-20 :1 ;Crystal SMD 8.000MHz HC49S-SMD Crystal 8MHz, +/-30ppm, 2-Pin SMD, 11.7 x 5 x 4.5mm
+FOXSDLF08020
+*STM Y
+*NGS
+*PLB 1="CRYSTAL_1" 2="CRYSTAL_2"
+*MXP 2
+*DFN FOXSDLF_080-20
+~!Mouser Part Number (559-FOXSD080-20-LF)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Fox-Abracon/FOXSDLF-080-20?qs=mzRxyRlhVdu42DWWSpKTJw%3D%3D)
+~!Manufacturer_Name (Fox)
+~!Manufacturer_Part_Number (FOXSDLF/080-20)
+~!Link Datasheet (-)
+~!Height (4.5mm)
+~!3D_Model (FOXSDLF_080-20)
+FOXSDLF_080-20
+1.1!U 2.1!U 

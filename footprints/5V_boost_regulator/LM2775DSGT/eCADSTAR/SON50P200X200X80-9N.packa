@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "LM2775DSGT"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2023-03-08-15:57:45)
+    (mountForm default
+        (footprintRef "SON50P200X200X80-9N")
+        (spec "System")
+    )
+)

@@ -1,0 +1,2 @@
+Ako nema oznake uz vrijednost, podrazumijeva se osnovna jedinica.
+Npr. 270_otpornik je otpornik od 270 oma.

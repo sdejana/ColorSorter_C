@@ -1,0 +1,74 @@
+\doxysection{include/interrupt\+\_\+manager.h File Reference}
+\hypertarget{interrupt__manager_8h}{}\label{interrupt__manager_8h}\index{include/interrupt\_manager.h@{include/interrupt\_manager.h}}
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{interrupt__manager_8h_a5c526129ee879458dff6755f5768a6e3}{INTERRUPT\+\_\+\+Initialize}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes interrupt priorities for configured peripherals. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{interrupt__manager_8h_a0e88e5f65ed34a762b4f9059e2a033ed}{INTERRUPT\+\_\+\+Global\+Enable}} (void)
+\begin{DoxyCompactList}\small\item\em Globally enable interrupts. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{interrupt__manager_8h_ac2f23c6185e515ff80fb2f2549b0f10d}{INTERRUPT\+\_\+\+Global\+Disable}} (void)
+\begin{DoxyCompactList}\small\item\em Globally disable interrupts. \end{DoxyCompactList}\item 
+static uint16\+\_\+t \mbox{\hyperlink{interrupt__manager_8h_a4f2787d36434a2df6c0c6009108da708}{INTERRUPT\+\_\+\+Vector\+Number\+Get}} (void)
+\begin{DoxyCompactList}\small\item\em Retrieves the current interrupt vector number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{interrupt__manager_8h_ac2f23c6185e515ff80fb2f2549b0f10d}\index{interrupt\_manager.h@{interrupt\_manager.h}!INTERRUPT\_GlobalDisable@{INTERRUPT\_GlobalDisable}}
+\index{INTERRUPT\_GlobalDisable@{INTERRUPT\_GlobalDisable}!interrupt\_manager.h@{interrupt\_manager.h}}
+\doxysubsubsection{\texorpdfstring{INTERRUPT\_GlobalDisable()}{INTERRUPT\_GlobalDisable()}}
+{\footnotesize\ttfamily \label{interrupt__manager_8h_ac2f23c6185e515ff80fb2f2549b0f10d} 
+static void INTERRUPT\+\_\+\+Global\+Disable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Globally disable interrupts. 
+
+Disables all CPU interrupts, preventing any interrupt service routines from executing until re-\/enabled. \Hypertarget{interrupt__manager_8h_a0e88e5f65ed34a762b4f9059e2a033ed}\index{interrupt\_manager.h@{interrupt\_manager.h}!INTERRUPT\_GlobalEnable@{INTERRUPT\_GlobalEnable}}
+\index{INTERRUPT\_GlobalEnable@{INTERRUPT\_GlobalEnable}!interrupt\_manager.h@{interrupt\_manager.h}}
+\doxysubsubsection{\texorpdfstring{INTERRUPT\_GlobalEnable()}{INTERRUPT\_GlobalEnable()}}
+{\footnotesize\ttfamily \label{interrupt__manager_8h_a0e88e5f65ed34a762b4f9059e2a033ed} 
+static void INTERRUPT\+\_\+\+Global\+Enable (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Globally enable interrupts. 
+
+Enables all unmasked CPU interrupts. \Hypertarget{interrupt__manager_8h_a5c526129ee879458dff6755f5768a6e3}\index{interrupt\_manager.h@{interrupt\_manager.h}!INTERRUPT\_Initialize@{INTERRUPT\_Initialize}}
+\index{INTERRUPT\_Initialize@{INTERRUPT\_Initialize}!interrupt\_manager.h@{interrupt\_manager.h}}
+\doxysubsubsection{\texorpdfstring{INTERRUPT\_Initialize()}{INTERRUPT\_Initialize()}}
+{\footnotesize\ttfamily \label{interrupt__manager_8h_a5c526129ee879458dff6755f5768a6e3} 
+void INTERRUPT\+\_\+\+Initialize (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes interrupt priorities for configured peripherals. 
+
+Sets up the default interrupt priority levels and enables any peripheral-\/specific interrupts as required. Must be called at system startup.
+
+Initializes interrupt priorities for configured peripherals.
+
+Sets the priority level (1) for the following interrupts\+:
+\begin{DoxyItemize}
+\item SPI1 Transfer Done (SPII)
+\item UART1 Error (UERI)
+\item UART1 Transmitter (UTXI)
+\item UART1 Receiver (URXI) 
+\end{DoxyItemize}Here is the caller graph for this function\+:
+% FIG 1
+\Hypertarget{interrupt__manager_8h_a4f2787d36434a2df6c0c6009108da708}\index{interrupt\_manager.h@{interrupt\_manager.h}!INTERRUPT\_VectorNumberGet@{INTERRUPT\_VectorNumberGet}}
+\index{INTERRUPT\_VectorNumberGet@{INTERRUPT\_VectorNumberGet}!interrupt\_manager.h@{interrupt\_manager.h}}
+\doxysubsubsection{\texorpdfstring{INTERRUPT\_VectorNumberGet()}{INTERRUPT\_VectorNumberGet()}}
+{\footnotesize\ttfamily \label{interrupt__manager_8h_a4f2787d36434a2df6c0c6009108da708} 
+static uint16\+\_\+t INTERRUPT\+\_\+\+Vector\+Number\+Get (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Retrieves the current interrupt vector number. 
+
+\begin{DoxyReturn}{Returns}
+uint16\+\_\+t The vector number of the currently serviced interrupt.
+\end{DoxyReturn}
+Reads the \+\_\+\+VECNUM register to identify which interrupt source is active. 

@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "FOXSDLF_080-20"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2021-01-23-18:49:17)
+    (mountForm default
+        (footprintRef "FOXSDLF08020")
+        (spec "System")
+    )
+)

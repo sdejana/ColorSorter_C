@@ -1,0 +1,51 @@
+\doxysection{SERVO.\+h}
+\hypertarget{_s_e_r_v_o_8h_source}{}\label{_s_e_r_v_o_8h_source}\index{include/SERVO.h@{include/SERVO.h}}
+\mbox{\hyperlink{_s_e_r_v_o_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Faculty\ of\ Electrical\ Engineering}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ MKS\ 2025}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ https://github.com/lukavidic/ColorSorter\_C.git}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *****************************************************************************}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ @file\ \ \ \ SERVO.h}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ @brief\ \ \ Servo\ control\ interface.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ @details}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ \ Declares\ functions\ for\ configuring\ PWM\ output\ and\ moving\ the\ servo}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ \ to\ predefined\ positions.\ Pulse\ widths\ are\ defined\ for\ left,\ middle,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ and\ right\ positions\ using\ Timer\ ticks\ for\ 50Hz\ operation.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ ******************************************************************************/}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifndef\ \_SERVO\_H}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ \_SERVO\_H}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <xc.h>}\ \textcolor{comment}{//\ Include\ processor\ files}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ SERVO\_LEFT\ \ \ 4600}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ SERVO\_MIDDLE\ 3150}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ SERVO\_RIGHT\ \ 1400}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_s_e_r_v_o_8h_adec4cfb449be449b50e176a703da3d64}{outputCompareConfig}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_s_e_r_v_o_8h_a75a0eee893b93c50892a823656265963}{configureOscillatorServo}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_s_e_r_v_o_8h_a79e0ffb3627637312d9490214ce15746}{moveLeft}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_s_e_r_v_o_8h_a110abe3fbd973c9e85403c9d16581851}{moveRight}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_s_e_r_v_o_8h_ad268d545633f7bb3df24643db473ca22}{moveMiddle}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#ifdef\ \ \_\_cplusplus}}
+\DoxyCodeLine{00085\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#ifdef\ \ \_\_cplusplus}}
+\DoxyCodeLine{00089\ \}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_cplusplus\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_SERVO\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

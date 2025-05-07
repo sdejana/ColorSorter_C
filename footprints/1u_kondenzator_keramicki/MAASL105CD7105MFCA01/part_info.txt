@@ -1,0 +1,9 @@
+Manufacturer=TAIYO YUDEN
+PartNumber=MAASL105CD7105MFCA01
+PartCategory=Capacitor
+PackageCategory=Other
+PinCount=2
+Version=2.1
+Released=2024-04-25 09:18:29
+Downloaded=2024-12-24 18:48:27
+3D=Y

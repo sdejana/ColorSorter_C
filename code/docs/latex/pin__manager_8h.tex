@@ -1,0 +1,146 @@
+\doxysection{include/pin\+\_\+manager.h File Reference}
+\hypertarget{pin__manager_8h}{}\label{pin__manager_8h}\index{include/pin\_manager.h@{include/pin\_manager.h}}
+{\ttfamily \#include $<$xc.\+h$>$}\newline
+Include dependency graph for pin\+\_\+manager.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Macros}
+\begin{Indent}\textbf{ SDO1 Pin Control Macros}\par
+{\em \hypertarget{pin__manager_8h_Includes}{}\doxysubsection{\texorpdfstring{Includes}{Includes}}\label{pin__manager_8h_Includes}
+Include device headers for register definitions.
+
+Macros to control the SDO1 pin (RB11). }\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{pin__manager_8h_a385f1d51875ad114dc3eea0a205800df}{SDO1\+\_\+\+Set\+High}}()
+\begin{DoxyCompactList}\small\item\em Set SDO1 pin high. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{pin__manager_8h_a20f2306f21df7a54a921639736d5ee55}{SDO1\+\_\+\+Set\+Low}}()
+\begin{DoxyCompactList}\small\item\em Set SDO1 pin low. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{pin__manager_8h_a3752371210690959fb6d254d5cbcf69f}{SDO1\+\_\+\+Toggle}}()
+\begin{DoxyCompactList}\small\item\em Toggle SDO1 pin state. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{pin__manager_8h_a6959517726494f213d5c9e9c52737056}{SDO1\+\_\+\+Get\+Value}}()
+\begin{DoxyCompactList}\small\item\em Get current SDO1 pin value. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{pin__manager_8h_a7de7f2f43b88ba2fcc654dd13ceb6a11}{SDO1\+\_\+\+Set\+Digital\+Input}}()
+\begin{DoxyCompactList}\small\item\em Configure SDO1 pin as digital input. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{pin__manager_8h_af7eeece9e4cf8cca38f160db3bca4066}{SDO1\+\_\+\+Set\+Digital\+Output}}()
+\begin{DoxyCompactList}\small\item\em Configure SDO1 pin as digital output. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{pin__manager_8h_a50357774183a136d9490f64ad0d5c6cb}{PIN\+\_\+\+MANAGER\+\_\+\+Initialize}} (void)
+\begin{DoxyCompactList}\small\item\em Initialize pin manager settings. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{pin__manager_8h_a6959517726494f213d5c9e9c52737056}\index{pin\_manager.h@{pin\_manager.h}!SDO1\_GetValue@{SDO1\_GetValue}}
+\index{SDO1\_GetValue@{SDO1\_GetValue}!pin\_manager.h@{pin\_manager.h}}
+\doxysubsubsection{\texorpdfstring{SDO1\_GetValue}{SDO1\_GetValue}}
+{\footnotesize\ttfamily \label{pin__manager_8h_a6959517726494f213d5c9e9c52737056} 
+\#define SDO1\+\_\+\+Get\+Value(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\_RB11}
+
+\end{DoxyCode}
+
+
+Get current SDO1 pin value. 
+
+\begin{DoxyReturn}{Returns}
+Returns the logic level (0 or 1) of RB11. 
+\end{DoxyReturn}
+\Hypertarget{pin__manager_8h_a7de7f2f43b88ba2fcc654dd13ceb6a11}\index{pin\_manager.h@{pin\_manager.h}!SDO1\_SetDigitalInput@{SDO1\_SetDigitalInput}}
+\index{SDO1\_SetDigitalInput@{SDO1\_SetDigitalInput}!pin\_manager.h@{pin\_manager.h}}
+\doxysubsubsection{\texorpdfstring{SDO1\_SetDigitalInput}{SDO1\_SetDigitalInput}}
+{\footnotesize\ttfamily \label{pin__manager_8h_a7de7f2f43b88ba2fcc654dd13ceb6a11} 
+\#define SDO1\+\_\+\+Set\+Digital\+Input(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\_TRISB11\ =\ 1)}
+
+\end{DoxyCode}
+
+
+Configure SDO1 pin as digital input. 
+
+\Hypertarget{pin__manager_8h_af7eeece9e4cf8cca38f160db3bca4066}\index{pin\_manager.h@{pin\_manager.h}!SDO1\_SetDigitalOutput@{SDO1\_SetDigitalOutput}}
+\index{SDO1\_SetDigitalOutput@{SDO1\_SetDigitalOutput}!pin\_manager.h@{pin\_manager.h}}
+\doxysubsubsection{\texorpdfstring{SDO1\_SetDigitalOutput}{SDO1\_SetDigitalOutput}}
+{\footnotesize\ttfamily \label{pin__manager_8h_af7eeece9e4cf8cca38f160db3bca4066} 
+\#define SDO1\+\_\+\+Set\+Digital\+Output(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\_TRISB11\ =\ 0)}
+
+\end{DoxyCode}
+
+
+Configure SDO1 pin as digital output. 
+
+\Hypertarget{pin__manager_8h_a385f1d51875ad114dc3eea0a205800df}\index{pin\_manager.h@{pin\_manager.h}!SDO1\_SetHigh@{SDO1\_SetHigh}}
+\index{SDO1\_SetHigh@{SDO1\_SetHigh}!pin\_manager.h@{pin\_manager.h}}
+\doxysubsubsection{\texorpdfstring{SDO1\_SetHigh}{SDO1\_SetHigh}}
+{\footnotesize\ttfamily \label{pin__manager_8h_a385f1d51875ad114dc3eea0a205800df} 
+\#define SDO1\+\_\+\+Set\+High(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\_LATB11\ =\ 1)}
+
+\end{DoxyCode}
+
+
+Set SDO1 pin high. 
+
+\Hypertarget{pin__manager_8h_a20f2306f21df7a54a921639736d5ee55}\index{pin\_manager.h@{pin\_manager.h}!SDO1\_SetLow@{SDO1\_SetLow}}
+\index{SDO1\_SetLow@{SDO1\_SetLow}!pin\_manager.h@{pin\_manager.h}}
+\doxysubsubsection{\texorpdfstring{SDO1\_SetLow}{SDO1\_SetLow}}
+{\footnotesize\ttfamily \label{pin__manager_8h_a20f2306f21df7a54a921639736d5ee55} 
+\#define SDO1\+\_\+\+Set\+Low(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\_LATB11\ =\ 0)}
+
+\end{DoxyCode}
+
+
+Set SDO1 pin low. 
+
+\Hypertarget{pin__manager_8h_a3752371210690959fb6d254d5cbcf69f}\index{pin\_manager.h@{pin\_manager.h}!SDO1\_Toggle@{SDO1\_Toggle}}
+\index{SDO1\_Toggle@{SDO1\_Toggle}!pin\_manager.h@{pin\_manager.h}}
+\doxysubsubsection{\texorpdfstring{SDO1\_Toggle}{SDO1\_Toggle}}
+{\footnotesize\ttfamily \label{pin__manager_8h_a3752371210690959fb6d254d5cbcf69f} 
+\#define SDO1\+\_\+\+Toggle(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\_LATB11\ \string^=\ 1)}
+
+\end{DoxyCode}
+
+
+Toggle SDO1 pin state. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{pin__manager_8h_a50357774183a136d9490f64ad0d5c6cb}\index{pin\_manager.h@{pin\_manager.h}!PIN\_MANAGER\_Initialize@{PIN\_MANAGER\_Initialize}}
+\index{PIN\_MANAGER\_Initialize@{PIN\_MANAGER\_Initialize}!pin\_manager.h@{pin\_manager.h}}
+\doxysubsubsection{\texorpdfstring{PIN\_MANAGER\_Initialize()}{PIN\_MANAGER\_Initialize()}}
+{\footnotesize\ttfamily \label{pin__manager_8h_a50357774183a136d9490f64ad0d5c6cb} 
+void PIN\+\_\+\+MANAGER\+\_\+\+Initialize (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize pin manager settings. 
+
+Configures initial pin states and directions as required by the application. Should be called once at system startup.
+
+Initialize pin manager settings.
+
+Configures open-\/drain control registers, analog/digital pins, and can include PPS mappings if enabled. Commented-\/out sections illustrate latch settings, GPIO direction, and pull-\/ups/-\/downs. 
