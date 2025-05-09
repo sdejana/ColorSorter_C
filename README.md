@@ -45,7 +45,9 @@ Za više informacija o svakoj komponenti, kao i o razvoju projekta, posjetite [W
 Tim čine Boško Branković i Dejana Smiljanić sa smjera Računarsko inženjerstvo, te Jelena Radaković sa smjera Elektronika.
 
 Kontakt informacije:
-* Dejana Smiljanić: dejana.smiljanic@student.etf.unibl.org 
+* Dejana Smiljanić: dejana.smiljanic@student.etf.unibl.org
+* Jelena Radaković: jelena.radakovic@student.etf.unibl.org
+* Boško Branković: bosko.brankovic@student.etf.unibl.org
 
   -------------------------------------------------------------------
 ## Pravila rada na projektu: 
