@@ -24,7 +24,7 @@ U okviru predmeta studenti treba da savladaju teorijska i praktična znanja iz o
   
 Više informacija o samom predmetu, načinu bodovanja i zaduženima na istom može se pronaći na [zvaničnom sajtu Elektrotehničkog fakulteta](https://etf.unibl.org/).
 
--------------------------------------------------------------------
+---------------------------------------------------------------------
 ## Opis projekta
 
 Color Sorter je uređaj namjenjen za automatsko razvrstavanje objekata na osnovu njihove boje. Funkcioniše tako što koristi senzore za prepoznavanje boje i mehanički sistem za premještanje predmeta u odgovarajuće posude.
